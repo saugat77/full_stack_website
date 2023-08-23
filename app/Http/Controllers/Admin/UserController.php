@@ -16,6 +16,7 @@ class UserController extends Controller
     public function store(){
         // return request();
         request()->validate([
+            'name' => 'required|regex:pattern',
             'email' => 'required|unique:users,email'
         ]);
        return User::Create([
