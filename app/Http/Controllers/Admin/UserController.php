@@ -17,7 +17,8 @@ class UserController extends Controller
         // return request();
         request()->validate([
             'name' => 'required|regex:pattern',
-            'email' => 'required|unique:users,email'
+            'email' => 'required|unique:users,email',
+            'password'=>'required|confirmed|min:6',
         ]);
        return User::Create([
             'name' =>request('name'),
@@ -27,7 +28,9 @@ class UserController extends Controller
     }
     public function update(User $user){
         request()->validate([
+            'name' => 'required|regex:pattern',
             'email'=>'required|unique:users,email,'. $user->id,
+            'password'=>'required|confirmed|min:6',
         ]);
          $user->update([
             'name' => request('name'),
