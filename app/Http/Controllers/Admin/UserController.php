@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::latest()->get();
+        $users = User::with('roles')->latest()->get();
 
         return $users;
     }
@@ -47,4 +47,4 @@ class UserController extends Controller
         $user->delete();
         return response()->noContent();
     }
-} 
+}

@@ -4,6 +4,7 @@ import { ref, onMounted, reactive } from 'vue';
 import {Form, Field} from 'vee-validate';
 import * as yup from 'yup';
 import { useToastr } from '../../toaster.js'
+import moment from 'moment';
 
 const users = ref([]);
 const editing = ref(false);
@@ -16,8 +17,13 @@ const getUsers = () => {
     axios.get('/api/users')
         .then((response) => {
             users.value = response.data;
+            console.log();
         })
 }
+const displayRoles = (rolesArray) => {
+    return rolesArray.map(role => role.name).join(', ');
+       }
+
 
 const userCreateSchema = yup.object({
     name: yup.string().required(),
@@ -84,6 +90,7 @@ const editUser = (user) =>{
         id:user.id,
         name: user.name,
         email: user.email,
+        role : user.role,
 
     };
 
@@ -217,8 +224,8 @@ onMounted(() => {
                         <th scope="row">{{ index + 1 }}</th>
                         <td>{{ user.name }}</td>
                         <td>{{ user.email }}</td>
-                        <td>{{ user.created_at }}</td>
-                        <td>{{ user.role }}</td>
+                        <td>{{ moment(user.created_at).format('YYYY-MM-DD h:m:s ') }}</td>
+                        <td >{{ displayRoles(user.roles) }}</td>
                         <td>
                             <a href="#" @click.prevent="editUser(user)"><i class="fa fa-edit"></i></a>
                             <a href="#" @click.prevent="confirmUserDeletion(user)"><i class="ml-3 text-danger fa fa-trash"></i></a>
