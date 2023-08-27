@@ -3,15 +3,12 @@ import axios from 'axios';
 import { ref, onMounted, reactive } from 'vue';
 import {Form, Field} from 'vee-validate';
 import * as yup from 'yup';
-import { useToastr } from '../../toaster.js'
-import moment from 'moment';
+import UserListShow from './UserListShow.vue';
 
 const users = ref([]);
 const editing = ref(false);
 const formValues = ref();
 const form = ref(null);
-const toastr = useToastr();
-const userIdwhenDeleteing = ref(null);
 
 const getUsers = () => {
     axios.get('/api/users')
@@ -20,9 +17,6 @@ const getUsers = () => {
             console.log();
         })
 }
-const displayRoles = (rolesArray) => {
-    return rolesArray.map(role => role.name).join(', ');
-       }
 
 
 const userCreateSchema = yup.object({
@@ -76,11 +70,6 @@ const addUser = () =>{
 
 }
 
-const confirmUserDeletion = (user) =>{
-    userIdwhenDeleteing.value = user.id;
-    $('#deleteUserModal').modal('show');
-}
-
 
 const editUser = (user) =>{
     form.value.resetForm();
@@ -102,6 +91,7 @@ axios.put('/api/users/edit/'+formValues.value.id,values)
     users.value[index] = response.data;
     $('#UserFormModel').modal('hide');
     toastr.success('User Updated Successfully!');
+    resetForm();
 
 
 }).catch((error) => {
@@ -113,6 +103,9 @@ setErrors(error.response.data.errors);
 })
 }
 
+
+
+
 const handleSubmit = (values, actions) => {
 if(editing.value){
     updateUser(values, actions);
@@ -122,14 +115,9 @@ else{
 }
 };
 
-const deleteUser = () => {
-    axios.delete(`/api/users/delete/${userIdwhenDeleteing.value}`)
-    .then(() => {
-        $('#deleteUserModal').modal('hide');
-        users.value = users.value.filter(user => user.id !== userIdwhenDeleteing.value);
-        toastr.success('User deleted successfully!');
+const userDeleted = (userId) => {
+    users.value = users.value.filter(user => user.id !== userId);
 
-    });
 }
 
 onMounted(() => {
@@ -220,43 +208,17 @@ onMounted(() => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(user, index) in users" :key="user.id">
-                        <th scope="row">{{ index + 1 }}</th>
-                        <td>{{ user.name }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ moment(user.created_at).format('YYYY-MM-DD h:m:s ') }}</td>
-                        <td >{{ displayRoles(user.roles) }}</td>
-                        <td>
-                            <a href="#" @click.prevent="editUser(user)"><i class="fa fa-edit"></i></a>
-                            <a href="#" @click.prevent="confirmUserDeletion(user)"><i class="ml-3 text-danger fa fa-trash"></i></a>
-                        </td>
-                    </tr>
+                    <UserListShow v-for="(user, index) in users"
+                    :key="user.id"
+                    :user = user
+                    :index= index
+                    @edit-user = "editUser"
+                    @user-deleted="userDeleted"
+                     />
                 </tbody>
             </table>
         </div>
 
-        <!-- For delete -->
-        <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                           <span>Delete User</span>
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <h5>Are you sure, You want to delete?</h5>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" @click.prevent="deleteUser" class="btn btn-primary">Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
 </template>
