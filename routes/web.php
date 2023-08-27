@@ -20,6 +20,7 @@ Route::get('/', function () {
 });
 
 Route::get('/api/users',[UserController::class,'index']);
+Route::get('/api/allroles',[UserController::class,'allRoles']);
 Route::post('/api/users/create',[UserController::class,'store']);
 Route::put('/api/users/edit/{user}',[UserController::class,'update']);
 Route::delete('/api/users/delete/{user}',[UserController::class,'destroy']);

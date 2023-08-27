@@ -1,7 +1,7 @@
 <script setup>
 import axios from 'axios';
 import { ref, onMounted, reactive } from 'vue';
-import {Form, Field} from 'vee-validate';
+import { Form, Field } from 'vee-validate';
 import * as yup from 'yup';
 import UserListShow from './UserListShow.vue';
 
@@ -9,6 +9,7 @@ const users = ref([]);
 const editing = ref(false);
 const formValues = ref();
 const form = ref(null);
+const allRoles = ref([]);
 
 const getUsers = () => {
     axios.get('/api/users')
@@ -28,20 +29,21 @@ const userCreateSchema = yup.object({
 const userEditSchema = yup.object({
     name: yup.string().required(),
     email: yup.string().email().required(),
-    password: yup.string().notRequired().test('password', 'Passwords must be be minimum of 8 characters', function(value) {
-                if (!!value) {
-                const schema = yup.string().min(8);
-                return schema.isValidSync(value);
-                }
-                return true;
-            }),
+    password: yup.string().notRequired().test('password', 'Passwords must be be minimum of 8 characters', function (value) {
+        if (!!value) {
+            const schema = yup.string().min(8);
+            return schema.isValidSync(value);
+        }
+        return true;
+    }),
+    roles: yup.string().required(),
     // confirm_password: yup.string().required().oneOf([yup.ref('password')], 'Passwords do not match'),
 });
 
 
-const createUser = (values, {resetForm, setErrors}) => {
-    axios.post('/api/users/create',values)
-    .then((response) => {
+const createUser = (values, { resetForm, setErrors }) => {
+    axios.post('/api/users/create', values)
+        .then((response) => {
             console.log("User creation response:", response.data);
             users.value.unshift(response.data);
             $('#UserFormModel').modal('hide');
@@ -50,7 +52,7 @@ const createUser = (values, {resetForm, setErrors}) => {
 
         })
         .catch((error) => {
-            if(error.response.data.errors){
+            if (error.response.data.errors) {
 
                 setErrors(error.response.data.errors);
             }
@@ -58,9 +60,9 @@ const createUser = (values, {resetForm, setErrors}) => {
         });
 
 };
-const addUser = () =>{
+const addUser = () => {
     formValues.value = {
-        id:'',
+        id: '',
         name: '',
         email: '',
 
@@ -69,59 +71,77 @@ const addUser = () =>{
     $('#UserFormModel').modal('show');
 
 }
+var singleRoleName;
 
-
-const editUser = (user) =>{
+const editUser = (user) => {
     form.value.resetForm();
     editing.value = true;
     $('#UserFormModel').modal('show');
+
     formValues.value = {
-        id:user.id,
+        id: user.id,
         name: user.name,
         email: user.email,
-        role : user.role,
+        roles: user.roles,
 
     };
-
-};
-const updateUser = (values,{ setErrors} ) => {
-axios.put('/api/users/edit/'+formValues.value.id,values)
-.then((response) => {
-    const index = users.value.findIndex(user => user.id === response.data.id);
-    users.value[index] = response.data;
-    $('#UserFormModel').modal('hide');
-    toastr.success('User Updated Successfully!');
-    resetForm();
-
-
-}).catch((error) => {
-    if(error.response.data.errors){
-
-setErrors(error.response.data.errors);
+    for (const rolesName of formValues.value.roles) {
+  singleRoleName = rolesName.name;
+  console.log(singleRoleName);
 }
-    console.log(error);
-})
+
+console.log("Single Role Name:", singleRoleName);
+};
+const updateUser = (values, { setErrors }) => {
+    axios.put('/api/users/edit/' + formValues.value.id, values)
+        .then((response) => {
+            const index = users.value.findIndex(user => user.id === response.data.id);
+            users.value[index] = response.data;
+            $('#UserFormModel').modal('hide');
+            toastr.success('User Updated Successfully!');
+
+            resetForm();
+
+
+        }).catch((error) => {
+            if (error.response.data.errors) {
+
+                setErrors(error.response.data.errors);
+            }
+            console.log(error);
+        })
 }
 
 
 
 
 const handleSubmit = (values, actions) => {
-if(editing.value){
-    updateUser(values, actions);
-}
-else{
-    createUser(values, actions);
-}
+    if (editing.value) {
+        updateUser(values, actions);
+    }
+    else {
+        createUser(values, actions);
+    }
 };
 
 const userDeleted = (userId) => {
     users.value = users.value.filter(user => user.id !== userId);
 
 }
+const getAllRoles = () => {
+    axios.get('/api/allroles') // Adjust the endpoint as needed
+        .then((response) => {
+            allRoles.value = response.data;
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+
+}
 
 onMounted(() => {
     getUsers();
+    getAllRoles();
 })
 </script>
 <template>
@@ -152,23 +172,26 @@ onMounted(() => {
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">
                             <span v-if="editing">Edit User</span>
-                           <span v-else>Add New User</span>
+                            <span v-else>Add New User</span>
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <Form ref="form" @submit="handleSubmit" :validation-schema="editing ? userEditSchema : userCreateSchema" v-slot="{ errors }" :initial-values="formValues">
-                    <div class="modal-body">
+                    <Form ref="form" @submit="handleSubmit" :validation-schema="editing ? userEditSchema : userCreateSchema"
+                        v-slot="{ errors }" :initial-values="formValues">
+                        <div class="modal-body">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Name</label>
-                                <Field name="name" type="text" class="form-control" :class="{ 'is-invalid' : errors.name }" placeholder="Enter full name"/>
+                                <Field name="name" type="text" class="form-control" :class="{ 'is-invalid': errors.name }"
+                                    placeholder="Enter full name" />
                                 <span class="invalid-feedback">{{ errors.name }}</span>
 
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Email address</label>
-                                <Field name="email" type="email" class="form-control" :class="{ 'is-invalid' : errors.email }" id="exampleInputEmail1"
+                                <Field name="email" type="email" class="form-control"
+                                    :class="{ 'is-invalid': errors.email }" id="exampleInputEmail1"
                                     aria-describedby="emailHelp" placeholder="Enter email" />
                                 <span class="invalid-feedback">{{ errors.email }}</span>
 
@@ -176,15 +199,27 @@ onMounted(() => {
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Password</label>
-                                <Field type="password" name="password" class="form-control" :class="{ 'is-invalid' : errors.password }" placeholder="Password" />
+                                <Field type="password" name="password" class="form-control"
+                                    :class="{ 'is-invalid': errors.password }" placeholder="Password" />
                                 <span class="invalid-feedback">{{ errors.password }}</span>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Confirm Password</label>
-                                <Field type="password" name="confirm_password" class="form-control" :class="{ 'is-invalid' : errors.confirm_password }"
-                                    placeholder="Password" />
+                                <Field type="password" name="confirm_password" class="form-control"
+                                    :class="{ 'is-invalid': errors.confirm_password }" placeholder="Password" />
                                 <span class="invalid-feedback">{{ errors.confirm_password }}</span>
 
+                            </div>
+                            <div>
+                                <div v-if="editing" class="form-group">
+                                    <label for="exampleInputPassword1">Roles</label>
+                                    <Field name="roles" as="select" class="form-control"
+                                        :class="{ 'is-invalid': errors.roles }">
+                                        <option value="">Select One</option>
+                                        <option v-for="role in allRoles" :value="role.id" :selected="role.id === singleRoleName">{{ role.name }}</option>
+                                    </Field>
+                                    <span class="invalid-feedback">{{ errors.roles }}</span>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -208,13 +243,8 @@ onMounted(() => {
                     </tr>
                 </thead>
                 <tbody>
-                    <UserListShow v-for="(user, index) in users"
-                    :key="user.id"
-                    :user = user
-                    :index= index
-                    @edit-user = "editUser"
-                    @user-deleted="userDeleted"
-                     />
+                    <UserListShow v-for="(user, index) in users" :key="user.id" :user=user :index=index
+                        @edit-user="editUser" @user-deleted="userDeleted" />
                 </tbody>
             </table>
         </div>
