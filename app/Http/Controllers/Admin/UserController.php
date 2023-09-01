@@ -15,6 +15,12 @@ class UserController extends Controller
 
         return $users;
     }
+    public function searchQuery(){
+        $searchquery = request('query');
+        $users = User::where('name','like','%'.$searchquery .'%')->get();
+        return response()->json($users);
+
+    }
     public function allRoles()
     {
         $allRoles = Role::all();
@@ -35,7 +41,6 @@ class UserController extends Controller
             'password' => bcrypt(request('password')),
         ]);
         $user->assignRole('user');
-        return $user;
     }
     public function update(User $user)
     {

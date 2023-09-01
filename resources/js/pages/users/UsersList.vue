@@ -1,9 +1,11 @@
 <script setup>
 import axios from 'axios';
-import { ref, onMounted, reactive } from 'vue';
+import { ref, onMounted, reactive, watch } from 'vue';
 import { Form, Field } from 'vee-validate';
 import * as yup from 'yup';
 import UserListShow from './UserListShow.vue';
+import { debounce } from 'lodash';
+
 
 const users = ref([]);
 const editing = ref(false);
@@ -65,6 +67,7 @@ const addUser = () => {
         id: '',
         name: '',
         email: '',
+        roles: ''
 
     };
     editing.value = false;
@@ -82,15 +85,16 @@ const editUser = (user) => {
         id: user.id,
         name: user.name,
         email: user.email,
-        roles: user.roles,
-
+        arrayRole: user.roles,
+        roles: [] // Initialize the roles array
     };
-    for (const rolesName of formValues.value.roles) {
-  singleRoleName = rolesName.name;
-  console.log(singleRoleName);
-}
 
-console.log("Single Role Name:", singleRoleName);
+
+    for (const rolesName of formValues.value.arrayRole) {
+        singleRoleName = rolesName.name;
+        formValues.value.roles.push(singleRoleName); // Push role name into roles array
+    }
+    console.log("Single Role Name:", formValues.value.roles);
 };
 const updateUser = (values, { setErrors }) => {
     axios.put('/api/users/edit/' + formValues.value.id, values)
@@ -98,20 +102,21 @@ const updateUser = (values, { setErrors }) => {
             const index = users.value.findIndex(user => user.id === response.data.id);
             users.value[index] = response.data;
             $('#UserFormModel').modal('hide');
+            window.location.reload();
+
             toastr.success('User Updated Successfully!');
 
             resetForm();
 
-
         }).catch((error) => {
+            console.log(error)
             if (error.response.data.errors) {
 
                 setErrors(error.response.data.errors);
             }
-            console.log(error);
+
         })
 }
-
 
 
 
@@ -138,6 +143,23 @@ const getAllRoles = () => {
         });
 
 }
+const searchQuery = ref(null);
+const search = () => {
+    axios.get('/api/users/search',{
+        params:{
+            query:searchQuery.value
+        }
+    })
+    .then(response => {
+        users.value = response.data;
+    })
+    .catch(error =>{
+        console.log(error);
+    })
+}
+watch(searchQuery, debounce(() => {
+    search();
+}, 300));
 
 onMounted(() => {
     getUsers();
@@ -161,9 +183,18 @@ onMounted(() => {
         </div>
     </div>
     <div class="content">
-        <button type="button" @click="addUser" class="m-2 float-right btn btn-primary">
-            Add New User
-        </button>
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between">
+                <button type="button" @click="addUser" class="m-2 float-right btn btn-primary">
+                    Add New User
+                </button>
+                <div>
+                    <input type="text" class="form-control" v-model="searchQuery" placeholder="Search...">
+                </div>
+            </div>
+        </div>
+
+
         <!-- Modal -->
         <div class="modal fade" id="UserFormModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
@@ -216,7 +247,8 @@ onMounted(() => {
                                     <Field name="roles" as="select" class="form-control"
                                         :class="{ 'is-invalid': errors.roles }">
                                         <option value="">Select One</option>
-                                        <option v-for="role in allRoles" :value="role.id" :selected="role.id === singleRoleName">{{ role.name }}</option>
+                                        <option v-for="role in allRoles" :key="role.id" :value="role.id"
+                                            :selected="role.name == singleRoleName">{{ role.name }}</option>
                                     </Field>
                                     <span class="invalid-feedback">{{ errors.roles }}</span>
                                 </div>
@@ -242,9 +274,17 @@ onMounted(() => {
                         <th scope="col">Options</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody v-if="users.length > 0">
                     <UserListShow v-for="(user, index) in users" :key="user.id" :user=user :index=index
                         @edit-user="editUser" @user-deleted="userDeleted" />
+                </tbody>
+                <tbody v-else>
+                    <tr>
+                        <td colspan="6" class="text-center">
+                            No Any result Found.....
+                        </td>
+                    </tr>
+
                 </tbody>
             </table>
         </div>
