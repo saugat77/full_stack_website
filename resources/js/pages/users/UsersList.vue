@@ -5,16 +5,17 @@ import { Form, Field } from 'vee-validate';
 import * as yup from 'yup';
 import UserListShow from './UserListShow.vue';
 import { debounce } from 'lodash';
+import { Bootstrap4Pagination } from 'laravel-vue-pagination';
 
 
-const users = ref([]);
+const users = ref({'data': []});
 const editing = ref(false);
 const formValues = ref();
 const form = ref(null);
 const allRoles = ref([]);
 
-const getUsers = () => {
-    axios.get('/api/users')
+const getUsers = (page = 1) => {
+    axios.get(`/api/users?page=${page}`)
         .then((response) => {
             users.value = response.data;
             console.log();
@@ -145,17 +146,17 @@ const getAllRoles = () => {
 }
 const searchQuery = ref(null);
 const search = () => {
-    axios.get('/api/users/search',{
-        params:{
-            query:searchQuery.value
+    axios.get('/api/users/search', {
+        params: {
+            query: searchQuery.value
         }
     })
-    .then(response => {
-        users.value = response.data;
-    })
-    .catch(error =>{
-        console.log(error);
-    })
+        .then(response => {
+            users.value = response.data;
+        })
+        .catch(error => {
+            console.log(error);
+        })
 }
 watch(searchQuery, debounce(() => {
     search();
@@ -274,8 +275,8 @@ onMounted(() => {
                         <th scope="col">Options</th>
                     </tr>
                 </thead>
-                <tbody v-if="users.length > 0">
-                    <UserListShow v-for="(user, index) in users" :key="user.id" :user=user :index=index
+                <tbody v-if="users.data.length > 0">
+                    <UserListShow v-for="(user, index) in users.data" :key="user.id" :user=user :index=index
                         @edit-user="editUser" @user-deleted="userDeleted" />
                 </tbody>
                 <tbody v-else>
@@ -287,6 +288,7 @@ onMounted(() => {
 
                 </tbody>
             </table>
+            <Bootstrap4Pagination :data="users" @pagination-change-page="getUsers" />
         </div>
 
 
