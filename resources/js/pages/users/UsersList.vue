@@ -288,8 +288,8 @@ onMounted(() => {
 
                 </tbody>
             </table>
-            <Bootstrap4Pagination :data="users" @pagination-change-page="getUsers" />
         </div>
+        <Bootstrap4Pagination :data="users" @pagination-change-page="getUsers" />
 
 
     </div>

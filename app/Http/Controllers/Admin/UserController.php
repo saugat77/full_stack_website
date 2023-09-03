@@ -11,13 +11,13 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with('roles')->latest()->paginate(1);
+        $users = User::with('roles')->latest()->paginate(5);
 
         return $users;
     }
     public function searchQuery(){
         $searchquery = request('query');
-        $users = User::where('name','like','%'.$searchquery .'%')->get();
+        $users = User::where('name','like','%'.$searchquery .'%')->paginate(5);
         return response()->json($users);
 
     }
