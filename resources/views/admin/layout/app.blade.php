@@ -202,9 +202,17 @@
                         </li>
                         <li class="nav-item">
                             <router-link to="/admin/demands" active-class="active" class="nav-link">
-                                <i class="nav-icon fas fa-calendar-alt"></i>
+                                <i class="nav-icon fas fa-envelope"></i>
                                 <p>
                                     Demands
+                                </p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/admin/ppointments" active-class="active" class="nav-link">
+                                <i class="nav-icon fas fa-calendar-alt"></i>
+                                <p>
+                                    Appointments
                                 </p>
                             </router-link>
                         </li>
