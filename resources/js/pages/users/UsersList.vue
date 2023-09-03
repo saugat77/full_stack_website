@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import UserListShow from './UserListShow.vue';
 import { debounce } from 'lodash';
 import { Bootstrap4Pagination } from 'laravel-vue-pagination';
+import { useToastr } from '../../toaster.js'
 
 
 const users = ref({'data': []});
@@ -13,6 +14,7 @@ const editing = ref(false);
 const formValues = ref();
 const form = ref(null);
 const allRoles = ref([]);
+const toastr = useToastr();
 
 const getUsers = (page = 1) => {
     axios.get(`/api/users?page=${page}`)
@@ -50,7 +52,7 @@ const createUser = (values, { resetForm, setErrors }) => {
             console.log("User creation response:", response.data);
             users.value.data.unshift(response.data);
             $('#UserFormModel').modal('hide');
-            resetForm();
+            // resetForm();
             toastr.success('User Added Successfully!');
 
         })
@@ -188,6 +190,8 @@ onMounted(() => {
         <div class="container-fluid">
             <div class="d-flex justify-content-between">
                 <button type="button" @click="addUser" class="m-2 float-right btn btn-primary">
+                    <i class="fa fa-plus-circle mr-1 ">
+                    </i>
                     Add New User
                 </button>
                 <div>
