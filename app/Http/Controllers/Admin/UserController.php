@@ -41,6 +41,7 @@ class UserController extends Controller
             'password' => bcrypt(request('password')),
         ]);
         $user->assignRole('user');
+        return $user;
     }
     public function update(User $user)
     {

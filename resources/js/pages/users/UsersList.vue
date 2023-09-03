@@ -48,13 +48,14 @@ const createUser = (values, { resetForm, setErrors }) => {
     axios.post('/api/users/create', values)
         .then((response) => {
             console.log("User creation response:", response.data);
-            users.value.unshift(response.data);
+            users.value.data.unshift(response.data);
             $('#UserFormModel').modal('hide');
             resetForm();
             toastr.success('User Added Successfully!');
 
         })
         .catch((error) => {
+            console.log(error);
             if (error.response.data.errors) {
 
                 setErrors(error.response.data.errors);
