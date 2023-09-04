@@ -81,7 +81,7 @@ onMounted (() =>{
                                         <td>{{ moment(appointment.end_time).format('YYYY-MM-DD h:m A') }}</td>
 
                                         <td>
-                                            <span class="badge badge-success">closed</span>
+                                            <span class="badge" :class="`badge-${ appointment.status.color }`">{{ appointment.status.name }}</span>
                                         </td>
                                         <td>
                                             <a href="">

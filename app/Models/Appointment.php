@@ -13,4 +13,9 @@ class Appointment extends Model
     {
         return $this->belongsTo(Client::class);
     }
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(Status::class);
+
+    }
 }

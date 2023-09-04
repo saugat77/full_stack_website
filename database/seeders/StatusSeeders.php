@@ -14,9 +14,9 @@ class StatusSeeders extends Seeder
     public function run(): void
     {
        $statuses =  [
-        ['name' => 'Scheduled','slug' => 'SCHEDULED'],
-        ['name' => 'Confirmed','slug' => 'CONFIRMED'],
-        ['name' => 'Cancelled','slug' => 'CANCELLED'],
+        ['name' => 'Scheduled','color' => 'primary'],
+        ['name' => 'Closed','color' => 'success'],
+        ['name' => 'Cancelled','color' => 'danger'],
         ];
         foreach($statuses as $status){
             Status::firstOrCreate($status);

@@ -24,7 +24,7 @@ class AppointmentFactory extends Factory
             'description'=> $this->faker->paragraph(),
             'start_time'=> $startTime = $this->faker->dateTimeBetween('-1 year','+1year'),
             'end_time'=> Carbon::parse($startTime)->addHours(2),
-            'status' => rand(1,3),
+            'status_id' => rand(1,3),
         ];
     }
 }

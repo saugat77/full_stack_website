@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class AppointmentController extends Controller
 {
     public function index(){
-        $appointments = Appointment::with('client:id,first_name,last_name')->latest()->paginate(5);
+        $appointments = Appointment::with('client:id,first_name,last_name','status:id,name,color')->latest()->paginate(5);
         return $appointments;
     }
 }
