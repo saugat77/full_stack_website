@@ -32,7 +32,6 @@ const deleteUser = () => {
 }
 
 const confirmUserDeletion = (user) => {
-    console.log(singleRoleName);
     userIdwhenDeleteing.value = user.id;
     $('#deleteUserModal').modal('show');
 }

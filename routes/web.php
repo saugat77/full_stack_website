@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ApplicationController;
+use App\Models\Appointment;
+use App\Models\Status;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +30,9 @@ Route::get('/api/users/search',[UserController::class,'searchQuery']);
 Route::put('/api/users/edit/{user}',[UserController::class,'update']);
 Route::delete('/api/users/delete/{user}',[UserController::class,'destroy']);
 
+
+//status
+Route::get('/api/statuses',[AppointmentController::class, 'getStatus']);
 
 //Appoinments
 Route::get('api/appointments',[AppointmentController::class,'index']);
