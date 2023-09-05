@@ -9,12 +9,13 @@ import { Bootstrap4Pagination } from 'laravel-vue-pagination';
 import { useToastr } from '../../toaster.js'
 
 
-const users = ref({'data': []});
+const users = ref({ 'data': [] });
 const editing = ref(false);
 const formValues = ref();
 const form = ref(null);
 const allRoles = ref([]);
 const toastr = useToastr();
+const userIdwhenDeleteing = ref(null);
 
 const getUsers = (page = 1) => {
     axios.get(`/api/users?page=${page}`)
@@ -133,10 +134,6 @@ const handleSubmit = (values, actions) => {
     }
 };
 
-const userDeleted = (userId) => {
-    users.value = users.value.filter(user => user.id !== userId);
-
-}
 const getAllRoles = () => {
     axios.get('/api/allroles') // Adjust the endpoint as needed
         .then((response) => {
@@ -164,6 +161,21 @@ const search = () => {
 watch(searchQuery, debounce(() => {
     search();
 }, 300));
+
+const deleteUser = () => {
+    axios.delete(`/api/users/delete/${userIdwhenDeleteing.value}`)
+        .then(() => {
+            $('#deleteUserModal').modal('hide');
+            toastr.success('User deleted successfully!');
+              users.value.data = users.value.data.filter(user => user.id !== userIdwhenDeleteing.value);
+        });
+}
+
+const confirmUserDeletion = (id) => {
+    userIdwhenDeleteing.value = id;
+    $('#deleteUserModal').modal('show');
+}
+
 
 onMounted(() => {
     getUsers();
@@ -281,8 +293,13 @@ onMounted(() => {
                     </tr>
                 </thead>
                 <tbody v-if="users.data.length > 0">
-                    <UserListShow v-for="(user, index) in users.data" :key="user.id" :user=user :index=index
-                        @edit-user="editUser" @user-deleted="userDeleted" />
+                    <UserListShow v-for="(user, index) in users.data"
+                        :key="user.id"
+                        :user=user
+                        :index=index
+                        @edit-user="editUser"
+                        @confirm-user-deletion = "confirmUserDeletion"
+                         />
                 </tbody>
                 <tbody v-else>
                     <tr>
@@ -297,5 +314,28 @@ onMounted(() => {
         <Bootstrap4Pagination :data="users" @pagination-change-page="getUsers" />
 
 
+    </div>
+    <!-- For delete -->
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <span>Delete User</span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5>Are you sure, You want to delete?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" @click.prevent="deleteUser" class="btn btn-primary">Delete</button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
