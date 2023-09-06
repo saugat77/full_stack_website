@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('client_id')->constrained();
             $table->string('title');
             $table->text('description');
-            $table->timestamp('start_time');
-            $table->timestamp('end_time')->nullable();
+            $table->string('start_time');
+            $table->string('end_time')->nullable();
             $table->timestamps();
         });
     }

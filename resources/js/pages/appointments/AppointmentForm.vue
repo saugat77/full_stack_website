@@ -1,26 +1,39 @@
 <script setup>
 import axios from 'axios';
 import { Form } from 'vee-validate';
-import {reactive} from 'vue';
+import {reactive, onMounted} from 'vue';
 import { useRouter } from 'vue-router';
 import { useToastr } from '../../toaster';
+import flatPickr from "flatpickr";
+import 'flatpickr/dist/themes/material_blue.css';
 
 const router = useRouter();
 const toastr = useToastr();
 const form = reactive({
     title:'',
     client_id:'',
-    start_date:'',
     start_time:'',
+    end_time:'',
     description:'',
 });
- const handleSubmit = () => {
+ const handleSubmit = (values , actions) => {
     axios.post('/api/appointment/create', form)
     .then((response)=>{
         router.push('/admin/appointments');
         toastr.success('Appointment Created Sucessfully');
     })
+    .catch((error)=>{
+        actions.setErrors(error.response.data.errors);
+    })
  };
+
+ onMounted(() => {
+    flatpickr(".flatpickr",{
+        enableTime : true,
+        dateFormat: "Y-m-d h:i K",
+        defaultHour:10,
+    });
+ });
 </script>
 <template>
     <div class="content-header">
@@ -50,42 +63,50 @@ const form = reactive({
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <Form @submit="handleSubmit">
+                            <Form @submit="handleSubmit" v-slot:default="{ errors }">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="title">Title</label>
-                                            <input v-model="form.title" type="text" class="form-control" id="title" placeholder="Enter Title">
+                                            <input v-model="form.title" type="text" :class="{'is-invalid' :errors.title }" class="form-control" id="title" placeholder="Enter Title">
+                                            <span class="invalid-feedback">{{ errors.title }}</span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="client">Client Name</label>
-                                            <select id="client" class="form-control">
+                                            <select  :class="{'is-invalid' : errors.time }" id="client" class="form-control">
                                                 <option>Client One</option>
                                                 <option>Client Two</option>
                                             </select>
+                                        <span class="invalid-feedback">{{ errors.client }}</span>
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="date">Appointment Date</label>
-                                            <input type="date" class="form-control" id="date">
+                                            <label for="date">Start Time</label>
+                                            <input v-model="form.start_time" type="text" class="form-control flatpickr" placeholder="YYYY/MM/DD" :class="{'is-invalid' : errors.start_time }" id="start-time">
+                                            <span class="invalid-feedback">{{ errors.start_time }}</span>
+
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="time">Appointment Time</label>
-                                            <input type="time" class="form-control" id="time">
+                                            <label for="time">End Time</label>
+                                            <input v-model="form.end_time" type="text"  :class="{'is-invalid' : errors.end_time }" placeholder="YYYY/MM/DD" class="form-control flatpickr" id="end-time">
+                                         <span class="invalid-feedback">{{ errors.end_time }}</span>
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea v-model="form.description" class="form-control" id="description" rows="3"
+                                    <textarea v-model="form.description"  class="form-control"  :class="{'is-invalid' : errors.description }" id="description" rows="3"
                                         placeholder="Enter Description"></textarea>
+                                        <span class="invalid-feedback">{{ errors.description }}</span>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>

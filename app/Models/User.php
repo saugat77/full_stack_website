@@ -48,10 +48,19 @@ class User extends Authenticatable
     {
         parent::__construct($attributes);
 
-        // Assign the default role 'user' when creating a new user
-        $defaultRole = Role::findByName('user'); // Replace 'user' with the desired default role name
-        if ($defaultRole) {
-            $this->assignRole($defaultRole);
+        // Check if the user has no roles assigned and it's not a seeder
+        if (!$this->hasAnyRole() && !app()->runningInConsole()) {
+            // Assign the default role 'user' when creating a new user
+            $defaultRole = Role::findByName('user'); // Replace 'user' with the desired default role name
+            if ($defaultRole) {
+                $this->assignRole($defaultRole);
+            }
         }
     }
+
+    public function hasAnyRole()
+    {
+        return $this->roles->count() > 0;
+    }
+
 }
