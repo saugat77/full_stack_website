@@ -36,4 +36,7 @@ Route::get('/api/statuses',[AppointmentController::class, 'getStatus']);
 
 //Appoinments
 Route::get('api/appointments',[AppointmentController::class,'index']);
+Route::post('api/appointment/create',[AppointmentController::class,'store']);
+
+//demands
 Route::get('{view}',ApplicationController::class)->where('view','(.*)');

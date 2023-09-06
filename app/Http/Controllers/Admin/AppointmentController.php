@@ -22,4 +22,15 @@ class AppointmentController extends Controller
         $statuses = Status::withCount('appointments')->get();
         return $statuses;
     }
+    public function store(){
+        Appointment::create([
+            'title' => request('title'),
+            'client_id' => 1,
+            'start_time' => now(),
+            'end_time' => now(),
+            'description' => request('description'),
+            'status_id' => Status::where('name','Scheduled')->first()->id,
+        ]);
+        return response()->json(['message' => 'success']);
+    }
 }

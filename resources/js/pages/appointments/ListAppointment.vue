@@ -4,7 +4,6 @@ import { ref, onMounted, computed } from 'vue';
 import moment from 'moment';
 import { Bootstrap4Pagination } from 'laravel-vue-pagination';
 
-
 const appointments = ref({data: []});
 const statuses = ref([]);
 const selectedStatus = ref();
@@ -64,10 +63,10 @@ onMounted(() => {
                 <div class="col-lg-12">
                     <div class="d-flex justify-content-between mb-2">
                         <div>
-                            <a href="">
+                            <router-link to="/admin/appointments/create">
                                 <button class="btn btn-primary"><i class="fa fa-plus-circle mr-1"></i> Add New
                                     Appointment</button>
-                            </a>
+                            </router-link>
                         </div>
                         <div class="btn-group">
                             <button @click="getAppointments()" type="button" class="btn" :class="[typeof selectedStatus === 'undefined' ? 'btn-secondary' : 'btn-default']">
@@ -92,6 +91,7 @@ onMounted(() => {
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
+                                        <th scope="col">Title</th>
                                         <th scope="col">Client Name</th>
                                         <th scope="col">Date</th>
                                         <th scope="col">Time</th>
@@ -102,6 +102,7 @@ onMounted(() => {
                                 <tbody>
                                     <tr v-for="(appointment, index) in appointments.data" :key="appointment.id">
                                         <td>{{ index + 1 }}</td>
+                                        <td>{{ appointment.title }}</td>
                                         <td>{{ appointment.client.first_name + ' ' + appointment.client.last_name }}</td>
                                         <td>{{ moment(appointment.start_time).format('YYYY-MM-DD h:m A') }}</td>
                                         <td>{{ moment(appointment.end_time).format('YYYY-MM-DD h:m A') }}</td>
