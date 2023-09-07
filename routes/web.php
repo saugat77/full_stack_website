@@ -35,7 +35,9 @@ Route::get('/api/statuses',[AppointmentController::class, 'getStatus']);
 
 //Appoinments
 Route::get('api/appointments',[AppointmentController::class,'index']);
-Route::post('api/appointment/create',[AppointmentController::class,'store']);
+Route::post('api/appointments/create',[AppointmentController::class,'store']);
+Route::get('api/appointments/{appointment}/edit',[AppointmentController::class,'edit']);
+Route::put('api/appointments/{appointment}/edit',[AppointmentController::class,'update']);
 
 //Clients
 Route::get('/api/getClients',[AppointmentController::class,'getClients']);

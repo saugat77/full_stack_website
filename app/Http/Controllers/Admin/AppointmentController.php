@@ -7,26 +7,37 @@ use App\Models\Appointment;
 use App\Models\Client;
 use App\Models\Status;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB ;
+use Illuminate\Support\Facades\DB;
 
 class AppointmentController extends Controller
 {
-    public function index(){
-        $appointments = Appointment::with('client:id,first_name,last_name','status:id,name,color')
-                        ->when(request('status'), function($query){
-                            return $query->where('status_id',Status::find(request('status'))->id);
-                        })
-                        ->latest()->paginate(5);
+    public function index()
+    {
+        $appointments = Appointment::with('client:id,first_name,last_name', 'status:id,name,color')
+            ->when(request('status'), function ($query) {
+                return $query->where('status_id', Status::find(request('status'))->id);
+            })
+            ->latest()->paginate(5);
         return $appointments;
     }
-    public function getStatus(){
+
+    public function edit(Appointment $appointment)
+    {
+        return $appointment;
+    }
+
+
+    public function getStatus()
+    {
         $statuses = Status::withCount('appointments')->get();
         return $statuses;
     }
-    public function store(){
+
+    public function store()
+    {
         $validated = request()->validate([
-            'title'=>'required',
-            'description'=>'required',
+            'title' => 'required',
+            'description' => 'required',
             'start_time' => 'required',
             'end_time' => 'required',
             'client_id' => 'required',
@@ -37,11 +48,26 @@ class AppointmentController extends Controller
             'start_time' => $validated['start_time'],
             'end_time' => $validated['end_time'],
             'description' => $validated['description'],
-            'status_id' => Status::where('name','Scheduled')->first()->id,
+            'status_id' => Status::where('name', 'Scheduled')->first()->id,
         ]);
         return response()->json(['message' => 'success']);
     }
-    public function getClients(){
+
+    public function update(Appointment $appointment){
+        $validated = request()->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+            'client_id' => 'required',
+        ]);
+        $appointment->update($validated);
+        return response()->json(['message' => 'success']);
+
+    }
+
+    public function getClients()
+    {
         return $clients = Client::all();
     }
 }
