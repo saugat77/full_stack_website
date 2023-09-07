@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use App\Models\Client;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB ;
@@ -28,15 +29,19 @@ class AppointmentController extends Controller
             'description'=>'required',
             'start_time' => 'required',
             'end_time' => 'required',
+            'client_id' => 'required',
         ]);
         Appointment::create([
             'title' => $validated['title'],
-            'client_id' => 1,
+            'client_id' => $validated['client_id'],
             'start_time' => $validated['start_time'],
             'end_time' => $validated['end_time'],
             'description' => $validated['description'],
             'status_id' => Status::where('name','Scheduled')->first()->id,
         ]);
         return response()->json(['message' => 'success']);
+    }
+    public function getClients(){
+        return $clients = Client::all();
     }
 }

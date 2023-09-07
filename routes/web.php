@@ -3,7 +3,6 @@
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ApplicationController;
-use App\Models\Appointment;
 use App\Models\Status;
 use Illuminate\Support\Facades\Route;
 
@@ -39,7 +38,7 @@ Route::get('api/appointments',[AppointmentController::class,'index']);
 Route::post('api/appointment/create',[AppointmentController::class,'store']);
 
 //Clients
-Route::get('/api/getClients',[Appointment::class,'getClients']);
+Route::get('/api/getClients',[AppointmentController::class,'getClients']);
 
 //demands
 Route::get('{view}',ApplicationController::class)->where('view','(.*)');

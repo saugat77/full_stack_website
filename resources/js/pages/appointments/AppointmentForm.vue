@@ -1,7 +1,7 @@
 <script setup>
 import axios from 'axios';
 import { Form } from 'vee-validate';
-import {reactive, onMounted} from 'vue';
+import {ref, reactive, onMounted} from 'vue';
 import { useRouter } from 'vue-router';
 import { useToastr } from '../../toaster';
 import flatPickr from "flatpickr";
@@ -9,6 +9,7 @@ import 'flatpickr/dist/themes/material_blue.css';
 
 const router = useRouter();
 const toastr = useToastr();
+const clients = ref([]);
 const form = reactive({
     title:'',
     client_id:'',
@@ -27,12 +28,20 @@ const form = reactive({
     })
  };
 
+const getClients = () =>{
+    axios.get('/api/getClients')
+    .then((response) => {
+        clients.value = response.data;
+        console.log(clients.value);
+    });
+}
  onMounted(() => {
     flatpickr(".flatpickr",{
         enableTime : true,
         dateFormat: "Y-m-d h:i K",
         defaultHour:10,
     });
+    getClients();
  });
 </script>
 <template>
@@ -75,11 +84,11 @@ const form = reactive({
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="client">Client Name</label>
-                                            <select  :class="{'is-invalid' : errors.time }" id="client" class="form-control">
-                                                <option>Client One</option>
-                                                <option>Client Two</option>
+                                            <select v-model="form.client_id"  :class="{'is-invalid' : errors.client_id }"  id="client" class="form-control">
+                                                <option value="">Choose One</option>
+                                                <option v-for="client in clients"  :key="client.id" :value="client.id">{{ client.first_name +' ' + client.last_name }}</option>
                                             </select>
-                                        <span class="invalid-feedback">{{ errors.client }}</span>
+                                        <span class="invalid-feedback" v-if="errors.client_id">Client Name is Required. Choose One.</span>
 
                                         </div>
                                     </div>
