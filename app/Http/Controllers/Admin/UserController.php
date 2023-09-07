@@ -11,16 +11,18 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with('roles')->latest()->paginate(5);
+        $searchquery = request('query');
+        $users = User::query()
+                        ->when(request('query'),function($query, $searchquery){
+                            $query->where('name','like','%'.$searchquery .'%');
+                        })
+                        ->with('roles')
+                        ->latest()
+                        ->paginate(8);
 
         return $users;
     }
-    public function searchQuery(){
-        $searchquery = request('query');
-        $users = User::where('name','like','%'.$searchquery .'%')->paginate(5);
-        return response()->json($users);
 
-    }
     public function allRoles()
     {
         $allRoles = Role::all();

@@ -18,7 +18,11 @@ const toastr = useToastr();
 const userIdwhenDeleteing = ref(null);
 
 const getUsers = (page = 1) => {
-    axios.get(`/api/users?page=${page}`)
+    axios.get(`/api/users?page=${page}`,{
+        params : {
+            query: searchQuery.value
+        }
+    })
         .then((response) => {
             users.value = response.data;
             console.log();
@@ -145,21 +149,9 @@ const getAllRoles = () => {
 
 }
 const searchQuery = ref(null);
-const search = () => {
-    axios.get('/api/users/search', {
-        params: {
-            query: searchQuery.value
-        }
-    })
-        .then(response => {
-            users.value = response.data;
-        })
-        .catch(error => {
-            console.log(error);
-        })
-}
+
 watch(searchQuery, debounce(() => {
-    search();
+    getUsers();
 }, 300));
 
 const deleteUser = () => {
