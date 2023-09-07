@@ -70,4 +70,8 @@ class AppointmentController extends Controller
     {
         return $clients = Client::all();
     }
+    public function delete(Appointment $appointment){
+        $appointment->delete();
+        return response()->json(['success' => true],200); 
+    }
 }

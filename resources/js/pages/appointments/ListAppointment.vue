@@ -3,8 +3,9 @@ import axios from 'axios';
 import { ref, onMounted, computed } from 'vue';
 import moment from 'moment';
 import { Bootstrap4Pagination } from 'laravel-vue-pagination';
+import Swal from 'sweetalert2';
 
-const appointments = ref({data: []});
+const appointments = ref({ data: [] });
 const statuses = ref([]);
 const selectedStatus = ref();
 var allStatusCount = 0;
@@ -34,6 +35,47 @@ const getStatus = () => {
                 allStatusCount += status.appointments_count;
             });
         })
+}
+const deleteAppointment = (id) => {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'ml-2 btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: false,
+    }).then((result) => {
+        axios.delete(`/api/appointments/${id}/delete`)
+        .then((response) => {
+            if (result.isConfirmed) {
+            appointments.value.data = appointments.value.data.filter(appointment => appointment.id !== id )
+            swalWithBootstrapButtons.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            )
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Your imaginary file is safe :)',
+                'error'
+            )
+        }
+        });
+
+    })
 }
 
 onMounted(() => {
@@ -69,7 +111,8 @@ onMounted(() => {
                             </router-link>
                         </div>
                         <div class="btn-group">
-                            <button @click="getAppointments()" type="button" class="btn" :class="[typeof selectedStatus === 'undefined' ? 'btn-secondary' : 'btn-default']">
+                            <button @click="getAppointments()" type="button" class="btn"
+                                :class="[typeof selectedStatus === 'undefined' ? 'btn-secondary' : 'btn-default']">
                                 <span class="mr-1">All</span>
                                 <span class="badge badge-pill badge-info">{{ allStatusCount }}</span>
                             </button>
@@ -77,9 +120,11 @@ onMounted(() => {
                             <div class="btn-group">
                                 <!-- Use v-for to generate buttons for each status -->
                                 <button v-for="status in statuses" :key="status.id" @click="getAppointments(status.id)"
-                                    type="button" class="btn" :class="[selectedStatus === status.id ? 'btn-secondary' : 'btn-default']">
+                                    type="button" class="btn"
+                                    :class="[selectedStatus === status.id ? 'btn-secondary' : 'btn-default']">
                                     <span class="mr-1">{{ status.name }}</span>
-                                    <span class="badge badge-pill" :class="`badge-${status.color}`">{{ status.appointments_count}}
+                                    <span class="badge badge-pill" :class="`badge-${status.color}`">{{
+                                        status.appointments_count }}
                                     </span>
                                 </button>
                             </div>
@@ -116,7 +161,7 @@ onMounted(() => {
                                                 <i class="fa fa-edit mr-2"></i>
                                             </a>
 
-                                            <a href="">
+                                            <a href="#" @click.prevent="$event => deleteAppointment(appointment.id)">
                                                 <i class="fa fa-trash text-danger"></i>
                                             </a>
                                         </td>
@@ -130,5 +175,4 @@ onMounted(() => {
                 </div>
             </div>
         </div>
-    </div>
-</template>
+    </div></template>
