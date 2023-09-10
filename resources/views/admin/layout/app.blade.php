@@ -167,11 +167,16 @@
 
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="https://adminlte.io/themes/v3/dist/img/user8-128x128.jpg"
-                            class="img-circle elevation-2" alt="User Image">
+                        @if(Auth::user()->user_image)
+                            <img src="{{ Auth::user()->user_image }}" class="img-circle elevation-2" alt="User Image">
+                        @else
+                            <div class="mt-1 brand-image">
+                                <span class=" initial-text text-white">{{ substr(Auth::user()->name, 0, 1) }}</span>
+                            </div>
+                        @endif
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a href="#" class=" d-block">{{ Auth::user()->name }}</a>
                     </div>
                 </div>
 
@@ -209,7 +214,8 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/admin/appointments" :class="$route.path.startsWith('/admin/appointment') ? 'active' : ''" class="nav-link">
+                            <router-link to="/admin/appointments"
+                                :class="$route.path.startsWith('/admin/appointment') ? 'active' : ''" class="nav-link">
                                 <i class="nav-icon fas fa-calendar-alt"></i>
                                 <p>
                                     Appointments
@@ -241,7 +247,7 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <form method="POST" action="{{ route('logout') }}"  class="nav-link">
+                            <form method="POST" action="{{ route('logout') }}" class="nav-link">
                                 @csrf
                                 <a href="" onclick="event.preventDefault(); this.closest('form').submit()">
                                     <i class="nav-icon fas fa-sign-out-alt"></i>
