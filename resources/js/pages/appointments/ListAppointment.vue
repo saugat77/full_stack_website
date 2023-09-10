@@ -54,29 +54,30 @@ const deleteAppointment = (id) => {
         cancelButtonText: 'No, cancel!',
         reverseButtons: false,
     }).then((result) => {
-        axios.delete(`/api/appointments/${id}/delete`)
-        .then((response) => {
-            if (result.isConfirmed) {
-            appointments.value.data = appointments.value.data.filter(appointment => appointment.id !== id )
-            swalWithBootstrapButtons.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-            )
-        } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
+        if (result.isConfirmed) {
+            axios.delete(`/api/appointments/${id}/delete`)
+                .then((response) => {
+                    appointments.value.data = appointments.value.data.filter(appointment => appointment.id !== id )
+                    swalWithBootstrapButtons.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                })
+                .catch((error) => {
+                    // Handle error if the delete request fails
+                    console.error('Error deleting appointment:', error);
+                });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
             swalWithBootstrapButtons.fire(
                 'Cancelled',
-                'Your imaginary file is safe :)',
+                'The Process is cancelled :)',
                 'error'
             )
         }
-        });
-
     })
 }
+
 
 onMounted(() => {
     getAppointments();

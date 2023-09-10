@@ -21,6 +21,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::middleware('auth')->group(function(){
+
 //users
 Route::get('/api/users',[UserController::class,'index']);
 Route::get('/api/allroles',[UserController::class,'allRoles']);
@@ -43,4 +45,6 @@ Route::delete('api/appointments/{appointment}/delete',[AppointmentController::cl
 Route::get('/api/getClients',[AppointmentController::class,'getClients']);
 
 //demands
-Route::get('{view}',ApplicationController::class)->where('view','(.*)');
+
+});
+Route::get('{view}',ApplicationController::class)->where('view','(.*)')->middleware('auth');
