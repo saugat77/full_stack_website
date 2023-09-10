@@ -170,8 +170,8 @@
                         @if(Auth::user()->user_image)
                             <img src="{{ Auth::user()->user_image }}" class="img-circle elevation-2" alt="User Image">
                         @else
-                            <div class="mt-1 brand-image">
-                                <span class=" initial-text text-white">{{ substr(Auth::user()->name, 0, 1) }}</span>
+                            <div class="mt-1 bg-white brand-image">
+                                <span class=" initial-text text-danger">{{ substr(Auth::user()->name, 0, 1) }}</span>
                             </div>
                         @endif
                     </div>
