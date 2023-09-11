@@ -57,7 +57,7 @@ const deleteAppointment = (id) => {
         if (result.isConfirmed) {
             axios.delete(`/api/appointments/${id}/delete`)
                 .then((response) => {
-                    appointments.value.data = appointments.value.data.filter(appointment => appointment.id !== id )
+                    appointments.value.data = appointments.value.data.filter(appointment => appointment.id !== id)
                     swalWithBootstrapButtons.fire(
                         'Deleted!',
                         'Your file has been deleted.',
@@ -106,7 +106,7 @@ onMounted(() => {
                 <div class="col-lg-12">
                     <div class="d-flex justify-content-between mb-2">
                         <div>
-                            <router-link to="/admin/appointments/create">
+                            <router-link v-if="$route.path === '/admin/appointments'" to="/admin/appointments/create">
                                 <button class="btn btn-primary"><i class="fa fa-plus-circle mr-1"></i> Add New
                                     Appointment</button>
                             </router-link>
@@ -133,7 +133,7 @@ onMounted(() => {
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-bordered">
+                            <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -158,9 +158,10 @@ onMounted(() => {
                                                 appointment.status.name }}</span>
                                         </td>
                                         <td>
-                                            <a href="">
+                                            <router-link :to="'/admin/appointments/' + appointment.id + '/edit'">
                                                 <i class="fa fa-edit mr-2"></i>
-                                            </a>
+                                            </router-link>
+
 
                                             <a href="#" @click.prevent="$event => deleteAppointment(appointment.id)">
                                                 <i class="fa fa-trash text-danger"></i>
@@ -176,4 +177,5 @@ onMounted(() => {
                 </div>
             </div>
         </div>
-    </div></template>
+    </div>
+</template>

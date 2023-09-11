@@ -1,22 +1,24 @@
 <script setup>
 import axios from 'axios';
 import { ref, onMounted, reactive, watch } from 'vue';
-const users = ref({'users' : []});
-const appointments = ref({'appointment':[]});
+import ListAppoinment from '../pages/appointments/ListAppointment.vue';
+const users = ref({ 'users': [] });
+const appointments = ref({ 'appointment': [] });
 
 const getUsers = () => {
-    axios.get(`/api/users`,{
+    axios.get(`/api/users`, {
     })
         .then((response) => {
             users.value = response.data.total;
         })
 }
-const countAppointment = ()=>{
+const countAppointment = () => {
     axios.get('/api/appointments')
-    .then((response) =>{
-        appointments.value = response.data.total;
-    })
+        .then((response) => {
+            appointments.value = response.data;
+        })
 }
+
 
 onMounted(() => {
     getUsers();
@@ -50,7 +52,8 @@ onMounted(() => {
                         <span class="info-box-icon"><i class="fa fa-box"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Appointments</span>
-                            <span class="info-box-number"><span class="font-weight-normal">Total: {{ appointments }} </span> </span>
+                            <span class="info-box-number"><span class="font-weight-normal">Total: {{ appointments.total }} </span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -90,5 +93,67 @@ onMounted(() => {
 
 
         </div>
+        <ListAppoinment />
+        <!-- <div class="card rounded z-depth-0">
+            <div class="card-header">
+                <div class="d-flex align-items-center">
+                    <div class="card-title">Appointments</div>
+                    <div class="ml-auto">
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool z-depth-0" data-card-widget="collapse"
+                                id="collapseBtn"><i class="fas fa-window-minimize"></i></button>
+                            <button type="button" class="btn btn-tool z-depth-0" data-card-widget="maximize"><i
+                                    class="fas fa-expand"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive" id="ordersTable">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr class="font-poppins">
+                                <th>Client Name</th>
+                                <th>Appointment Name</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr v-for="(appointment,index) in appointments.data" :key="appointment.id">
+                                <td>
+                                    <a class="text-primary font-semibold" href="">{{ index }}</a>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img class="img-circle" src=""
+                                            style="height: 37px; height: 37px; padding: 2px; border: 1px solid #c2c3c4;">
+                                        <div class="ml-2">
+
+                                        </div>
+                                    </div>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <span class="order-status-badge"></span>
+                                </td>
+                                <td>
+                                    <span class="payment-status-badge "></span>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="42" class="text-center">No orders found</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div> -->
     </div>
 </template>

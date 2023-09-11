@@ -60,6 +60,7 @@ class AppointmentController extends Controller
             'start_time' => 'required',
             'end_time' => 'required',
             'client_id' => 'required',
+            'status_id' => 'required',
         ]);
         $appointment->update($validated);
         return response()->json(['message' => 'success']);

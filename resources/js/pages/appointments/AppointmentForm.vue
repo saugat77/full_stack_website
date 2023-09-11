@@ -10,6 +10,7 @@ import 'flatpickr/dist/themes/light.css';
 const router = useRouter();
 const route = useRoute();
 const toastr = useToastr();
+const statuses = ref([]);
 const form = reactive({
     title: '',
     client_id: '',
@@ -26,6 +27,12 @@ const handleSubmit = (values, actions) => {
     }
 };
 
+const getStatus = () => {
+    axios.get('/api/statuses')
+        .then((response) => {
+            statuses.value = response.data;
+        })
+}
 const createAppointment = (values, actions) => {
     axios.post('/api/appointments/create', form)
     .then((response) => {
@@ -61,6 +68,7 @@ const getAppointment = () => {
     .then(({data}) => {
         form.title = data.title;
         form.client_id = data.client_id;
+        form.status_id = data.status_id
         form.start_time = data.start_time;
         form.end_time = data.end_time;
         form.description = data.description;
@@ -81,6 +89,7 @@ onMounted(() => {
         defaultHour: 10,
     });
     getClients();
+    getStatus();
 });
 </script>
 
@@ -154,12 +163,26 @@ onMounted(() => {
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="description">Description</label>
                                     <textarea v-model="form.description" class="form-control" :class="{'is-invalid': errors.description}" id="description" rows="3"
                                         placeholder="Enter Description"></textarea>
                                     <span class="invalid-feedback">{{ errors.description }}</span>
                                 </div>
+                                </div>
+                                <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="client">Status</label>
+                                            <select v-model="form.status_id" id="status" class="form-control" :class="{ 'is-invalid': errors.status_id }">
+                                                <option value="">Select One</option>
+                                                <option v-for="status in statuses" :value="status.id" :key="status.id">{{ status.name }}</option>
+                                            </select>
+                                            <span class="invalid-feedback" v-if="errors.status_id">Status is Required Field. Select One</span>
+                                        </div>
+                                    </div>
+                            </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </Form>
                         </div>
