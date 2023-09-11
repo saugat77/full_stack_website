@@ -1,7 +1,11 @@
 <script setup>
 import axios from 'axios';
 import { ref, onMounted, reactive, watch } from 'vue';
+import { Bootstrap4Pagination } from 'laravel-vue-pagination';
 import ListAppoinment from '../pages/appointments/ListAppointment.vue';
+
+
+
 const users = ref({ 'users': [] });
 const appointments = ref({ 'appointment': [] });
 

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Demand;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,9 @@ class DemandController extends Controller
      */
     public function index()
     {
-        //
+        // dd('hi');
+        $demands = Demand::latest()->paginate(10);
+        return $demands;
     }
 
     /**

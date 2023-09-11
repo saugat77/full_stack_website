@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AppointmentController;
+use App\Http\Controllers\Admin\DemandController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ApplicationController;
 use App\Models\Status;
@@ -45,6 +46,8 @@ Route::delete('api/appointments/{appointment}/delete',[AppointmentController::cl
 Route::get('/api/getClients',[AppointmentController::class,'getClients']);
 
 //demands
+Route::get('/api/getDemands',[DemandController::class,'index']);
+
 
 });
 Route::get('{view}',ApplicationController::class)->where('view','(.*)')->middleware('auth');
