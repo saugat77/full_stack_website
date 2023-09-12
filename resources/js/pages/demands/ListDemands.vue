@@ -12,6 +12,7 @@ const getDemands = () => {
             console.log(demands.value)
         })
 }
+
 onMounted(() => {
     getDemands();
 })
@@ -55,6 +56,7 @@ onMounted(() => {
                                         <th scope="col">Salary</th>
                                         <th scope="col">No. of Vacancies</th>
                                         <th scope="col">Status</th>
+                                        <th scope="col">Image</th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
@@ -70,13 +72,16 @@ onMounted(() => {
                                             <span v-if="demand.active == true" class=" text-success">Active</span>
                                             <span v-else class="text-danger">Inactive</span>
                                         </td>
+                                        <img class="img-circle" :src="`${demand.image}`" alt="">
+
+
                                         <td>
-                                            <!-- <router-link :to="'/admin/demands/' + appointment.id + '/edit'">
+                                            <router-link :to="'/admin/demands/' + demand.id + '/edit'">
                                                 <i class="fa fa-edit mr-2"></i>
-                                            </router-link> -->
+                                            </router-link>
 
 
-                                            <a href="#" @click.prevent="$event => deleteAppointment(appointment.id)">
+                                            <a href="#" @click.prevent="$event => deleteDemand(appointment.id)">
                                                 <i class="fa fa-trash text-danger"></i>
                                             </a>
                                         </td>

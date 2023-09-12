@@ -48,6 +48,9 @@ Route::get('/api/getClients',[AppointmentController::class,'getClients']);
 //demands
 Route::get('/api/getDemands',[DemandController::class,'index']);
 Route::post('api/demands/create',[DemandController::class,'store']);
+Route::post('/api/demands/image-update',[DemandController::class,'updateImage']);
+Route::get('api/demands/{demand}/show',[DemandController::class,'show']);
+Route::put('api/demands/{demand}/edit',[DemandController::class,'edit']);
 
 
 

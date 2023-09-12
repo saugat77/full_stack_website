@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Starter</title>
+    <title>Kantipur Overseas Pvt. LTD.</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -158,9 +158,9 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
             <a href="index3.html" class="brand-link">
-                <img src="https://adminlte.io/themes/v3/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+                <img src="https://adminlte.io/themes/v3/dist/img/AdminLTELogo.png" alt="Kantipur Overseas Pvt Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
+                <span class="brand-text font-weight-light">Kantipur Overseas</span>
             </a>
 
             <div class="sidebar">

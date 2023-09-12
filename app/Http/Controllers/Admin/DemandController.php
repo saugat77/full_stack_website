@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Demand;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DemandController extends Controller
 {
@@ -31,16 +32,31 @@ class DemandController extends Controller
      */
     public function store()
     {
-        $validate = request()->validate([
+
+        $validated = request()->validate([
             'name' => 'required',
             'country' => 'required',
             'salary' => 'required',
             'description' => 'required',
             'number_of_people_needed' => 'required',
-            'status' => 'required',
-            'image' => 'required',
+            'active' => 'required',
+            'image' => 'nullable|mimes:jpeg,jpg,png',
 
         ]);
+        $demand = Demand::create([
+            'name' => $validated['name'],
+            'country' => $validated['country'],
+            'salary' => $validated['salary'],
+            'description' => $validated['description'],
+            'number_of_people_needed' => $validated['number_of_people_needed'],
+            'active' => $validated['active'],
+        ]);
+        if(request()->file('image')){
+
+            $image = request()->file('image');
+            $this->updateImage($image,$demand);
+        }
+        return response()->json(['message' => 'success']);
     }
 
     /**
@@ -48,7 +64,7 @@ class DemandController extends Controller
      */
     public function show(Demand $demand)
     {
-        //
+        return $demand;
     }
 
     /**
@@ -56,15 +72,38 @@ class DemandController extends Controller
      */
     public function edit(Demand $demand)
     {
-        //
+        $validated = request()->validate([
+            'name' => 'required',
+            'country' => 'required',
+            'salary' => 'required',
+            'description' => 'required',
+            'number_of_people_needed' => 'required',
+            'active' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg',
+
+        ]);
+        $demand->update($validated);
+        if(request()->file('image')){
+
+            $image = request()->file('image');
+            $this->updateImage($image,$demand);
+        }
+        return response()->json(['message' => 'success']);
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Demand $demand)
+    public function updateImage($image, $demand)
     {
-        //
+
+        $link = Storage::put('/demands', $image);
+
+
+        // Update the image_path attribute of the demand model
+        $demand->image = $link;
+        $demand->save();
     }
 
     /**

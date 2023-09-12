@@ -10,6 +10,8 @@ import 'flatpickr/dist/themes/light.css';
 const router = useRouter();
 const route = useRoute();
 const toastr = useToastr();
+const file = ref();
+
 const form = reactive({
     name: '',
     description: '',
@@ -17,8 +19,17 @@ const form = reactive({
     country: '',
     number_of_people_needed: '',
     active: '',
-    image: '',
+    image: null,
 });
+
+const pictureUrl = ref(null);
+const imageUpload = (event) => {
+  file.value = event.target.files[0];
+  pictureUrl.value = URL.createObjectURL(file.value);
+  console.log(pictureUrl.value);
+
+
+};
 
 const handleSubmit = (values, actions) => {
     if (editMode.value) {
@@ -29,9 +40,17 @@ const handleSubmit = (values, actions) => {
 };
 
 const createDemand = (values, actions) => {
-    axios.post('/api/demands/create', form)
+    const formData = new FormData();
+    formData.append('image',file.value);
+    formData.append('name',form.name);
+    formData.append('description',form.description);
+    formData.append('salary',form.salary);
+    formData.append('country',form.country);
+    formData.append('number_of_people_needed',form.number_of_people_needed);
+    formData.append('active',form.active);
+    axios.post('/api/demands/create', formData)
     .then((response) => {
-        router.push('/admin/Demands');
+        router.push('/admin/demands');
         toastr.success('Demand created successfully!');
     })
     .catch((error) => {
@@ -42,7 +61,7 @@ const createDemand = (values, actions) => {
 const editDemand = (values, actions) => {
     axios.put(`/api/demands/${route.params.id}/edit`, form)
     .then((response) => {
-        router.push('/admin/Demands');
+        router.push('/admin/demands');
         toastr.success('Demand updated successfully!');
     })
     .catch((error) => {
@@ -50,7 +69,7 @@ const editDemand = (values, actions) => {
     })
 };
 const getDemand = () => {
-    axios.get(`/api/Demands/${route.params.id}/edit`)
+    axios.get(`/api/demands/${route.params.id}/show`)
     .then(({data}) => {
         form.name = data.name;
         form.salary = data.salary;
@@ -107,19 +126,19 @@ onMounted(() => {
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <Form @submit="handleSubmit" v-slot:default="{ errors }">
+                            <Form enctype="multipart/form-data" @submit="handleSubmit" v-slot:default="{ errors }">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="title">Demand Title</label>
-                                            <input v-model="form.name" type="text" class="form-control" :class="{ 'is-invalid': errors.name }" id="name" placeholder="Enter Name">
+                                            <label for="name">Demand Title</label>
+                                            <input v-model="form.name" type="text" class="form-control" :class="{ 'is-invalid': errors.name }" id="name" placeholder="Enter Name" autocapitalize="on" autocomplete="name">
                                             <span class="invalid-feedback">{{ errors.name }}</span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="client">Country</label>
-                                            <input v-model="form.country" type="text" class="form-control" :class="{ 'is-invalid': errors.country }" id="country" placeholder="Enter Country">
+                                            <label for="country">Country</label>
+                                            <input v-model="form.country" type="text" class="form-control" :class="{ 'is-invalid': errors.country }" id="country" placeholder="Enter Country" autocomplete="country">
                                             <span class="invalid-feedback">{{ errors.country }}</span>
                                         </div>
                                     </div>
@@ -127,14 +146,14 @@ onMounted(() => {
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="start-time">Salary</label>
-                                            <input v-model="form.salary" type="text" class="form-control" placeholder="Salary" :class="{'is-invalid': errors.salary}" id="salary">
+                                            <label for="salary">Salary</label>
+                                            <input v-model="form.salary" type="text" class="form-control" placeholder="Salary" :class="{'is-invalid': errors.salary}" id="salary" autocomplete="salary">
                                             <span class="invalid-feedback">{{ errors.salary }}</span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="end-time">Vacancies</label>
+                                            <label for="people">Vacancies</label>
                                             <input v-model="form.number_of_people_needed" type="text" placeholder="No. Of Vacancy Available" class="form-control" :class="{'is-invalid': errors.number_of_people_needed}" id="people">
                                             <span class="invalid-feedback">{{ errors.number_of_people_needed }}</span>
                                         </div>
@@ -143,20 +162,21 @@ onMounted(() => {
                                 <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                            <label for="end-time">Image</label>
-                                            <input v-on="form.image" type="file"  class="form-control" :class="{'is-invalid': errors.image}" id="people">
+                                            <label for="image">Image</label><br>
+                                            <img class="profile-user-img" style="margin-left: 10%; width:30%;"  :src="pictureUrl ? pictureUrl : form.image">
+                                            <input name="image" type="file" @change="imageUpload"  class="form-control" :class="{'is-invalid': errors.image}" id="image">
                                             <span class="invalid-feedback">{{ errors.image }}</span>
                                         </div>
                                 </div>
                                 <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="client">Status</label>
-                                            <select v-model="form.status" id="status" class="form-control" :class="{ 'is-invalid': errors.status }">
+                                            <label for="active">Status</label>
+                                            <select v-model="form.active" id="active" class="form-control" :class="{ 'is-invalid': errors.active }">
                                                 <option value="">Select One</option>
                                                 <option value="1">Active</option>
                                                 <option value="0">Inactive</option>
                                             </select>
-                                            <span class="invalid-feedback" v-if="errors.status">Status is Required Field. Select One</span>
+                                            <span class="invalid-feedback" v-if="errors.active">Status is Required Field. Select One</span>
                                         </div>
                                     </div>
                             </div>
