@@ -47,6 +47,8 @@ Route::get('/api/getClients',[AppointmentController::class,'getClients']);
 
 //demands
 Route::get('/api/getDemands',[DemandController::class,'index']);
+Route::post('api/demands/create',[DemandController::class,'store']);
+
 
 
 });

@@ -38,10 +38,10 @@ onMounted(() => {
                 <div class="col-lg-12">
                     <div class="d-flex justify-content-between mb-2">
                         <div>
-                            <!-- <router-link v-if="$route.path === '/admin/demands'" to="/admin/demands/create">
+                            <router-link v-if="$route.path === '/admin/demands'" to="/admin/demands/create">
                                 <button class="btn btn-primary"><i class="fa fa-plus-circle mr-1"></i> Add New
                                     Demand</button>
-                            </router-link> -->
+                            </router-link>
                         </div>
                     </div>
                     <div class="card">

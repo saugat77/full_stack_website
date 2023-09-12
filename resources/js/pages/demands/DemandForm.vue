@@ -10,86 +10,66 @@ import 'flatpickr/dist/themes/light.css';
 const router = useRouter();
 const route = useRoute();
 const toastr = useToastr();
-const statuses = ref([]);
 const form = reactive({
-    title: '',
-    client_id: '',
-    start_time: '',
-    end_time: '',
+    name: '',
     description: '',
+    salary: '',
+    country: '',
+    number_of_people_needed: '',
+    active: '',
+    image: '',
 });
 
 const handleSubmit = (values, actions) => {
     if (editMode.value) {
-        editAppointment(values, actions);
+        editDemand(values, actions);
     } else {
-        createAppointment(values, actions);
+        createDemand(values, actions);
     }
 };
 
-const getStatus = () => {
-    axios.get('/api/statuses')
-        .then((response) => {
-            statuses.value = response.data;
-        })
-}
-const createAppointment = (values, actions) => {
-    axios.post('/api/appointments/create', form)
+const createDemand = (values, actions) => {
+    axios.post('/api/demands/create', form)
     .then((response) => {
-        router.push('/admin/appointments');
-        toastr.success('Appointment created successfully!');
+        router.push('/admin/Demands');
+        toastr.success('Demand created successfully!');
     })
     .catch((error) => {
         actions.setErrors(error.response.data.errors);
     })
 };
 
-const editAppointment = (values, actions) => {
-    axios.put(`/api/appointments/${route.params.id}/edit`, form)
+const editDemand = (values, actions) => {
+    axios.put(`/api/demands/${route.params.id}/edit`, form)
     .then((response) => {
-        router.push('/admin/appointments');
-        toastr.success('Appointment updated successfully!');
+        router.push('/admin/Demands');
+        toastr.success('Demand updated successfully!');
     })
     .catch((error) => {
         actions.setErrors(error.response.data.errors);
     })
 };
-
-const clients = ref();
-const getClients = () => {
-    axios.get('/api/getClients')
-    .then((response) => {
-        clients.value = response.data;
-    })
-};
-
-const getAppointment = () => {
-    axios.get(`/api/appointments/${route.params.id}/edit`)
+const getDemand = () => {
+    axios.get(`/api/Demands/${route.params.id}/edit`)
     .then(({data}) => {
-        form.title = data.title;
-        form.client_id = data.client_id;
-        form.status_id = data.status_id
-        form.start_time = data.start_time;
-        form.end_time = data.end_time;
+        form.name = data.name;
+        form.salary = data.salary;
+        form.country = data.country
+        form.active = data.active;
+        form.number_of_people_needed = data.number_of_people_needed;
         form.description = data.description;
+        form.image = data.image;
     })
 };
 
 const editMode = ref(false);
 
 onMounted(() => {
-    if (route.name === 'admin.appointments.edit') {
+    if (route.name === 'admin.demands.edit') {
         editMode.value = true;
-        getAppointment();
+        getDemand();
     }
 
-    flatpickr(".flatpickr", {
-        enableTime: true,
-        dateFormat: "Y-m-d h:i K",
-        defaultHour: 10,
-    });
-    getClients();
-    getStatus();
 });
 </script>
 
@@ -101,7 +81,7 @@ onMounted(() => {
                     <h1 class="m-0">
                         <span v-if="editMode">Edit</span>
                         <span v-else>Create</span>
-                        Appointment</h1>
+                        Demand</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -109,7 +89,7 @@ onMounted(() => {
                             <router-link to="/admin/dashboard">Home</router-link>
                         </li>
                         <li class="breadcrumb-item">
-                            <router-link to="/admin/appointments">Appointments</router-link>
+                            <router-link to="/admin/Demands">Demands</router-link>
                         </li>
                         <li class="breadcrumb-item active">
                             <span v-if="editMode">Edit</span>
@@ -131,58 +111,61 @@ onMounted(() => {
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="title">Title</label>
-                                            <input v-model="form.title" type="text" class="form-control" :class="{ 'is-invalid': errors.title }" id="title" placeholder="Enter Title">
-                                            <span class="invalid-feedback">{{ errors.title }}</span>
+                                            <label for="title">Demand Title</label>
+                                            <input v-model="form.name" type="text" class="form-control" :class="{ 'is-invalid': errors.name }" id="name" placeholder="Enter Name">
+                                            <span class="invalid-feedback">{{ errors.name }}</span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="client">Client Name</label>
-                                            <select v-model="form.client_id" id="client" class="form-control" :class="{ 'is-invalid': errors.client_id }">
-                                                <option value="">Select One</option>
-                                                <option v-for="client in clients" :value="client.id" :key="client.id">{{ client.first_name }} {{ client.last_name }}</option>
-                                            </select>
-                                            <span class="invalid-feedback" v-if="errors.client_id">Client Name is Required Field. Select One</span>
+                                            <label for="client">Country</label>
+                                            <input v-model="form.country" type="text" class="form-control" :class="{ 'is-invalid': errors.country }" id="country" placeholder="Enter Country">
+                                            <span class="invalid-feedback">{{ errors.country }}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="start-time">Start Time</label>
-                                            <input v-model="form.start_time" type="text" class="form-control flatpickr" :class="{'is-invalid': errors.start_time}" id="start-time">
-                                            <span class="invalid-feedback">{{ errors.start_time }}</span>
+                                            <label for="start-time">Salary</label>
+                                            <input v-model="form.salary" type="text" class="form-control" placeholder="Salary" :class="{'is-invalid': errors.salary}" id="salary">
+                                            <span class="invalid-feedback">{{ errors.salary }}</span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="end-time">End Time</label>
-                                            <input v-model="form.end_time" type="text" class="form-control flatpickr" :class="{'is-invalid': errors.end_time}" id="end-time">
-                                            <span class="invalid-feedback">{{ errors.end_time }}</span>
+                                            <label for="end-time">Vacancies</label>
+                                            <input v-model="form.number_of_people_needed" type="text" placeholder="No. Of Vacancy Available" class="form-control" :class="{'is-invalid': errors.number_of_people_needed}" id="people">
+                                            <span class="invalid-feedback">{{ errors.number_of_people_needed }}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                 <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="description">Description</label>
-                                    <textarea v-model="form.description" class="form-control" :class="{'is-invalid': errors.description}" id="description" rows="3"
-                                        placeholder="Enter Description"></textarea>
-                                    <span class="invalid-feedback">{{ errors.description }}</span>
-                                </div>
+                                    <div class="form-group">
+                                            <label for="end-time">Image</label>
+                                            <input v-on="form.image" type="file"  class="form-control" :class="{'is-invalid': errors.image}" id="people">
+                                            <span class="invalid-feedback">{{ errors.image }}</span>
+                                        </div>
                                 </div>
                                 <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="client">Status</label>
-                                            <select v-model="form.status_id" id="status" class="form-control" :class="{ 'is-invalid': errors.status_id }">
+                                            <select v-model="form.status" id="status" class="form-control" :class="{ 'is-invalid': errors.status }">
                                                 <option value="">Select One</option>
-                                                <option v-for="status in statuses" :value="status.id" :key="status.id">{{ status.name }}</option>
+                                                <option value="1">Active</option>
+                                                <option value="0">Inactive</option>
                                             </select>
                                             <span class="invalid-feedback" v-if="errors.status">Status is Required Field. Select One</span>
                                         </div>
                                     </div>
                             </div>
+                            <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <textarea v-model="form.description" class="form-control" :class="{'is-invalid': errors.description}" id="description" rows="3"
+                                        placeholder="Enter Description"></textarea>
+                                    <span class="invalid-feedback">{{ errors.description }}</span>
+                                </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </Form>
                         </div>

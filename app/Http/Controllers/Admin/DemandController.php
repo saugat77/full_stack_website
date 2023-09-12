@@ -29,9 +29,18 @@ class DemandController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $validate = request()->validate([
+            'name' => 'required',
+            'country' => 'required',
+            'salary' => 'required',
+            'description' => 'required',
+            'number_of_people_needed' => 'required',
+            'status' => 'required',
+            'image' => 'required',
+
+        ]);
     }
 
     /**
