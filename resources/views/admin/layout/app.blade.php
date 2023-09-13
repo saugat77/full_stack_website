@@ -201,7 +201,7 @@
                             <router-link to="/admin/dashboard" active-class="active" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
-                                    Dashbaord
+                                    Dashboard
                                 </p>
                             </router-link>
                         </li>

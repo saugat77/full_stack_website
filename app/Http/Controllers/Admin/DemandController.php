@@ -79,12 +79,11 @@ class DemandController extends Controller
             'description' => 'required',
             'number_of_people_needed' => 'required',
             'active' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg',
+            'image' => 'nullable|mimes:jpeg,jpg,png',
 
         ]);
         $demand->update($validated);
         if(request()->file('image')){
-
             $image = request()->file('image');
             $this->updateImage($image,$demand);
         }
@@ -98,7 +97,7 @@ class DemandController extends Controller
     public function updateImage($image, $demand)
     {
 
-        $link = Storage::put('/demands', $image);
+        $link = Storage::disk('public')->put('demands', $image);
 
 
         // Update the image_path attribute of the demand model

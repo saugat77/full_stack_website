@@ -10,9 +10,19 @@ const getDemands = () => {
         .then((response) => {
             demands.value = response.data;
             console.log(demands.value)
+
+
         })
 }
-
+// const pictureUrl = ref();
+// const imageUrl = (image) => {
+//     console.log(typeof image, image);
+//     // if (image) {
+//     //     return URL.createObjectURL(image);
+//     // } else {
+//     //     return ''; // Return an empty string if 'image' is missing or empty
+//     // }
+// };
 onMounted(() => {
     getDemands();
 })
@@ -72,7 +82,9 @@ onMounted(() => {
                                             <span v-if="demand.active == true" class=" text-success">Active</span>
                                             <span v-else class="text-danger">Inactive</span>
                                         </td>
-                                        <img class="img-circle" :src="`${demand.image}`" alt="">
+                                       <td>
+                                        <img v-if="demand.image" class="profile-user-img" :src="demand.image" alt="">
+                                       </td>
 
 
                                         <td>
@@ -92,6 +104,7 @@ onMounted(() => {
                         <Bootstrap4Pagination :data="demands" @pagination-change-page="getDemands" />
 
                     </div>
+
                 </div>
             </div>
         </div>
