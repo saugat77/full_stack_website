@@ -14,17 +14,26 @@ class DemandController extends Controller
      */
     public function index()
     {
-        // dd('hi');
-        $demands = Demand::latest()->paginate(10);
+        $demands = Demand:: // Use the relationship name
+            latest()
+            ->when(request('active'), function ($query) {
+                if (request('active') === '2') {
+                    return $query->where('active', false);
+                }
+                return $query->where('active', request('active'));
+            })
+            ->paginate(10);
+
         return $demands;
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function activeCount()
     {
-        //
+        $demands = Demand::countActiveDemands();
     }
 
     /**

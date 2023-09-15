@@ -19,4 +19,9 @@ class Demand extends Model
             get: fn($value) => asset(Storage::url($value)),
         );
     }
+    public static function countActiveDemands()
+    {
+        return self::where('active', true);
+    }
+
 }

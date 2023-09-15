@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ref, onMounted, reactive, watch } from 'vue';
 import { Bootstrap4Pagination } from 'laravel-vue-pagination';
 import ListAppoinment from '../pages/appointments/ListAppointment.vue';
+import ListDemands from '../pages/demands/ListDemands.vue';
 
 
 
@@ -22,11 +23,18 @@ const countAppointment = () => {
             appointments.value = response.data;
         })
 }
-
-
+const demands = ref([]);
+const countDemands = () => {
+    axios.get('/api/getDemands')
+        .then((response) => {
+            demands.value = response.data;
+            console.log( demands.value.total)
+        })
+}
 onMounted(() => {
     getUsers();
     countAppointment();
+    countDemands();
 
 })
 </script>
@@ -77,7 +85,7 @@ onMounted(() => {
                         <span class="info-box-icon"><i class="fa fa-cart-arrow-down"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Demands</span>
-                            <span class="info-box-number">Total </span>
+                            <span class="info-box-number">Total: {{  demands.total }}</span>
                         </div>
                     </div>
                 </div>
@@ -98,66 +106,6 @@ onMounted(() => {
 
         </div>
         <ListAppoinment />
-        <!-- <div class="card rounded z-depth-0">
-            <div class="card-header">
-                <div class="d-flex align-items-center">
-                    <div class="card-title">Appointments</div>
-                    <div class="ml-auto">
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool z-depth-0" data-card-widget="collapse"
-                                id="collapseBtn"><i class="fas fa-window-minimize"></i></button>
-                            <button type="button" class="btn btn-tool z-depth-0" data-card-widget="maximize"><i
-                                    class="fas fa-expand"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="table-responsive" id="ordersTable">
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <tr class="font-poppins">
-                                <th>Client Name</th>
-                                <th>Appointment Name</th>
-                                <th>Description</th>
-                                <th>Status</th>
-                                <th>Start Time</th>
-                                <th>End Time</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <tr v-for="(appointment,index) in appointments.data" :key="appointment.id">
-                                <td>
-                                    <a class="text-primary font-semibold" href="">{{ index }}</a>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img class="img-circle" src=""
-                                            style="height: 37px; height: 37px; padding: 2px; border: 1px solid #c2c3c4;">
-                                        <div class="ml-2">
-
-                                        </div>
-                                    </div>
-                                </td>
-                                <td></td>
-                                <td>
-                                    <span class="order-status-badge"></span>
-                                </td>
-                                <td>
-                                    <span class="payment-status-badge "></span>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td colspan="42" class="text-center">No orders found</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div> -->
+       <ListDemands />
     </div>
 </template>

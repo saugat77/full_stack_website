@@ -3,26 +3,29 @@ import axios from 'axios';
 import { reactive, onMounted, ref } from 'vue';
 import { Bootstrap4Pagination } from 'laravel-vue-pagination';
 
-const demands = ref({'demands':[]});
+const demands = ref({ 'demands': [] });
+const selectedDemandStatus = ref();
+const getDemands = (active) => {
+    selectedDemandStatus.value = active;
+    console.log(typeof selectedDemandStatus);
+    const params = {};
+    if (active) {
+        params.active = active;
+    }
 
-const getDemands = () => {
-    axios.get('/api/getDemands')
+    axios.get('/api/getDemands',{
+        params:params
+    })
         .then((response) => {
             demands.value = response.data;
-            console.log(demands.value)
 
 
         })
-}
-// const pictureUrl = ref();
-// const imageUrl = (image) => {
-//     console.log(typeof image, image);
-//     // if (image) {
-//     //     return URL.createObjectURL(image);
-//     // } else {
-//     //     return ''; // Return an empty string if 'image' is missing or empty
-//     // }
-// };
+};
+
+
+
+
 onMounted(() => {
     getDemands();
 })
@@ -34,7 +37,7 @@ onMounted(() => {
                 <div class="col-sm-6">
                     <h1 class="m-0">Demands</h1>
                 </div>
-                <div class="col-sm-6">
+                <div v-if="$route.path === '/admin/demands'" class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item active">Demands</li>
@@ -54,6 +57,31 @@ onMounted(() => {
                                     Demand</button>
                             </router-link>
                         </div>
+
+                        <div class="btn-group">
+                            <button @click="getStatusOfDemand(undefined)" type="button" class="btn"
+                                :class="[typeof getStatusOfDemand === 'undefined' ? 'btn-secondary' : 'btn-default']">
+                                <span class="mr-1">All</span>
+                                <span class="badge badge-pill badge-info">{{ demands.total }}</span>
+                            </button>
+
+                            <div class="btn-group">
+                                <!-- Use v-for to generate buttons for each status -->
+                                <button type="button" class="btn" :class="[selectedDemandStatus === 1 ? 'btn-secondary' : 'btn-default']"
+                                 @click="getDemands(1)">
+
+                                    <span class="mr-1">Active</span>
+                                    <span class="badge badge-pill" :class="`badge-primary`">{{ demands.total }}
+                                    </span>
+                                </button>
+                                <button type="button" class="btn" @click="getDemands(2)">
+                                    <span class="mr-1">Inactive</span>
+                                    <span class="badge badge-pill" :class="`badge-danger`">{{  }}
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="card">
                         <div class="card-body">
@@ -71,7 +99,7 @@ onMounted(() => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(demand,index) in demands.data" :key="demand.id">
+                                    <tr v-for="(demand, index) in demands.data" :key="demand.id">
                                         <td>{{ index + 1 }}</td>
                                         <td>{{ demand.name }}</td>
                                         <td>{{ demand.country }}</td>
@@ -82,9 +110,9 @@ onMounted(() => {
                                             <span v-if="demand.active == true" class=" text-success">Active</span>
                                             <span v-else class="text-danger">Inactive</span>
                                         </td>
-                                       <td>
-                                        <img v-if="demand.image" class="profile-user-img" :src="demand.image" alt="">
-                                       </td>
+                                        <td>
+                                            <img v-if="demand.image" class="profile-user-img" :src="demand.image" alt="">
+                                        </td>
 
 
                                         <td>
