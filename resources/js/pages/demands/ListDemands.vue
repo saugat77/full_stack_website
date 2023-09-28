@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { reactive, onMounted, ref } from 'vue';
 import { Bootstrap4Pagination } from 'laravel-vue-pagination';
+import { object } from 'yup';
 
 const demands = ref({ 'demands': [] });
 const selectedDemandStatus = ref();
@@ -59,8 +60,8 @@ onMounted(() => {
                         </div>
 
                         <div class="btn-group">
-                            <button @click="getStatusOfDemand(undefined)" type="button" class="btn"
-                                :class="[typeof getStatusOfDemand === 'undefined' ? 'btn-secondary' : 'btn-default']">
+                            <button @click="getDemands(0)" type="button" class="btn"
+                                :class="[selectedDemandStatus === 0 ? 'btn-secondary' : 'btn-default']">
                                 <span class="mr-1">All</span>
                                 <span class="badge badge-pill badge-info">{{ demands.total }}</span>
                             </button>
@@ -71,13 +72,12 @@ onMounted(() => {
                                  @click="getDemands(1)">
 
                                     <span class="mr-1">Active</span>
-                                    <span class="badge badge-pill" :class="`badge-primary`">{{ demands.total }}
+                                    <span class="badge badge-pill" :class="`badge-primary `">
                                     </span>
                                 </button>
-                                <button type="button" class="btn" @click="getDemands(2)">
+                                <button type="button" class="btn" @click="getDemands(2)" :class="[selectedDemandStatus === 2 ? 'btn-secondary' : 'btn-default']">
                                     <span class="mr-1">Inactive</span>
-                                    <span class="badge badge-pill" :class="`badge-danger`">{{  }}
-                                    </span>
+
                                 </button>
                             </div>
                         </div>
