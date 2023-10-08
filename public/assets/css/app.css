@@ -2,20 +2,88 @@
     margin: 0;
     padding: 0;
 }
-.main{
-    width: 100%;
-    background: linear-gradient(to top,rgba(0,0,0,0.5)50%, rgba(0,0,0,0,0.5)50%,url('/public/assets/images/bg.jpg'));
+.main {
+    /* Set the background image */
+    background-image: url('/assets/images/bg.jpg');
+    
+    /* Set the linear gradient overlay */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.5) 50%), url('/assets/images/bg.jpg');
+    
+    /* Center the background image */
     background-position: center;
+    
+    /* Scale the background image to cover the entire element */
     background-size: cover;
+    
+    /* Set the height to 109 viewport height units */
     height: 109vh;
+    
+    /* Set the width to 100% */
+    width: 100%;
 }
 .navbar{
-    width: 1200px;
-    height: 75px;
+    width: 100%;
+    height: 50px;
     margin: auto;
+    background-color: transparent; /* Adjust the color and opacity as needed */
 }
 .icon{
-    width: 200px;
+    width: 400px;
     float: left;
     height:70px ;
+    margin-left: 10px;
+}
+.logo{
+    color: white;
+    font-size: 30px;
+    font-family:  'Brush Script MT', cursive;
+    padding-top: 10px;
+    float: left;
+    padding-top: 10px;
+}
+.logo:hover{
+    cursor: default;
+    color: rgb(51, 49, 49);
+}
+.menu{
+    float: right;
+    height: 70px;
+    margin-right: 20%;
+}
+ul{
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ul li{
+    list-style: none;
+    margin-left: 62px;
+    margin-top: 10px;
+    font-size: 14px;
+}
+ul li a{
+    text-decoration: none;
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    transition: 0.4s ease-in-out;
+}
+ul li a:hover{
+    color: #98AFC7;
+}
+
+.transparent-button {
+    background-color: transparent;
+    border: 2px solid #fff; /* Add a border for better visibility */
+    color: #fff; /* Text color */
+    padding: 10px 20px; /* Adjust padding as needed */
+    font-size: 16px; /* Adjust font size as needed */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: 0.3s ease; /* Add a smooth hover effect */
+    border-radius: 10px;
+}
+
+.transparent-button:hover {
+    background-color: rgba(48, 67, 218, 0.2); /* Semi-transparent white on hover */
 }

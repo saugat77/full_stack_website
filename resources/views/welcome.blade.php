@@ -13,7 +13,17 @@
         <div class="icon">
             <h2 class="logo">Kantipur Overseas Pvt. Ltd.</h2>
         </div>
+        <div class="menu">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Clients</a></li>
+                <a href="{{ url('backend/dashboard') }}"><li class='transparent-button'>Login</li></a>
+            </ul>
+        </div>
     </div>
+
 
 </div>
 </body>
