@@ -24,13 +24,17 @@ loading.value = true;
             loading.value = false;
         });
 }
+const resetForm = () => {
+    form.email = '';
+    form.password = '';
+}
 </script>
 <template>
-    <div class="login-box">
+    <div class="right-login-box">
 
-        <div class="card card-outline card-primary">
+        <div id="card" class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="#" class="h1"><b>Admin</b>Login</a>
+                <a href="#" class="h1 text-grey">Login</a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
@@ -60,21 +64,24 @@ loading.value = true;
                                 </label>
                             </div>
                         </div>
-
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block" :disabled="loading">
+                        <button type="button" class=" btn btn-danger btn-block" @click="resetForm">Reset</button>
+                        </div>
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-success btn-block" :disabled="loading">
                                 <div v-if="loading" class="spinner-border spinner-border-sm" role="status">
                                     <span class="sr-only">Loading...</span>
                                 </div>
                                 <span v-else>Sign In</span>
                             </button>
+
                         </div>
 
                     </div>
                 </form>
-
-                <p class="mb-1">
-                    <a href="forgot-password.html">I forgot my password</a>
+                
+                <p class="mb-1 mt-2">
+                    <a style="float: right;" href="forgot-password.html">I forgot my password</a>
                 </p>
             </div>
 

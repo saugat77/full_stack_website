@@ -7,13 +7,7 @@ import UpdateProfile from './pages/profile/UpdateProfile.vue';
 import Appointments from './pages/appointments/ListAppointment.vue';
 import AppointmentForm from './pages/appointments/AppointmentForm.vue';
 import Login from './pages/auth/Login.vue';
-import Welcome from './components/frontend/index.vue';
 export default [
-    {
-        path:'/',
-        name: 'welcome',
-        component: Welcome,
-    },
     {
         path:'/login',
         name: 'login',

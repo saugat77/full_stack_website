@@ -16,7 +16,7 @@
     background-size: cover;
     
     /* Set the height to 109 viewport height units */
-    height: 109vh;
+    height: 90vh;
     
     /* Set the width to 100% */
     width: 100%;
@@ -26,6 +26,8 @@
     height: 50px;
     margin: auto;
     background-color: transparent; /* Adjust the color and opacity as needed */
+    position: fixed;
+    display: block;
 }
 .icon{
     width: 400px;
@@ -51,7 +53,7 @@
     margin-right: 20%;
 }
 ul{
-    float: left;
+    float: right;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,6 +63,13 @@ ul li{
     margin-left: 62px;
     margin-top: 10px;
     font-size: 14px;
+}
+ul a{
+    text-decoration: none;
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    transition: 0.4s ease-in-out;
 }
 ul li a{
     text-decoration: none;
@@ -86,4 +95,84 @@ ul li a:hover{
 
 .transparent-button:hover {
     background-color: rgba(48, 67, 218, 0.2); /* Semi-transparent white on hover */
+}
+.container{
+    margin-top: 5%;
+}
+.content{
+    height: auto;
+    color: white;
+    position: absolute;
+}
+.content h2{
+    display: inline-block !important;
+    font-size: 45px;
+}
+.content .par{
+    padding-left: 20px;
+    padding-left: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 1.2px;
+    line-height: 30px;
+    display: block;
+}
+.content h1{
+    font-family: 'Times New Roman';
+    font-size: 50px;
+    padding-left: 20px;
+    margin-top: 9%;
+    letter-spacing: 2px;
+}
+.content .cn{
+    width: 160px;
+    height: 40px;
+    background:yellow;
+    border: none;
+    margin-bottom: 10px;
+    margin-left: 330px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: -15px;
+}
+.content .cn a{
+    text-decoration: none;
+    color: black;
+    transition: .3s ease;
+
+}
+.cn:hover{
+    background-color:white ;
+}
+.content span{
+    color: orange;
+    font-size: 60px;
+}
+#app{
+    float: right;
+    width: 400px;
+    margin-top: 10%;
+}
+#card{
+    border: none; /* Remove the default border */
+    border-radius: 20px; /* Add rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Apply a shadow effect */
+
+}
+/* Apply the background color, border, shadow, and rounded corners to the .card */
+.card-body {
+    background-color: rgba(255,255,255,0.5); /* Set the background color */
+
+}
+
+/* Apply padding to the .card-body */
+.card-body {
+    border-radius: 20px; /* Add rounded corners */
+
+    padding: 20px; /* Add padding for spacing within the card */
+}
+
+/* Style text within the .card-body, if needed */
+.card-body p {
+    color: black; /* Set text color */
 }

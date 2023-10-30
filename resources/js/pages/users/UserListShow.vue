@@ -25,7 +25,7 @@ const toastr = useToastr();
         <th scope="row">{{ index + 1 }}</th>
         <td>{{ user.name }}</td>
         <td>{{ user.email }}</td>
-        <td>{{ moment(user.created_at).format('YYYY-MM-DD h:m:s ') }}</td>
+        <td>{{ moment(user.created_at).format('YYYY-MM-DD hh:mm:ss A') }}</td>
         <td >
           <p v-for="role in user.roles">{{ role.name }}</p>
         </td>
