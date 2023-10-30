@@ -38,13 +38,16 @@
                     <h2>
                         Kantipur Overseas Pvt. Ltd.
                     </h2>
-                    <p class="par">“We have ardently striven and worked diligently to comprehensively transform the 
-                        well-established and conventional hiring and personnel selection services, aiming to revolutionize 
-                        and adapt in response to the constantly evolving and dynamic global demands, prerequisites, and 
-                        criteria set forth by corporations, businesses, and enterprises across the globe. Our relentless 
+                    <p class="par">“We have ardently striven and worked diligently to comprehensively transform the
+                        well-established and conventional hiring and personnel selection services, aiming to
+                        revolutionize
+                        and adapt in response to the constantly evolving and dynamic global demands, prerequisites, and
+                        criteria set forth by corporations, businesses, and enterprises across the globe. Our relentless
                         efforts have led us to confront and deal with these shifting needs
-                         and requirements by providing universal and international staffing solutions and support on a global scale,
-                          ensuring that our offerings are tailored to the specific and varied necessities of organizations in every corner of the world.”
+                        and requirements by providing universal and international staffing solutions and support on a
+                        global scale,
+                        ensuring that our offerings are tailored to the specific and varied necessities of organizations
+                        in every corner of the world.”
                     </p>
                     <button class="cn"><a href="#">Read More</a></button>
                 </div>
@@ -52,6 +55,67 @@
                     <div id="app" class="wrapper">
                         <Login />
 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <h1 class="colorful-heading d-flex justify-content-center">Message from Chairman</h1>
+        <div class="row">
+            <div class="col-lg-6">
+                <p class="h5">
+                    <b>Kantipur Overseas Services Pvt. Ltd </b> was envisioned, founded and administered for sustainable
+                    growth through a relentless effort by providing capable manpower services to business organizations
+                    all over the world. We have a management system with a highly capable team of professionals and have
+                    gained consistent stability and growth of human resources despite the crisis in recent years.
+
+                    We are an employment/recruitment company in Kathmandu, Nepal driven towords providing manpower to
+                    every job category in Asia, the Middle East and Europe.
+            </div>
+            <div class="col-lg-6">
+                <img src="{{ asset('assets/images/lil-sir.jpg') }}" class="img-fluid" alt="Description">
+            </div>
+            <div class="mt-3 company_overview">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-header">
+                               <h2>Our Vision</h2> 
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional
+                                    content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-header">
+                               <h2>Company Overview</h2> 
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional
+                                    content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-header">
+                               <h2>Objectives</h2> 
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional
+                                    content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

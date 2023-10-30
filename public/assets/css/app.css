@@ -176,3 +176,10 @@ ul li a:hover{
 .card-body p {
     color: black; /* Set text color */
 }
+.colorful-heading {
+    background-color: #ff5733; /* Choose your desired background color */
+    color: white; /* Text color on the background */
+    padding: 10px; /* Adjust the padding for spacing */
+    display: inline-block; /* To wrap the background around the text */
+    margin-top: 3px;
+}
