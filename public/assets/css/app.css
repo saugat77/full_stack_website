@@ -28,11 +28,44 @@
 }
 .navbar{
     width: 100%;
-    height: 50px;
+    height: 8%;
     margin: auto;
     background-color: transparent; /* Adjust the color and opacity as needed */
     display: block;
+    
 }
+@media only screen and (max-width: 1124px){
+    /* For mobile phones: */
+    .menu ul li a{
+     display: none;     
+    }
+    .main .icon .logo{
+       margin-top: -10px !important;
+    }
+    .container h2{
+        margin-top: 3%;
+        font-weight: 400;
+        font-size: 30px;
+    }
+    .container p{
+        font-size: 15px;
+    }
+    .cn{
+        margin-top: -5% !important;
+    }
+    .cn a{
+        font-size: 20px;
+        width: 20px;
+        size:10px;
+    }
+    .navbar, .main {
+      width: 100%;
+    }
+    #app{
+        display: none;
+    }
+  }
+
 .icon{
     width: 400px;
     float: left;
@@ -223,4 +256,5 @@ ul li {
   footer .container .row{
     text-align: left;
   }
+ 
 
