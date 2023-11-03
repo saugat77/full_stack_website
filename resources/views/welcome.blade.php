@@ -265,307 +265,69 @@
             </div>
         </div>
     </div>
-    <footer id="desktop-footer mobile-footer" class=" md:block font-poppins" style="background-color: #009345">
-        <section class="border-b">
-            <div class="container">
-                <div class="py-2 flex flex-col md:flex-row justify-between">
-    
-                    <h6 class="items-center hidden mb-0 font-normal text-white md:flex font-poppins">Get connected with us
-                        on social
-                        networks:
-                    </h6>
-    
-                    <div id="social" class="flex justify-between ">
-                        <div class="px-2">
-                            <a href="" target="_blank"
-                                class="text-xl text-white no-underline align-items-center">
-                                <i class="fa-brands fa-facebook-f icon2"></i>
-                            </a>
-                        </div>
-                        <div class="px-2">
-                            <a href="" target="_blank"
-                                class="text-xl text-white no-underline align-items-center">
-                                <i class="fa-brands fa-twitter icon2"></i>
-                            </a>
-                        </div>
-                        <div class="px-2">
-                            <a href="" target="_blank"
-                                class="text-xl text-white no-underline align-items-center">
-                                <i class="fa-brands fa-youtube icon2"></i>
-                            </a>
-                        </div>
-                        <div class="px-2">
-                            <a href="" target="_blank"
-                                class="text-xl text-white no-underline align-items-center">
-                                <i class="fa-brands fa-tiktok icon2"></i>
-                            </a>
-                        </div>
-                        <div class="px-2">
-                            <a href="" target="_blank"
-                                class="text-xl text-white no-underline align-items-center">
-                                <i class="fa-brands fa-whatsapp icon2"></i>
-                            </a>
-                        </div>
-                        <div class="px-2">
-                            <a href="" target="_blank"
-                                class="text-xl text-white no-underline align-items-center">
-                                <i class="fa-brands fa-instagram icon2"></i>
-                            </a>
-                        </div>
+    <footer style="padding-top:0.1%; background-color: #deded5;">
+        <div class="container">
+            <div class="row ">
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <h5 class="mb-3" style="letter-spacing: 2px; color: #818963;">Kantipur Overseas Services Pvt Ltd.</h5>
+                    <p>
+                        P.o Box : 12418, Samakushi, Kathmandu, Nepal <br>
+
+                        Tel : 01-4960615 <br>
+                        
+                        Fax : +977-01-4360616 <br>
+                        
+                        Email : <a href="mailto: kantipurovs@gmail.com">kantipurovs@gmail.com</a> <br>
+                        
+                        Web : www.kantipuroverseas.com.np <br>
+                    </p>
+                    <h5 class="mb-1" style="letter-spacing: 2px; color: #818963;">Opening hours</h5>
+                    <div>       
+                                <label>Sun - Fri:</label> 
+                                <label class="ml-4">10am - 5pm</label>
+                       
                     </div>
                 </div>
-            </div>
-        </section>
-    
-        <section class="border-b">
-            <div class="container">
-                <div class="row py-8 ">
-                    <div class="col-lg-2 col-md-12 ">
-                        <div class="text-center">
-                            <div class="p-2">
-                                <a class="w-fit " href="/">
-                                    <img class="h-20  mx-auto bg-white rounded-full" src="">
-                                    {{-- @if (settings()->get('site_logo'))
-                                        <img class="h-20  mx-auto bg-white rounded-full"
-                                            src="{{ asset('storage/'.settings()->get('site_logo')) }}">
-                                    @endif --}}
-                                </a>
-                            </div>
-    
-                            <p class="text-xs font-normal text-justify text-white font-poppins md:text-center">
-                                {{-- {{ settings()->get('about_us_short_text') }} --}}
-                            </p>
-                        </div>
-                    </div>
-    
-    
-                    <div class="col-lg-2 col-md-6  footerlist1">
-    
-    
-                        <h5 class=" ps-5 text-sm font-medium text-white uppercase font-poppins">Organization</h5>
-    
-                        <ul>
-    
-                            <p>
-                                <li> <a href="{{ url('/') }}"
-                                        class=" text-xs ps-5 font-normal text-white font-poppins">Home</a></li>
-                            </p>
-    
-    
-                            <p>
-                                <li> <a href=""
-                                        class=" text-xs font-normal text-white  ps-5  font-poppins">About</a></li>
-                            </p>
-    
-    
-                            <p>
-                                <li><a href=""
-                                        class=" text-xs font-normal text-white  ps-5  font-poppins">Newsletters</a></li>
-                            </p>
-    
-                            <p>
-                                <li><a href=""
-                                        class=" text-xs font-normal text-white  ps-5  font-poppins">Publications</a></li>
-                            </p>
-    
-                            <p>
-                                <li><a href=""
-                                        class=" text-xs font-normal text-white  ps-5  font-poppins">Testimonials</a></li>
-                            </p>
-    
-                            <p>
-                                <li><a href=""
-                                        class=" text-xs font-normal text-white  ps-5  font-poppins">Global Network</a></li>
-                            </p>
-                        </ul>
-    
-                    </div>
-    
-    
-                    <div class="col-lg-2 col-md-6 footerlist2">
-    
-                        <h5 class=" text-sm font-medium text-white uppercase font-poppins">Useful links</h5>
-                        <ul>
-                            <p>
-                                <li>
-                                    <a href=""
-                                        class=" text-xs font-normal text-white font-poppins">FAQ</a>
-                                </li>
-                            </p>
-    
-                            <p>
-                                <li><a href=""
-                                        class=" text-xs font-normal text-white font-poppins">News</a>
-                                </li>
-                            </p>
-    
-                            <p>
-                                <li><a href=""
-                                        class="text-xs font-normal text-white font-poppins">Projects</a></li>
-                            </p>
-    
-                            <p>
-                                <li><a href=""
-                                        class=" text-xs font-normal text-white font-poppins">Archive</a></li>
-                            </p>
-    
-                            <p>
-                                <li><a href=""
-                                        class=" text-xs font-normal text-white font-poppins">Activities</a></li>
-                            </p>
-    
-                            <p>
-                                <li><a href=""
-                                        class=" text-xs font-normal text-white font-poppins">Download Apps</a></li>
-                            </p>
-                        </ul>
-                    </div>
-    
-                    <div class="col-lg-2 col-md-6 footerlist">
-    
-                        <h5 class=" text-sm font-medium text-white uppercase font-poppins">Related</h5>
-                        <ul>
-                            <p>
-                                <li><a href=""
-                                        class=" text-xs font-normal text-white font-poppins">Become a Member</a>
-                            </p>
-                            </li>
-    
-                            <p>
-                                <li><a href=""
-                                        class=" text-xs font-normal text-white font-poppins">Become a Volunteer</a>
-                            </p>
-                            </li>
-    
-                            <p>
-                                <li><a href=""
-                                        class=" text-xs font-normal text-white font-poppins">Executive committee</a>
-                            </p>
-                            </li>
-    
-                            <p>
-                                <li><a href=""
-                                        class=" text-xs font-normal text-white font-poppins">Board of Directors</a></li>
-                            </p>
-    
-                            <p>
-                                <li><a href=""
-                                        class=" text-xs font-normal text-white font-poppins">Advisory </a></li>
-                            </p>
-                            <p>
-                                <li><a href=""
-                                        class=" text-xs font-normal text-white font-poppins">Be a Registered Priest With
-                                        Us</a></li>
-                            </p>
-                            <p>
-                                <li>
-                                    <a href=""
-                                        class="  text-xs font-normal text-white  ffter font-poppins">ॐ Center Founding
-                                        Members Us</a>
-                                </li>
-                            </p>
-    
-                            <p>
-                                <li>
-                                    <a href=""
-                                        class=" text-xs font-normal text-white font-poppins"> ॐ Center Live Arati Darshan
-                                    </a>
-                                </li>
-                            </p>
-                        </ul>
-    
-                    </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-3" style="letter-spacing: 2px; color: #818963;">Countries of Service</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-1">
+                            <a href="#!" style="color: #4f4f4f;">Saudi Arabia</a>
+                        </li>
+                        <li class="mb-1">
+                            <a href="#!" style="color: #4f4f4f;">Baharain</a>
+                        </li>
+                        <li class="mb-1">
+                            <a href="#!" style="color: #4f4f4f;">Oman</a>
+                        </li>
+                        <li>
+                            <a href="#!" style="color: #4f4f4f;">UAE</a>
+                        </li>
+                        <li>
+                            <a href="#!" style="color: #4f4f4f;">Malaysia</a>
+                        </li>
+                        <li>
+                            <a href="#!" style="color: #4f4f4f;">Kuwait</a>
+                        </li>
+                        <li>
+                            <a href="#!" style="color: #4f4f4f;">Qatar</a>
+                        </li>
+                    </ul>
                 </div>
-    
-                <div class="p-6 lg:hidden">
-                    <div id="contact" class="py-4 ">
-                        <h5 class="mb-3 text-sm font-medium text-white uppercase font-poppins">Contact</h5>
-    
-                        <form action="#" method="POST">
-                            @csrf
-                            <div>
-                                <span class="text-sm font-semibold tracking-wide text-white uppercase">Full Name <span
-                                        style="color:darkred">*</span></span>
-                                <input type="text" name="name" value="{{ old('name') }}"
-                                    class="w-full p-2 border text-red focus:outline-none focus:shadow-outline "
-                                    placeholder="Full Name">
-                            </div>
-                            @error('name')
-                                <h6 class="font-poppins " style="color:darkred">{{ $message }}</h6>
-                            @enderror
-                            <div class="mt-2">
-                                <span class="text-sm font-semibold tracking-wide text-white uppercase">Email <span
-                                        style="color:darkred">*</span></span>
-                                <input type="text" name="footer_email" value="{{ old('footer_email') }}"
-                                    class="w-full p-2 text-gray-900 border focus:outline-none focus:shadow-outline ">
-                            </div>
-                            @error('footer_email')
-                                <h6 class="font-poppins " style="color:darkred">{{ $message }}</h6>
-                            @enderror
-                            <div class="mt-2">
-                                <span class="text-sm font-semibold tracking-wide text-white uppercase ">Mobile <span
-                                        style="color:darkred">*</span></span>
-                                <input type="text" name="mobile" value="{{ old('mobile') }}"
-                                    class="w-full p-2 text-gray-900 border phone focus:outline-none focus:shadow-outline "
-                                    placeholder="(___)___-____" data-slots="_">
-                            </div>
-                            @error('mobile')
-                                <h6 class="font-poppins " style="color:darkred">{{ $message }}</h6>
-                            @enderror
-                            <script>
-                                $(document).ready(function() {
-                                    $('.phone').inputmask('(999)-999-9999');
-                                    $('.mobile').inputmask('(999)-999-9999');
-                                });
-                            </script>
-                            <div class="mt-2">
-                                <span class="text-sm font-semibold tracking-wide text-white uppercase">Message <span
-                                        style="color:darkred">*</span></span>
-                                <textarea name="message" class="w-full h-20 p-2 text-gray-900 border focus:outline-none focus:shadow-outline "></textarea>
-                            </div>
-                            @error('message')
-                                <h6 class="font-poppins " style="color:darkred">{{ $message }}</h6>
-                            @enderror
-                            <div class="mt-2">
-                                <button
-                                    class="flex items-center justify-center w-full p-3 text-sm font-bold tracking-wide text-gray-100 uppercase bg-blue-500 focus:outline-none focus:shadow-outline hover:bg-blue-600"
-                                    wire:loading.attr="disabled">
-                                    <svg wire:loading="" wire:target="send"
-                                        class="w-2 h-2 mr-3 -ml-1 text-white animate-spin"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <circle class="opacity-25" cx="10" cy="10" r="10"
-                                            stroke="currentColor" stroke-width="4"></circle>
-                                        <path class="opacity-75" fill="currentColor"
-                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                                        </path>
-                                    </svg>
-                                    Send Message
-                                </button>
-    
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </footer>
-    <footer class="hidden md:block" style="background-color: #009345">
-        <section>
-            <div class="container">
-                <div class="m-auto flex items-center py-4">
-                    <div>
-                        <p class="text-sm text-white font-poppins mb-0 font-normal">Copyright © 2016 Global Bhutanese Hindu Organization. All Rights Reserved.</p>
-                    </div>
-                    <div class="ml-auto flex">
-                        <p class="flex gap-2 mr-2 text-sm text-white font-poppins mb-0 font-normal">
-                            {{-- {!! settings('footer_right_text') !!} --}}
-                        </p>
-                    </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-3" style="letter-spacing: 2px; color: #818963;">Location</h5>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.4746063060866!2d85.31356707505167!3d27.73350372433808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1920d8b96c3f%3A0xe9f8d70e3da15e83!2sKantipur%20Overseas%20Services%20P.%20Ltd.!5e0!3m2!1sen!2snp!4v1698869958644!5m2!1sen!2snp" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>
-    </section>
-</footer>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2023 Copyright:
+            <a class="text-dark " target="_blank" href="https://kantipuroverseas.com.np/">Kantipur Overseas Pvt. Ltd.</a>
+            <div class="float-right"> Developed By: <a target="_blank" href="https://github.com/saugat77">Saugat</a></div>
+        </div>
+        <!-- Copyright -->
+    </footer>
+
 </body>
 
 </html>

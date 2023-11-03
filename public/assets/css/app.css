@@ -56,34 +56,38 @@
     height: 70px;
     margin-right: 20%;
 }
-ul{
+.menu ul{
     float: right;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-ul li{
+.menu ul li{
     list-style: none;
     margin-left: 62px;
     margin-top: 10px;
     font-size: 14px;
 }
-ul a{
+.menu ul a{
     text-decoration: none;
     color: black;
     font-family: sans-serif;
     font-weight: bold;
     transition: 0.4s ease-in-out;
 }
-ul li a{
+.menu ul li a{
     text-decoration: none;
     color: black;
     font-family: sans-serif;
     font-weight: bold;
     transition: 0.4s ease-in-out;
 }
-ul li a:hover{
+.menu ul li a:hover{
     color: #98AFC7;
+}
+ul li {
+    list-style: none;
+
 }
 
 .transparent-button {
@@ -213,120 +217,10 @@ ul li a:hover{
   .manpower_availability_div .col .card img:hover {
     transform: scale(1.1);
   }
-   /*  FOR FOOTER */
-
-  /* .footer ul li a{
-    padding-left: 15px !important;
-   
+  /* footer{
+   padding-top: 5px;
   } */
-  .footer ul li {
-    padding-bottom: 10px !important;
-  }
-  .ffter{
-    padding-right: 16px !important ;
+  footer .container .row{
+    text-align: left;
   }
 
-  /* FOR FOOTER LIST */
-
-  /* .footerlist ul li  a{
-    color:white;
-   } */
-
-  .footerlist  ul  li a:hover{
-    color:#ff7700 !important;
-  }
-  .footerlist2  ul  li a:hover{
-    color:#ff7700 !important;
-  }
-   /* FOR SOCIAL ICON ANIMATION */
-   .icon2{
-    font-size: 17px;
-    transition: 0.7s;
-    
-   }
-   .footerlist1  ul  li a:hover{
-    color:#ff7700 !important;
-  }
-   /* FOR SOCIAL ICON ANIMATION */
-   .icon2{
-    font-size: 17px;
-    transition: 0.7s;
-    
-   }
-   .icon2:hover{
-    transform: rotate(360deg) translateZ(0);
-   }
-   
-
-   .btn1{
-    background-color: rgb(128, 214, 128);
-    margin: 8px 0px;
-    border-radius: 5px;
-    padding: 7px 15px;
-    color:white;
-    font-family: poppins;
-   }
-   .btn1:hover{
-    background-color: rgb(11, 155, 11);
-   }
-/* FOOTER RESPONSIVE  */
-
-@media(max-width:768px){
-    .footerlist1{
-        padding-left: -70px !important;
-        margin-left: 0px;
-    }
-    .footerlist1 h5{
-          padding-left: -30px !important;
-    }
-    .footerlist1 ul li a{
-        padding-left: -30px !important;
-    }
-
-
-    /* .footerlist2{
-        padding-left: -130px !important;
-        margin-left: 50px;
-    }
-    .footerlist2 h5{
-          padding-left: -30px !important;
-    }
-    .footerlist2 ul li a{
-        padding-left: -30px !important;
-    } */
-}
-
-
-
-@media(max-width:576px){
-    .footerlist2{
-        /* padding-left: -130px !important; */
-        margin-left: 0px;
-    } 
-}
-
-
-@media(max-width:912px){
-    .footerlist1{
-        padding-left: 0px !important;
-        padding-right: 20px !important;
-    } 
-    .footerlist1 ul li{
-        margin-left:-40px;
-    }
-    .footerlist1 h5{
-        margin-left:-40px;
-    }
-}
-/* @media(max-width:768px){
-    .footerlist2{
-        padding-left: 0px !important;
-        padding-right: 20px !important;
-    } 
-    .footerlist2 ul li{
-        margin-left:-40px;
-    }
-    .footerlist2 h5{
-        margin-left:-40px;
-    }
-} */
