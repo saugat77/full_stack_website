@@ -14,7 +14,7 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="icon" href="{{ asset('assets/images/kos-fav.png') }}" sizes="16x16">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -49,6 +49,27 @@
                     <li><a href="#">Clients</a></li>
                 </ul>
             </div>
+            <a class="float-right" id="sidebar" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"><i class="fa fa-bars fa-2x"></i></a>
+            <div class="sidebar-toggle">
+                <div class="offcanvas offcanvas-start" tabindex="2" id="offcanvasTop"
+                    aria-labelledby="offcanvasTopLabel">
+                    <div class="offcanvas-header">
+                        <h5 id="offcanvasTopLabel">Offcanvas top</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Services</a></li>
+                            <li><a href="#">Clients</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="container">
             <div class="row">
@@ -68,7 +89,7 @@
                         ensuring that our offerings are tailored to the specific and varied necessities of organizations
                         in every corner of the world.”
                     </p>
-                    <button class="cn"><a href="#">Read More</a></button>
+                    <button class="cn mt-1"><a href="#">Read More</a></button>
                 </div>
                 <div class="col-sm">
                     <div id="app" class="wrapper">
@@ -270,23 +291,24 @@
         <div class="container">
             <div class="row ">
                 <div class="col-lg-6 col-md-12 mb-4">
-                    <h5 class="mb-3" style="letter-spacing: 2px; color: #818963;">Kantipur Overseas Services Pvt Ltd.</h5>
+                    <h5 class="mb-3" style="letter-spacing: 2px; color: #818963;">Kantipur Overseas Services Pvt
+                        Ltd.</h5>
                     <p>
                         P.o Box : 12418, Samakushi, Kathmandu, Nepal <br>
 
                         Tel : 01-4960615 <br>
-                        
+
                         Fax : +977-01-4360616 <br>
-                        
+
                         Email : <a href="mailto: kantipurovs@gmail.com">kantipurovs@gmail.com</a> <br>
-                        
+
                         Web : www.kantipuroverseas.com.np <br>
                     </p>
                     <h5 class="mb-1" style="letter-spacing: 2px; color: #818963;">Opening hours</h5>
-                    <div>       
-                                <label>Sun - Fri:</label> 
-                                <label class="ml-4">10am - 5pm</label>
-                       
+                    <div>
+                        <label>Sun - Fri:</label>
+                        <label class="ml-4">10am - 5pm</label>
+
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
@@ -317,14 +339,19 @@
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
                     <h5 class="mb-3" style="letter-spacing: 2px; color: #818963;">Location</h5>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.4746063060866!2d85.31356707505167!3d27.73350372433808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1920d8b96c3f%3A0xe9f8d70e3da15e83!2sKantipur%20Overseas%20Services%20P.%20Ltd.!5e0!3m2!1sen!2snp!4v1698869958644!5m2!1sen!2snp" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.4746063060866!2d85.31356707505167!3d27.73350372433808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1920d8b96c3f%3A0xe9f8d70e3da15e83!2sKantipur%20Overseas%20Services%20P.%20Ltd.!5e0!3m2!1sen!2snp!4v1698869958644!5m2!1sen!2snp"
+                        width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             © 2023 Copyright:
-            <a class="text-dark " target="_blank" href="https://kantipuroverseas.com.np/">Kantipur Overseas Pvt. Ltd.</a>
-            <div class="float-right"> Developed By: <a target="_blank" href="https://github.com/saugat77">Saugat</a></div>
+            <a class="text-dark " target="_blank" href="https://kantipuroverseas.com.np/">Kantipur Overseas Pvt.
+                Ltd.</a>
+            <div class="float-right"> Developed By: <a target="_blank" href="https://github.com/saugat77">Saugat</a>
+            </div>
         </div>
         <!-- Copyright -->
     </footer>
