@@ -25,7 +25,6 @@ Route::get('/', function () {
 Route::get('/company_overview', function(){
     return view('about-us.company-overview');
 })->name('company.overview');
-
 Route::middleware('auth')->group(function(){
 
 //users

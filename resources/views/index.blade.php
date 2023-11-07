@@ -30,6 +30,9 @@
             </div>
         </div>
     </div>
+    <div class="demand-section">
+        @livewire('demand-component')
+    </div>
     <div class="container mt-5" id="chairman">
         <h1 class="colorful-heading d-flex justify-content-center">Message from Chairman</h1>
         <div class="row">
