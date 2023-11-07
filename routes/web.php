@@ -19,8 +19,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+Route::get('/company_overview', function(){
+    return view('about-us.company-overview');
+})->name('company.overview');
 
 Route::middleware('auth')->group(function(){
 

@@ -10,6 +10,11 @@
 </head>
 
 <body class="hold-transition login-page">
+    <style>
+        #app{
+            margin-top: 10%;
+        }
+    </style>
     <div id="app">
         <router-view>
             {{-- <Login /> --}}

@@ -5,50 +5,132 @@
 .main {
     /* Set the background image */
     background-image: url('/assets/images/bg.jpg');
-    
+
     /* Set the linear gradient overlay */
     background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.5) 50%), url('/assets/images/bg.jpg');
-    
+
     /* Center the background image */
     background-position: center;
-    
+
     /* Scale the background image to cover the entire element */
     background-size: cover;
-    
+
     /* Set the height to 109 viewport height units */
     height: 100vh;
-    
+
     /* Set the width to 100% */
     width: 100%;
 }
 .company_overview{
     background-color: aquamarine;
     padding: 5%;
-    margin: 5%;
+    margin: 5% ;
 }
+
 .navbar{
     width: 100%;
     height: 8%;
     margin: auto;
     background-color: transparent; /* Adjust the color and opacity as needed */
     display: block;
-    
+
 }
-#sidebar{
+.login {
     display: none;
 }
-@media (max-width: 600px){
-    .container .par{
-        font-size: 10px;
-        overflow: auto;
-        font-weight: 200;
+@media (min-width:480px){
+    #sidebar{
+        display: block;
+        margin-left: 40%;
     }
 }
+    #sidebar{
+        display: none;
+        /* margin-left: -30px; */
+        /* margin-top: 20%; */
+    }
+
+#sidebar-closebtn{
+    margin-top: 10px;
+    margin-right: 10px;
+    float: right;
+}
+
+.minimized-size-navbar{
+    text-align: center;
+    display: block;
+}
+.minimized-size-navbar ul{
+    margin-top: -10% !important;
+}
+.minimized-size-navbar ul li{
+    margin-top: 20px;
+}
+.minimized-size-navbar ul li a{
+    color: black;
+    font-weight: 600;
+}
+
+/* Style the dropdown container */
+.dropdown {
+    position: block;
+    /* display: inline-block; */
+  }
+
+  /* Style the dropdown links */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  /* Style the dropdown links (hovered) */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  /* Style the individual dropdown links */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  /* Style the individual dropdown links (hovered) */
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+
+
 @media (max-width: 990px) {
     /* Select the column with the class "col-sm" and change its width to 100% */
+    .minimized-size-navbar ul a{
+        text-decoration: none;
+        color: black;
+        font-family: sans-serif;
+        font-weight: bold;
+        transition: 0.4s ease-in-out;
+    }
+    .minimized-size-navbar ul li a{
+        text-decoration: none;
+        color: black;
+        font-family: sans-serif;
+        font-weight: bold;
+        transition: 0.4s ease-in-out;
+    }
+    .minimized-size-navbar ul li a:hover{
+        color: #98AFC7;
+    }
     .container .col-sm {
         width: 100%;
-        
+    }
+    .login{
+        display: block;
+
     }
     #sidebar{
         display: block;
@@ -69,13 +151,13 @@
         display: none;
     }
     .menu ul li a{
-        display: none;    
+        display: none;
        }
 }
 @media only screen and (max-width: 1124px){
     /* For mobile phones: */
     .menu ul li a{
-        float: right; 
+        float: right;
         margin-top: -13vh;
         margin-left: 1vw;
         margin-right: 2vw;
@@ -109,7 +191,7 @@
     .navbar, .main {
       width: 100%;
     }
-   
+
   }
 
 .icon{
@@ -194,14 +276,17 @@ ul li {
 .content h2{
     display: inline-block !important;
     font-size: 45px;
+    padding-top: 25px;
+
 }
 .content .par{
     padding-left: 20px;
-    padding-left: 25px;
+    padding-top: 25px;
     font-family: Arial, Helvetica, sans-serif;
-    letter-spacing: 1.2px;
+    letter-spacing: 1.5px;
     line-height: 30px;
     display: block;
+    font-size: large;
 }
 .content h1{
     font-family: 'Times New Roman';
@@ -302,5 +387,5 @@ ul li {
   footer .container .row{
     text-align: left;
   }
- 
+
 
