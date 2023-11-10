@@ -30,9 +30,9 @@
             </div>
         </div>
     </div>
-    <div class="demand-section">
-        @livewire('demand-component')
-    </div>
+
+     @livewire('demand-component')
+<section>
     <div class="container mt-5" id="chairman">
         <h1 class="colorful-heading d-flex justify-content-center">Message from Chairman</h1>
         <div class="row">
@@ -52,6 +52,8 @@
 
         </div>
     </div>
+</section>
+<section>
     <div class="mt-3 company_overview" id="company-vision">
         <div class="row">
             <div class="col-sm-4">
@@ -108,6 +110,8 @@
             </div>
         </div>
     </div>
+</section>
+<section>
     <div class="manpower_availability_div ">
         <h1 class="manpower_availability d-flex justify-content-center" style="border-radius: 10px;">Manpower
             Availability</h1>
@@ -218,4 +222,5 @@
             </div>
         </div>
     </div>
+</section>
 @endsection
