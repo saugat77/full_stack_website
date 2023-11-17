@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\DemandController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\TextRecognizationController;
 use App\Models\Status;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,10 @@ Route::get('/', function () {
 Route::get('/company_overview', function(){
     return view('about-us.company-overview');
 })->name('company.overview');
+// Route::get('/our-teams', function(){
+//     return view('')
+// });
+Route::get('/text-recognization',[TextRecognizationController::class,'tesseract_ocr']);
 Route::middleware('auth')->group(function(){
 
 //users

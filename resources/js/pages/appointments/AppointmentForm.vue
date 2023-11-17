@@ -7,6 +7,7 @@ import { Form } from 'vee-validate';
 import flatpickr from "flatpickr";
 import 'flatpickr/dist/themes/light.css';
 
+
 const router = useRouter();
 const route = useRoute();
 const toastr = useToastr();

@@ -28,13 +28,14 @@ const countDemands = () => {
     axios.get('/api/getDemands')
         .then((response) => {
             demands.value = response.data;
-            console.log( demands.value.total)
+            console.log(demands.value.total)
         })
 }
 onMounted(() => {
     getUsers();
     countAppointment();
     countDemands();
+   
 
 })
 </script>
@@ -64,7 +65,8 @@ onMounted(() => {
                         <span class="info-box-icon"><i class="fa fa-box"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Appointments</span>
-                            <span class="info-box-number"><span class="font-weight-normal">Total: {{ appointments.total }} </span>
+                            <span class="info-box-number"><span class="font-weight-normal">Total: {{ appointments.total }}
+                                </span>
                             </span>
                         </div>
                     </div>
@@ -85,7 +87,7 @@ onMounted(() => {
                         <span class="info-box-icon"><i class="fa fa-cart-arrow-down"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Demands</span>
-                            <span class="info-box-number">Total: {{  demands.total }}</span>
+                            <span class="info-box-number">Total: {{ demands.total }}</span>
                         </div>
                     </div>
                 </div>
@@ -106,6 +108,6 @@ onMounted(() => {
 
         </div>
         <ListAppoinment />
-       <ListDemands />
+        <ListDemands />
     </div>
 </template>
