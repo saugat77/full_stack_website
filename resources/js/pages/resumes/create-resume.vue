@@ -3,19 +3,13 @@ import axios from 'axios';
 import { reactive, onMounted, ref } from 'vue';
 import Tesseract from 'tesseract.js';
 
-const form = reactive({
-    fullName: '',
-    fatherName: '',
-    Dob: '',
-    address: '',
-    address2: '',
-    passportNumber: '',
-});
-
-
-const performOCR = async () => {
+const zoomed = ref(false);
+const file = ref();
+const pictureUrl = ref(null);
+const image_magnifier = ref(null);
+const performOCR = async (imageUrl) => {
     try {
-        const englishText = await Tesseract.recognize('/assets/images/img-3.jpg', 'eng', {
+        const englishText = await Tesseract.recognize(imageUrl, 'eng', {
         });
 
         let fullName = '';
@@ -98,11 +92,140 @@ const performOCR = async () => {
         console.error('Error performing OCR:', error);
     }
 };
+const imageUpload = (event) => {
+    image_magnifier.value = document.getElementById('image_magnifier');
+    // Hide the image magnifier initially
+    if (image_magnifier.value) {
+        image_magnifier.value.style.display = 'block';
+    }
+    file.value = event.target.files[0];
+    pictureUrl.value = URL.createObjectURL(file.value);
+
+    // Wait for the image to be loaded before performing OCR
+    const img = new Image();
+    img.onload = () => {
+        performOCR(pictureUrl.value);
+    };
+    img.src = pictureUrl.value;
+    console.log(pictureUrl.value);
+    // Set the reference to the image magnifier element
+
+};
+
+
+const form = reactive({
+    fullName: '',
+    fatherName: '',
+    Dob: '',
+    address: '',
+    address2: '',
+    passportNumber: '',
+});
+
+
+
 
 onMounted(() => {
-    performOCR();
+
 });
+const zoomLevel = ref(1); // Initial zoom level
+
+const zoomIn = () => {
+    zoomLevel.value += 0.1; // Increase zoom level on click
+};
+
+// Zoom functionality for the image
+const handleZoom = (event) => {
+    const magnifyingArea = document.getElementById('magnifying_area');
+    const magnifyingImg = document.getElementById('magnifying_img');
+
+    const magnifyFactor = 0.1; // Adjust the magnification sensitivity
+
+    const offsetX = event.offsetX;
+    const offsetY = event.offsetY;
+
+    const percentageX = (offsetX / magnifyingArea.offsetWidth) * 100;
+    const percentageY = (offsetY / magnifyingArea.offsetHeight) * 100;
+
+    magnifyingImg.style.transformOrigin = `${percentageX}% ${percentageY}%`;
+    magnifyingImg.style.transform = `scale(${zoomLevel.value})`;
+};
+
+const resetZoom = () => {
+    zoomLevel.value = 1; // Reset zoom level on mouse leave
+};
+const zoomOut = () => {
+    zoomLevel.value = 1; // Reset zoom level on mouse leave
+
+}
 </script>
+<style>
+*,
+*:after,
+*:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.zoomed #magnifying_img {
+    max-width: none;
+    max-height: none;
+}
+
+.zoomed #magnifying_area {
+    overflow: hidden;
+    /* Hide overflow on zoom */
+}
+
+.zoom-icons {
+    position: relative;
+    width: 40px;
+    /* Adjust width and height as needed */
+    height: 40px;
+    /* Adjust width and height as needed */
+    background-color: #ccc;
+    /* Change the background color as desired */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.zoom-controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+    /* Optional: Add margin bottom to create space */
+}
+
+.zoom-icons i {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.zoom-in-icon,
+.zoom-out-icon {
+    width: 30px;
+    height: 30px;
+    background-color: #ccc;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.zoom-in-icon i,
+.zoom-out-icon i {
+    color: #000;
+    font-size: 16px;
+}
+</style>
 <template >
     <div class="content bg-white m-2">
         <div class="content-header">
@@ -121,57 +244,108 @@ onMounted(() => {
             </div>
         </div>
         <div class="container-fluid">
-            <h1>Upload Pic
-            </h1>
+            <div class="container">
+                <div class="row">
+                    <!-- Column for the form -->
+                    <div class="col-md-6">
+                        <label for="">Upload Image</label>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 custom-file">
+                                <input type="file" class="custom-file-input" @change="imageUpload">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                        </div>
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="">Full Name</label>
+                                    <input v-model="form.fullName" type="text" class="form-control" placeholder="Full Name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="">Father's Name</label>
+                                    <input v-model="form.fatherName" type="text" class="form-control"
+                                        placeholder="Father's Name">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress">Ward </label>
+                                    <input v-model="form.address" type="text" class="form-control" id="inputAddress"
+                                        placeholder="Ward">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress2">District</label>
+                                    <input v-model="form.address2" type="text" class="form-control" placeholder="District">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress">Date of Birth</label>
+                                    <input v-model="form.Dob" type="text" class="form-control" placeholder="Date of Birth">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress2">Passport Number</label>
+                                    <input v-model="form.passportNumber" type="text" class="form-control"
+                                        placeholder="Passport Number">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress2">Issued At</label>
+                                    <input v-model="form.issuedAt" type="text" class="form-control"
+                                        placeholder="Passport Issued Date">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress">Expiry Date</label>
+                                    <input v-model="form.expiredAt" type="text" class="form-control"
+                                        placeholder="Passport Expiry Date">
+                                </div>
 
-            <form>
-                <div class="form-group col-md-6 custom-file">
-                    <input type="file" class="custom-file-input" id="customFile">
-                    <label class="custom-file-label" for="customFile">Choose file</label>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="">Full Name</label>
-                        <input v-model="form.fullName" type="text" class="form-control">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="">Father's Name</label>
-                        <input v-model="form.fatherName" type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputAddress">Address</label>
-                        <input v-model="form.address" type="text" class="form-control" id="inputAddress"
-                            placeholder="1234 Main St">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputAddress2">District</label>
-                        <input v-model="form.address2" type="text" class="form-control"
-                            placeholder="Apartment, studio, or floor">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputAddress">Date of Birth</label>
-                        <input v-model="form.Dob" type="text" class="form-control" placeholder="1234 Main St">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputAddress2">Passport Number</label>
-                        <input v-model="form.passportNumber" type="text" class="form-control" placeholder="Passport Number">
-                    </div>
-                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress2">Worked As</label>
+                                    <input v-model="form.workedAs" type="text" class="form-control"
+                                        placeholder="Where did you work?">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress">Years of Experience</label>
+                                    <input v-model="form.experience" type="number" class="form-control"
+                                        placeholder="How many years did you work there?">
+                                </div>
 
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck">
-                        <label class="form-check-label" for="gridCheck">
-                            Check me out
-                        </label>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputAddress">Worked At</label>
+                                <input v-model="form.WorkedAt" type="number" class="form-control"
+                                    placeholder="Name the company or workplace you were employed at.">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Make CV</button>
+                        </form>
                     </div>
+                    <!-- Column for the image -->
+                    <div class="col-md-6" id="image_magnifier" style="display: none;">
+                        <div class="zoom-controls">
+                            <a class="zoom-icons" @click="zoomIn">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <a class="zoom-icons" @click="zoomOut">
+                                <i class="fa fa-minus"></i>
+                            </a>
+                        </div>
+
+                        <div class="image form-group" id="magnifying_area" @mousemove="handleZoom">
+                            <img id="magnifying_img" class="img"
+                                style="margin-left:20%;padding:10px; width: 80%; height: 80vh;" :src="pictureUrl"
+                                :style="{ transform: `scale(${zoomLevel})` }" :class="{ 'zoomed': zoomLevel > 1 }">
+                        </div>
+                    </div>
+
+
                 </div>
-                <button type="submit" class="btn btn-primary">Sign in</button>
-            </form>
+            </div>
+
+
         </div>
     </div>
 </template>
