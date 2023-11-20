@@ -18,8 +18,8 @@ const toastr = useToastr();
 const userIdwhenDeleteing = ref(null);
 
 const getUsers = (page = 1) => {
-    axios.get(`/api/users?page=${page}`,{
-        params : {
+    axios.get(`/api/users?page=${page}`, {
+        params: {
             query: searchQuery.value
         }
     })
@@ -159,7 +159,7 @@ const deleteUser = () => {
         .then(() => {
             $('#deleteUserModal').modal('hide');
             toastr.success('User deleted successfully!');
-              users.value.data = users.value.data.filter(user => user.id !== userIdwhenDeleteing.value);
+            users.value.data = users.value.data.filter(user => user.id !== userIdwhenDeleteing.value);
         });
 }
 
@@ -199,7 +199,7 @@ onMounted(() => {
                     Add New User
                 </button>
                 <div>
-                    <input type="text" class="form-control" v-model="searchQuery" placeholder="Search...">
+                    <input type="text" class="form-control" v-model="searchQuery" placeholder="Name Search...">
                 </div>
             </div>
         </div>
@@ -285,13 +285,8 @@ onMounted(() => {
                     </tr>
                 </thead>
                 <tbody v-if="users.data.length > 0">
-                    <UserListShow v-for="(user, index) in users.data"
-                        :key="user.id"
-                        :user=user
-                        :index=index
-                        @edit-user="editUser"
-                        @confirm-user-deletion = "confirmUserDeletion"
-                         />
+                    <UserListShow v-for="(user, index) in users.data" :key="user.id" :user=user :index=index
+                        @edit-user="editUser" @confirm-user-deletion="confirmUserDeletion" />
                 </tbody>
                 <tbody v-else>
                     <tr>

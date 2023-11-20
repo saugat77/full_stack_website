@@ -92,6 +92,7 @@ const performOCR = async (imageUrl) => {
         console.error('Error performing OCR:', error);
     }
 };
+
 const imageUpload = (event) => {
     image_magnifier.value = document.getElementById('image_magnifier');
     // Hide the image magnifier initially
@@ -111,6 +112,13 @@ const imageUpload = (event) => {
     // Set the reference to the image magnifier element
 
 };
+const ppImageUrl = ref(null);
+const ppfile = ref();
+const ppSizeImage = (event) => {
+    ppfile.value = event.target.files[0];
+    ppImageUrl.value = URL.createObjectURL(ppfile.value);
+    console.log(ppImageUrl.value);
+}
 
 
 const form = reactive({
@@ -232,12 +240,19 @@ const zoomOut = () => {
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Create CV</h1>
+                        <h1 class="m-0"> <span v-if="editMode">Edit</span>
+                            <span v-else>Create</span>
+                            Appointment
+                        </h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Create Cv</li>
+                            <li class="breadcrumb-item active">
+                                <span v-if="editMode">Edit</span>
+                                <span v-else>Create</span>
+                                <span>Cv</span>
+                            </li>
                         </ol>
                     </div>
                 </div>
@@ -248,13 +263,14 @@ const zoomOut = () => {
                 <div class="row">
                     <!-- Column for the form -->
                     <div class="col-md-6">
-                        <label for="">Upload Image</label>
+                        <label for="">Upload Image For Cv</label>
                         <div class="form-row">
                             <div class="form-group col-md-6 custom-file">
                                 <input type="file" class="custom-file-input" @change="imageUpload">
                                 <label class="custom-file-label" for="customFile">Choose file</label>
                             </div>
                         </div>
+                        <h2 class="mt-3">Detail Of Candidate</h2>
                         <form>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -315,10 +331,17 @@ const zoomOut = () => {
                                 </div>
 
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                                 <label for="inputAddress">Worked At</label>
                                 <input v-model="form.WorkedAt" type="number" class="form-control"
                                     placeholder="Name the company or workplace you were employed at.">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputAddress">Add Image (PP Size Photo)</label>
+                                <br>
+                                <img class="img-circle elevation-2 mb-2"
+                                    style="max-height: 30%; max-width:30%; margin-left:20px;" alt="" :src="ppImageUrl">
+                                <input type="file" class="form-control" @change="ppSizeImage">
                             </div>
                             <button type="submit" class="btn btn-primary">Make CV</button>
                         </form>

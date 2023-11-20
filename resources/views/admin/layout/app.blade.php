@@ -215,6 +215,15 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
+                            <router-link to="/admin/show-resume"
+                                :class="$route.path.startsWith('/admin/show-resume') ? 'active' : ''" class="nav-link">
+                                <i class="nav-icon fas fa-file-alt"></i>
+                                <p>
+                                    Resumes
+                                </p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
                             <router-link to="/admin/appointments"
                                 :class="$route.path.startsWith('/admin/appointment') ? 'active' : ''" class="nav-link">
                                 <i class="nav-icon fas fa-calendar-alt"></i>
@@ -224,7 +233,8 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/admin/users" active-class="active" class="nav-link">
+                            <router-link to="/admin/users" active-class="active" class="nav-link"  
+                            :class="$route.path.startsWith('/admin/users') ? 'active' : ''">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Users
@@ -288,7 +298,7 @@
                 Anything you want
             </div>
 
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
+            <strong>Copyright &copy; 2023 <a href="https://kantipuroverseas.com.np/">Kantipur Overseas Pvt Ltd.</a>.</strong> All rights
             reserved.
         </footer>
     </div>

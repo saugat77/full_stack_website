@@ -8,6 +8,7 @@ import Appointments from './pages/appointments/ListAppointment.vue';
 import AppointmentForm from './pages/appointments/AppointmentForm.vue';
 import Login from './pages/auth/Login.vue';
 import CreateResume from './pages/resumes/create-resume.vue';
+import ShowResume from './pages/resumes/show-resume.vue';
 export default [
     {
         path: '/login',
@@ -68,6 +69,11 @@ export default [
         path: '/admin/create-resume',
         name: 'admin.resume',
         component: CreateResume,
+    },
+    {
+        path: '/admin/show-resume',
+        name: 'admin.resume.show',
+        component: ShowResume,
     }
 
 ]
