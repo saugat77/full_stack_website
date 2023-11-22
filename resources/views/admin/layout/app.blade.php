@@ -24,7 +24,7 @@
                     <a href="index3.html" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <router-link to="/admin/create-resume" class="nav-link">Create CV</router-link>
+                    <router-link to="/admin/resume/create" class="nav-link">Create CV</router-link>
                 </li>
             </ul>
 
@@ -215,8 +215,8 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/admin/show-resume"
-                                :class="$route.path.startsWith('/admin/show-resume') ? 'active' : ''" class="nav-link">
+                            <router-link to="/admin/resume/show"
+                                :class="$route.path.startsWith('/admin/resume/') ? 'active' : ''" class="nav-link">
                                 <i class="nav-icon fas fa-file-alt"></i>
                                 <p>
                                     Resumes

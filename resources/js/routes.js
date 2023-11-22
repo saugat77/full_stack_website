@@ -7,7 +7,8 @@ import UpdateProfile from './pages/profile/UpdateProfile.vue';
 import Appointments from './pages/appointments/ListAppointment.vue';
 import AppointmentForm from './pages/appointments/AppointmentForm.vue';
 import Login from './pages/auth/Login.vue';
-import CreateResume from './pages/resumes/create-resume.vue';
+import CreateResume from './pages/resumes/ResumeForm.vue';
+import EditResume from './pages/resumes/ResumeForm.vue';
 import ShowResume from './pages/resumes/show-resume.vue';
 export default [
     {
@@ -66,12 +67,17 @@ export default [
         component: UpdateProfile,
     },
     {
-        path: '/admin/create-resume',
-        name: 'admin.resume',
+        path: '/admin/resume/create',
+        name: 'admin.resume.add',
         component: CreateResume,
     },
     {
-        path: '/admin/show-resume',
+        path: '/admin/resume/:id/edit',
+        name: 'admin.resume.edit',
+        component: EditResume,
+    },
+    {
+        path: '/admin/resume/show',
         name: 'admin.resume.show',
         component: ShowResume,
     }

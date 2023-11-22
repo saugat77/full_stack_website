@@ -1,3 +1,17 @@
+<script setup>
+import axios from 'axios';
+import { onMounted, ref } from 'vue';
+const resumes = ref([]);
+const getAllCv = () => {
+    axios.get('/api/get-all-cv').then((response) => {
+        resumes.value = response.data;
+        console.log('here', resumes.value);
+    })
+}
+onMounted(() => {
+    getAllCv();
+});
+</script>
 <template>
     <div class="content-header">
         <div class="container-fluid">
@@ -42,23 +56,25 @@
                     <th scope="col">PP Photo</th>
                     <th scope="col">Full name</th>
                     <th scope="col">Father's Name</th>
-                    <th scope="col">Worked At</th>
+                    <th scope="col">Passport Number</th>
+                    <th scope="col">Worked As</th>
                     <th scope="col">Options</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row"></th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <tr v-for="(resume, index) in resumes" :key="resume.id">
+                    <th scope="row"> {{ index + 1 }} </th>
+                    <td>{{ resume.pp_size_image }}</td>
+                    <td> {{ resume.full_name }} </td>
+                    <td> {{ resume.father_name }} </td>
+                    <td> {{ resume.passport_number }} </td>
+                    <td> {{ resume.worked_as }} </td>
                     <td>
-                        <p></p>
-                    </td>
-                    <td>
-                        <!-- <a href="#" @click.prevent="$emit('editUser', user);"><i class="fa fa-edit"></i></a>
-                        <a href="#" @click.prevent="$emit('confirmUserDeletion', user.id)"><i
-                                class="ml-3 text-danger fa fa-trash"></i></a> -->
+                        <router-link :to="'/admin/resume/' + resume.id + '/edit'">
+                            <i class="fa fa-edit mr-2"></i>
+                        </router-link>
+                        <a href="#" @click.prevent="$emit('confirmUserDeletion', resume.id)"><i
+                                class="ml-3 text-danger fa fa-trash"></i></a>
                     </td>
                 </tr>
 

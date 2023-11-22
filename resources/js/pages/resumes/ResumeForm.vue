@@ -2,11 +2,20 @@
 import axios from 'axios';
 import { reactive, onMounted, ref } from 'vue';
 import Tesseract from 'tesseract.js';
+import { useRouter, useRoute } from 'vue-router';
+import { useToastr } from '../../toaster';
 
 const zoomed = ref(false);
 const file = ref();
 const pictureUrl = ref(null);
 const image_magnifier = ref(null);
+const editMode = ref(false);
+const ppImageUrl = ref(null);
+const ppfile = ref();
+const router = useRouter();
+const route = useRoute();
+const toastr = useToastr();
+
 const performOCR = async (imageUrl) => {
     try {
         const englishText = await Tesseract.recognize(imageUrl, 'eng', {
@@ -76,13 +85,12 @@ const performOCR = async (imageUrl) => {
         form.fullName = fullName;
         form.fatherName = fatherName;
         form.Dob = Dob;
-        form.address = address;
-        form.address2 = address2;
+        form.ward = address;
+        form.district = address2;
 
         form.passportNumber = passportNumber;
         // form.description = data.description;
 
-        console.log('Data:', textData);
         console.log('Full Name:', fullName);
         console.log('Father Name:', fatherName);
         console.log('Date of birth:', Dob);
@@ -112,12 +120,48 @@ const imageUpload = (event) => {
     // Set the reference to the image magnifier element
 
 };
-const ppImageUrl = ref(null);
-const ppfile = ref();
+
+const handleSubmit = (value) => {
+    if (editMode.value == true) {
+        axios.put(`/api/resume/${route.params.id}/update`, form)
+            .then((response) => {
+                console.log(response);
+                router.push(`/admin/resume/${route.params.id}/edit`);
+                toastr.success('Resume edited successfully!');
+            });
+    }
+    else {
+
+        axios.post('/api/resume/create', form)
+            .then((response) => {
+                console.log(response);
+                router.push('/admin/resume/create');
+                toastr.success('Resume created successfully!');
+            });
+    }
+}
+
 const ppSizeImage = (event) => {
     ppfile.value = event.target.files[0];
     ppImageUrl.value = URL.createObjectURL(ppfile.value);
     console.log(ppImageUrl.value);
+}
+const getResume = () => {
+    axios.get(`/api/resume/${route.params.id}/edit`).then(({ data }) => {
+        console.log(data);
+
+        form.fullName = data.full_name;
+        form.fatherName = data.father_name;
+        form.Dob = data.dob;
+        form.ward = data.ward;
+        form.district = data.district;
+        form.passportNumber = data.passport_number;
+        form.issuedAt = data.issued_at;
+        form.expiredAt = data.expiry_date;
+        form.workedAs = data.worked_as;
+        form.experience = data.years_of_experience;
+        form.workedAt = data.worked_at;
+    })
 }
 
 
@@ -125,15 +169,24 @@ const form = reactive({
     fullName: '',
     fatherName: '',
     Dob: '',
-    address: '',
-    address2: '',
+    ward: '',
+    district: '',
     passportNumber: '',
+    issuedAt: '',
+    expiredAt: '',
+    workedAs: '',
+    workedAt: '',
+    experience: '',
+    ppImage: ppfile.value,
 });
 
 
 
-
 onMounted(() => {
+    if (route.name === 'admin.resume.edit') {
+        editMode.value = true;
+        getResume();
+    }
 
 });
 const zoomLevel = ref(1); // Initial zoom level
@@ -167,6 +220,145 @@ const zoomOut = () => {
 
 }
 </script>
+   
+<template >
+    <div class="content bg-white m-2">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0"> <span v-if="editMode">Edit</span>
+                            <span v-else>Create</span>
+                            Resume
+                        </h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">
+                                <span v-if="editMode">Edit</span>
+                                <span v-else>Create</span>
+                                <span>Cv</span>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row">
+                    <!-- Column for the form -->
+                    <div class="col-md-6">
+                        <label for="">Upload Image For Cv</label>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 custom-file">
+                                <input type="file" class="custom-file-input" @change="imageUpload">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                        </div>
+                        <h2 class="mt-3">Detail Of Candidate</h2>
+                        <form @submit.prevent="handleSubmit">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="">Full Name</label>
+                                    <input v-model="form.fullName" type="text" class="form-control" placeholder="Full Name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="">Father's Name</label>
+                                    <input v-model="form.fatherName" type="text" class="form-control"
+                                        placeholder="Father's Name">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputward">Ward </label>
+                                    <input v-model="form.ward" type="text" class="form-control" id="inputAddress"
+                                        placeholder="Ward">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress2">District</label>
+                                    <input v-model="form.district" type="text" class="form-control" placeholder="District">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress">Date of Birth</label>
+                                    <input v-model="form.Dob" type="text" class="form-control" placeholder="Date of Birth">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress2">Passport Number</label>
+                                    <input v-model="form.passportNumber" type="text" class="form-control"
+                                        placeholder="Passport Number">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress2">Issued At</label>
+                                    <input v-model="form.issuedAt" type="text" class="form-control"
+                                        placeholder="Passport Issued Date">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress">Expiry Date</label>
+                                    <input v-model="form.expiredAt" type="text" class="form-control"
+                                        placeholder="Passport Expiry Date">
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress2">Worked As</label>
+                                    <input v-model="form.workedAs" type="text" class="form-control"
+                                        placeholder="Where did you work?">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress">Years of Experience</label>
+                                    <input v-model="form.experience" type="number" class="form-control"
+                                        placeholder="How many years did you work there?">
+                                </div>
+
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="inputAddress">Worked At</label>
+                                <input v-model="form.workedAt" type="text" class="form-control"
+                                    placeholder="Name the company or workplace you were employed at.">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputAddress">Add Image (PP Size Photo)</label>
+                                <br>
+                                <img class="img-circle elevation-2 mb-2"
+                                    style="max-height: 30%; max-width:30%; margin-left:20px;" alt="" :src="ppImageUrl">
+                                <input type="file" class="form-control" @change="ppSizeImage">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Make CV</button>
+                        </form>
+                    </div>
+                    <!-- Column for the image -->
+                    <div class="col-md-6" id="image_magnifier" style="display: none;">
+                        <div class="zoom-controls">
+                            <a class="zoom-icons" @click="zoomIn">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <a class="zoom-icons" @click="zoomOut">
+                                <i class="fa fa-minus"></i>
+                            </a>
+                        </div>
+
+                        <div class="image form-group" id="magnifying_area" @mousemove="handleZoom">
+                            <img id="magnifying_img" class="img"
+                                style="margin-left:20%;padding:10px; width: 80%; height: 80vh;" :src="pictureUrl"
+                                :style="{ transform: `scale(${zoomLevel})` }" :class="{ 'zoomed': zoomLevel > 1 }">
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</template>
 <style>
 *,
 *:after,
@@ -234,141 +426,3 @@ const zoomOut = () => {
     font-size: 16px;
 }
 </style>
-<template >
-    <div class="content bg-white m-2">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0"> <span v-if="editMode">Edit</span>
-                            <span v-else>Create</span>
-                            Appointment
-                        </h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">
-                                <span v-if="editMode">Edit</span>
-                                <span v-else>Create</span>
-                                <span>Cv</span>
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="container">
-                <div class="row">
-                    <!-- Column for the form -->
-                    <div class="col-md-6">
-                        <label for="">Upload Image For Cv</label>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 custom-file">
-                                <input type="file" class="custom-file-input" @change="imageUpload">
-                                <label class="custom-file-label" for="customFile">Choose file</label>
-                            </div>
-                        </div>
-                        <h2 class="mt-3">Detail Of Candidate</h2>
-                        <form>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="">Full Name</label>
-                                    <input v-model="form.fullName" type="text" class="form-control" placeholder="Full Name">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="">Father's Name</label>
-                                    <input v-model="form.fatherName" type="text" class="form-control"
-                                        placeholder="Father's Name">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputAddress">Ward </label>
-                                    <input v-model="form.address" type="text" class="form-control" id="inputAddress"
-                                        placeholder="Ward">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="inputAddress2">District</label>
-                                    <input v-model="form.address2" type="text" class="form-control" placeholder="District">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputAddress">Date of Birth</label>
-                                    <input v-model="form.Dob" type="text" class="form-control" placeholder="Date of Birth">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="inputAddress2">Passport Number</label>
-                                    <input v-model="form.passportNumber" type="text" class="form-control"
-                                        placeholder="Passport Number">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputAddress2">Issued At</label>
-                                    <input v-model="form.issuedAt" type="text" class="form-control"
-                                        placeholder="Passport Issued Date">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="inputAddress">Expiry Date</label>
-                                    <input v-model="form.expiredAt" type="text" class="form-control"
-                                        placeholder="Passport Expiry Date">
-                                </div>
-
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputAddress2">Worked As</label>
-                                    <input v-model="form.workedAs" type="text" class="form-control"
-                                        placeholder="Where did you work?">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="inputAddress">Years of Experience</label>
-                                    <input v-model="form.experience" type="number" class="form-control"
-                                        placeholder="How many years did you work there?">
-                                </div>
-
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label for="inputAddress">Worked At</label>
-                                <input v-model="form.WorkedAt" type="number" class="form-control"
-                                    placeholder="Name the company or workplace you were employed at.">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputAddress">Add Image (PP Size Photo)</label>
-                                <br>
-                                <img class="img-circle elevation-2 mb-2"
-                                    style="max-height: 30%; max-width:30%; margin-left:20px;" alt="" :src="ppImageUrl">
-                                <input type="file" class="form-control" @change="ppSizeImage">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Make CV</button>
-                        </form>
-                    </div>
-                    <!-- Column for the image -->
-                    <div class="col-md-6" id="image_magnifier" style="display: none;">
-                        <div class="zoom-controls">
-                            <a class="zoom-icons" @click="zoomIn">
-                                <i class="fa fa-plus"></i>
-                            </a>
-                            <a class="zoom-icons" @click="zoomOut">
-                                <i class="fa fa-minus"></i>
-                            </a>
-                        </div>
-
-                        <div class="image form-group" id="magnifying_area" @mousemove="handleZoom">
-                            <img id="magnifying_img" class="img"
-                                style="margin-left:20%;padding:10px; width: 80%; height: 80vh;" :src="pictureUrl"
-                                :style="{ transform: `scale(${zoomLevel})` }" :class="{ 'zoomed': zoomLevel > 1 }">
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-
-
-        </div>
-    </div>
-</template>

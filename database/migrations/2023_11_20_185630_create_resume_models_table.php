@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('resume_models', function (Blueprint $table) {
             $table->id();
             $table->text('pp_size_image')->nullable();
-            $table->string('full_name');
-            $table->string('father_name');
-            $table->string('ward');
-            $table->string('district');
-            $table->string('dob');
-            $table->string('passport_number');
-            $table->string('issued_at');
-            $table->string('expiry_date');
-            $table->string('worked_as');
-            $table->string('years_of_experience');
+            $table->string('full_name')->nullable();
+            $table->string('father_name')->nullable();
+            $table->string('ward')->nullable();
+            $table->string('district')->nullable();
+            $table->string('dob')->nullable();
+            $table->string('passport_number')->nullable();
+            $table->string('issued_at')->nullable();
+            $table->string('expiry_date')->nullable();
+            $table->string('worked_as')->nullable();
+            $table->string('years_of_experience')->nullable();
             $table->string('worked_at')->nullable();
             $table->timestamps();
         });

@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\DemandController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ApplicationController;
-use App\Http\Controllers\TextRecognizationController;
+use App\Http\Controllers\PdfController;
 use App\Models\Status;
 use Illuminate\Support\Facades\Route;
 
@@ -61,6 +61,12 @@ Route::get('api/demands/{demand}/show',[DemandController::class,'show']);
 Route::put('api/demands/{demand}/edit',[DemandController::class,'edit']);
 
 
+
+// Resume
+Route::get('/api/get-all-cv', [PdfController::class, 'index']);
+Route::post('/api/resume/create', [PdfController::class, 'store']);
+Route::get('/api/resume/{resume}/edit', [PdfController::class, 'edit']);
+Route::put('/api/resume/{resume}/update', [PdfController::class, 'update']);
 
 });
 Route::get('{view}',ApplicationController::class)->where('view','(.*)')->middleware('auth');
