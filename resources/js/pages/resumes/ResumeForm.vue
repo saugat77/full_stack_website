@@ -123,6 +123,20 @@ const imageUpload = (event) => {
 
 const handleSubmit = (value) => {
     if (editMode.value == true) {
+        const formData = new FormData(); // Create a FormData object to store the form data
+
+        // Append the resume details to the FormData object
+        formData.append('fullName', form.fullName);
+        formData.append('fatherName', form.fatherName);
+        formData.append('ward', form.ward);
+        formData.append('district', form.district);
+        formData.append('passportNumber', form.passportNumber);
+        formData.append('issuedAt', form.issuedAt);
+        formData.append('expiredAt', form.expiredAt);
+        formData.append('workedAs', form.workedAs);
+        formData.append('experience', form.experience);
+        formData.append('workedAt', form.workedAt);
+        formData.append('ppImage', ppfile.value);
         axios.put(`/api/resume/${route.params.id}/update`, form)
             .then((response) => {
                 console.log(response);
@@ -144,7 +158,7 @@ const handleSubmit = (value) => {
 const ppSizeImage = (event) => {
     ppfile.value = event.target.files[0];
     ppImageUrl.value = URL.createObjectURL(ppfile.value);
-    console.log(ppImageUrl.value);
+    console.log(ppfile.value);
 }
 const getResume = () => {
     axios.get(`/api/resume/${route.params.id}/edit`).then(({ data }) => {
@@ -177,7 +191,7 @@ const form = reactive({
     workedAs: '',
     workedAt: '',
     experience: '',
-    ppImage: ppfile.value,
+    pp_image: ppfile.value,
 });
 
 

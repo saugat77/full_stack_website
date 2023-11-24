@@ -23,7 +23,11 @@ class PdfController extends Controller
     $createCv->expiry_date = $req->input('expiredAt');
     $createCv->worked_as = $req->input('workedAs');
     $createCv->years_of_experience = $req->input('experience');
-    $createCv->worked_at = $req->input('expiredAt');
+    $createCv->worked_at = $req->input('workedAt');
+    if(request()->file('pp_image')){
+        $image = request()->file('pp_image');
+        $this->updateImage($image,$demand);
+    }
         $createCv->save();
 
        return response()->json($createCv);
@@ -32,6 +36,7 @@ class PdfController extends Controller
         return $resume;
     }
     public function update(ResumeModel $resume, Request $req){
+        dd($req);
         $resume->full_name = $req->input('fullName');
         $resume->father_name = $req->input('fatherName');
         $resume->ward = $req->input('ward');
