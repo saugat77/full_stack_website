@@ -4,7 +4,6 @@ import { reactive, onMounted, ref } from 'vue';
 import Tesseract from 'tesseract.js';
 import { useRouter, useRoute } from 'vue-router';
 import { useToastr } from '../../toaster';
-
 const zoomed = ref(false);
 const file = ref();
 const pictureUrl = ref(null);
@@ -15,7 +14,22 @@ const ppfile = ref();
 const router = useRouter();
 const route = useRoute();
 const toastr = useToastr();
+const imageStatus = ref(false);
 
+const form = reactive({
+    fullName: '',
+    fatherName: '',
+    Dob: '',
+    ward: '',
+    district: '',
+    passportNumber: '',
+    issuedAt: '',
+    expiredAt: '',
+    workedAs: '',
+    workedAt: '',
+    experience: '',
+    pp_image: null,
+});
 const performOCR = async (imageUrl) => {
     try {
         const englishText = await Tesseract.recognize(imageUrl, 'eng', {
@@ -121,44 +135,52 @@ const imageUpload = (event) => {
 
 };
 
-const handleSubmit = (value) => {
-    if (editMode.value == true) {
-        const formData = new FormData(); // Create a FormData object to store the form data
+const createResume = () => {
+    const formData = new FormData(); // Create a FormData object to store the form data
+    formData.append('fullName', form.fullName);
+    formData.append('fatherName', form.fatherName);
+    formData.append('ward', form.ward);
+    formData.append('district', form.district);
+    formData.append('passportNumber', form.passportNumber);
+    formData.append('issuedAt', form.issuedAt);
+    formData.append('expiredAt', form.expiredAt);
+    formData.append('workedAs', form.workedAs);
+    formData.append('experience', form.experience);
+    formData.append('workedAt', form.workedAt);
+    formData.append('pp_image', ppfile.value);
+    axios.post('/api/resume/create', formData)
+        .then((response) => {
+            console.log(response);
+            router.push('/admin/resume/show');
+            toastr.success('Resume created successfully!');
+        });
 
-        // Append the resume details to the FormData object
-        formData.append('fullName', form.fullName);
-        formData.append('fatherName', form.fatherName);
-        formData.append('ward', form.ward);
-        formData.append('district', form.district);
-        formData.append('passportNumber', form.passportNumber);
-        formData.append('issuedAt', form.issuedAt);
-        formData.append('expiredAt', form.expiredAt);
-        formData.append('workedAs', form.workedAs);
-        formData.append('experience', form.experience);
-        formData.append('workedAt', form.workedAt);
-        formData.append('ppImage', ppfile.value);
-        axios.put(`/api/resume/${route.params.id}/update`, form)
-            .then((response) => {
-                console.log(response);
-                router.push(`/admin/resume/${route.params.id}/edit`);
-                toastr.success('Resume edited successfully!');
-            });
+}
+const editResume = () => {
+    console.log(form);
+    axios.put(`/api/resume/${route.params.id}/update`, form)
+        .then((response) => {
+            console.log(response);
+            router.push(`/admin/resume/${route.params.id}/edit`);
+            toastr.success('Resume edited successfully!');
+        });
+}
+
+const handleSubmit = (value, actions) => {
+
+    if (editMode.value == true) {
+        editResume();
     }
     else {
 
-        axios.post('/api/resume/create', form)
-            .then((response) => {
-                console.log(response);
-                router.push('/admin/resume/create');
-                toastr.success('Resume created successfully!');
-            });
+        createResume();
     }
 }
 
 const ppSizeImage = (event) => {
     ppfile.value = event.target.files[0];
+    imageStatus.value = true;
     ppImageUrl.value = URL.createObjectURL(ppfile.value);
-    console.log(ppfile.value);
 }
 const getResume = () => {
     axios.get(`/api/resume/${route.params.id}/edit`).then(({ data }) => {
@@ -175,24 +197,13 @@ const getResume = () => {
         form.workedAs = data.worked_as;
         form.experience = data.years_of_experience;
         form.workedAt = data.worked_at;
+
+        form.pp_image = imageStatus == true ? ppImageUrl.value : data.pp_size_image;
     })
 }
 
 
-const form = reactive({
-    fullName: '',
-    fatherName: '',
-    Dob: '',
-    ward: '',
-    district: '',
-    passportNumber: '',
-    issuedAt: '',
-    expiredAt: '',
-    workedAs: '',
-    workedAt: '',
-    experience: '',
-    pp_image: ppfile.value,
-});
+
 
 
 
@@ -340,8 +351,12 @@ const zoomOut = () => {
                             <div class="form-group col-md-6">
                                 <label for="inputAddress">Add Image (PP Size Photo)</label>
                                 <br>
+
+                                <!-- <img class="img-circle elevation-2 mb-2"
+                                    style="max-height: 30%; max-width:30%; margin-left:20px;" alt="" :src="ppImageUrl"> -->
                                 <img class="img-circle elevation-2 mb-2"
-                                    style="max-height: 30%; max-width:30%; margin-left:20px;" alt="" :src="ppImageUrl">
+                                    style="max-height: 30%; max-width:30%; margin-left:20px;" alt=""
+                                    :src="imageStatus == true ? ppImageUrl : form.pp_image">
                                 <input type="file" class="form-control" @change="ppSizeImage">
                             </div>
                             <button type="submit" class="btn btn-primary">Make CV</button>

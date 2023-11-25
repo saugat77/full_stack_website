@@ -113,6 +113,7 @@ class DemandController extends Controller
         $demand->image = $link;
         $demand->save();
     }
+    
 
     /**
      * Remove the specified resource from storage.

@@ -64,7 +64,10 @@ onMounted(() => {
             <tbody>
                 <tr v-for="(resume, index) in resumes" :key="resume.id">
                     <th scope="row"> {{ index + 1 }} </th>
-                    <td>{{ resume.pp_size_image }}</td>
+                    <td style="max-width: 15vw;">
+                        <img v-if="resume.pp_size_image" class="img-circle elevation-2 mb-2"
+                            style="max-height: 100px; max-width:100px;" :src="resume.pp_size_image" alt="">
+                    </td>
                     <td> {{ resume.full_name }} </td>
                     <td> {{ resume.father_name }} </td>
                     <td> {{ resume.passport_number }} </td>

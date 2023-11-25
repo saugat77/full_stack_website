@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\ResumeModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PdfController extends Controller
 {
@@ -26,7 +27,7 @@ class PdfController extends Controller
     $createCv->worked_at = $req->input('workedAt');
     if(request()->file('pp_image')){
         $image = request()->file('pp_image');
-        $this->updateImage($image,$demand);
+        $this->updateImage($image,$createCv);
     }
         $createCv->save();
 
@@ -48,8 +49,23 @@ class PdfController extends Controller
         $resume->worked_as = $req->input('workedAs');
         $resume->years_of_experience = $req->input('experience');
         $resume->worked_at = $req->input('expiredAt');
+        if(request()->file('pp_image')){
+            $image = request()->file('pp_image');
+            $this->updateImage($image,$createCv);
+        }
             $resume->update();
 
        return response()->json($resume);
+    }
+    public function updateImage($image, $resume)
+    {
+
+        $link = Storage::disk('public')->put('resume', $image);
+
+
+        // Update the image_path attribute of the demand model
+        $resume->pp_size_image = $link;
+        dd($link);
+        $resume->update();
     }
 }
