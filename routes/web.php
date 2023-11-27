@@ -68,6 +68,7 @@ Route::post('/api/resume/create', [PdfController::class, 'store']);
 Route::get('/api/resume/{resume}/edit', [PdfController::class, 'edit']);
 Route::post('/api/resume/{resume}/update', [PdfController::class, 'update']);
 Route::post('/api/resume/image/{id}/delete', [PdfController::class, 'imageReplace']);
+Route::delete('/api/resume/{id}/delete/', [PdfController::class, 'deleteId']);
 
 
 });

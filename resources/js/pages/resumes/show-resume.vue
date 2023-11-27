@@ -1,11 +1,54 @@
 <script setup>
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
+import Swal from 'sweetalert2';
+
 const resumes = ref([]);
 const getAllCv = () => {
     axios.get('/api/get-all-cv').then((response) => {
         resumes.value = response.data;
-        console.log('here', resumes.value);
+    })
+}
+const confirmUserDeletion = (id) => {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'ml-2 btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: false,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            axios.delete(`/api/resume/${id}/delete/`)
+                .then((response) => {
+                    resumes.value = resumes.value.filter(resume => resume.id !== id)
+
+                    swalWithBootstrapButtons.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                })
+                .catch((error) => {
+                    // Handle error if the delete request fails
+                    console.error('Error deleting appointment:', error);
+                });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'The Process is cancelled :)',
+                'error'
+            )
+        }
     })
 }
 onMounted(() => {
@@ -64,7 +107,7 @@ onMounted(() => {
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(resume, index) in resumes" :key="resume.id">
+                <tr v-for="(resume, index) in   resumes  " :key="resume.id">
                     <th scope="row"> {{ index + 1 }} </th>
                     <td style="max-width: 15vw;">
                         <img v-if="resume.pp_size_image" class="img-circle elevation-2 mb-2"
@@ -78,8 +121,10 @@ onMounted(() => {
                         <router-link :to="'/admin/resume/' + resume.id + '/edit'">
                             <i class="fa fa-edit mr-2"></i>
                         </router-link>
-                        <a href="#" @click.prevent="$emit('confirmUserDeletion', resume.id)"><i
-                                class="ml-3 text-danger fa fa-trash"></i></a>
+                        <a href="#" @click.prevent="$event => confirmUserDeletion(resume.id)"> <i class=" ml-3 text-danger fa
+                            fa-trash"></i></a>
+
+                        <a href=""><i class="ml-3 text"></i></a>
                     </td>
                 </tr>
 

@@ -73,5 +73,12 @@ class PdfController extends Controller
        return response()->json($resume);
 
     }
+    public function deleteId($id){
+        $resume = ResumeModel::find($id);
+        $resume->forceDelete();
+        return response()->json(['message' => 'Image deleted successfully']);
+
+
+    }
 
 }
