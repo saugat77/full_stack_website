@@ -37,7 +37,6 @@ class PdfController extends Controller
         return $resume;
     }
     public function update(ResumeModel $resume, Request $req){
-        dd($req);
         $resume->full_name = $req->input('fullName');
         $resume->father_name = $req->input('fatherName');
         $resume->ward = $req->input('ward');
@@ -48,12 +47,12 @@ class PdfController extends Controller
         $resume->expiry_date = $req->input('expiredAt');
         $resume->worked_as = $req->input('workedAs');
         $resume->years_of_experience = $req->input('experience');
-        $resume->worked_at = $req->input('expiredAt');
+        $resume->worked_at = $req->input('workedAt');
+        $resume->update();
         if(request()->file('pp_image')){
             $image = request()->file('pp_image');
-            $this->updateImage($image,$createCv);
+            $this->updateImage($image,$resume);
         }
-            $resume->update();
 
        return response()->json($resume);
     }
@@ -65,7 +64,14 @@ class PdfController extends Controller
 
         // Update the image_path attribute of the demand model
         $resume->pp_size_image = $link;
-        dd($link);
         $resume->update();
     }
+    public function imageReplace($id,Request $req){
+        $resume = ResumeModel::find($id);
+        $resume->pp_size_image = '';
+        $resume->update();
+       return response()->json($resume);
+
+    }
+
 }

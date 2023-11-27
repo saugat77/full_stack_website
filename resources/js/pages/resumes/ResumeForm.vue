@@ -157,11 +157,17 @@ const createResume = () => {
 
 }
 const editResume = () => {
-    console.log(form);
-    axios.put(`/api/resume/${route.params.id}/update`, form)
+
+    console.log(form.pp_image);
+
+    axios.post(`/api/resume/${route.params.id}/update`, form, {
+        headers: {
+            'Content-Type': 'multipart/form-data', // Set the content type for files
+        }
+    })
         .then((response) => {
             console.log(response);
-            router.push(`/admin/resume/${route.params.id}/edit`);
+            router.push(`/admin/resume/show`);
             toastr.success('Resume edited successfully!');
         });
 }
@@ -179,12 +185,20 @@ const handleSubmit = (value, actions) => {
 
 const ppSizeImage = (event) => {
     ppfile.value = event.target.files[0];
+    console.log(ppfile.value);
     imageStatus.value = true;
     ppImageUrl.value = URL.createObjectURL(ppfile.value);
+    form.pp_image = ppfile.value;
+    axios.post(`/api/resume/image/${route.params.id}/delete`, form.pp_image)
+        .then((response) => {
+            console.log(response);
+            router.push(`/admin/resume/${route.params.id}/edit`);
+            toastr.success('Image Replacing.....');
+        });
 }
 const getResume = () => {
     axios.get(`/api/resume/${route.params.id}/edit`).then(({ data }) => {
-        console.log(data);
+        console.log(imageStatus.value);
 
         form.fullName = data.full_name;
         form.fatherName = data.father_name;
@@ -197,8 +211,7 @@ const getResume = () => {
         form.workedAs = data.worked_as;
         form.experience = data.years_of_experience;
         form.workedAt = data.worked_at;
-
-        form.pp_image = imageStatus == true ? ppImageUrl.value : data.pp_size_image;
+        form.pp_image = imageStatus.value == true ? ppfile.value : data.pp_size_image;
     })
 }
 
@@ -211,6 +224,9 @@ onMounted(() => {
     if (route.name === 'admin.resume.edit') {
         editMode.value = true;
         getResume();
+    }
+    if (route.name === 'admin.resume.create') {
+        editMode.value = false;
     }
 
 });
@@ -245,7 +261,7 @@ const zoomOut = () => {
 
 }
 </script>
-   
+
 <template >
     <div class="content bg-white m-2">
         <div class="content-header">
@@ -275,7 +291,7 @@ const zoomOut = () => {
                 <div class="row">
                     <!-- Column for the form -->
                     <div class="col-md-6">
-                        <label for="">Upload Image For Cv</label>
+                        <label for="">Upload Image For Cv</label> <br>
                         <div class="form-row">
                             <div class="form-group col-md-6 custom-file">
                                 <input type="file" class="custom-file-input" @change="imageUpload">
@@ -349,17 +365,25 @@ const zoomOut = () => {
                                     placeholder="Name the company or workplace you were employed at.">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="inputAddress">Add Image (PP Size Photo)</label>
-                                <br>
+
+                                <!-- <label for="inputAddress">Add Image (PP Size Photo)</label>
+                                <br> -->
+                                <!-- Button trigger modal -->
+
+                                <div>
+                                    <label for="">Image For CV</label><br>
+                                    <img class="img-circle elevation-2 mt-2 mb-2"
+                                        style="max-height: 30%; max-width:30%; margin-left:20px;" alt=""
+                                        :src="imageStatus == true ? ppImageUrl : form.pp_image">
+                                    <input type="file" class="form-control" @change="ppSizeImage">
+                                </div>
+
 
                                 <!-- <img class="img-circle elevation-2 mb-2"
                                     style="max-height: 30%; max-width:30%; margin-left:20px;" alt="" :src="ppImageUrl"> -->
-                                <img class="img-circle elevation-2 mb-2"
-                                    style="max-height: 30%; max-width:30%; margin-left:20px;" alt=""
-                                    :src="imageStatus == true ? ppImageUrl : form.pp_image">
-                                <input type="file" class="form-control" @change="ppSizeImage">
+
                             </div>
-                            <button type="submit" class="btn btn-primary">Make CV</button>
+                            <button type="submit" class="btn btn-primary">{{ editMode ? 'Update CV' : 'Make CV' }}</button>
                         </form>
                     </div>
                     <!-- Column for the image -->

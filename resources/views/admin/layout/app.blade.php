@@ -23,9 +23,6 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="index3.html" class="nav-link">Home</a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <router-link to="/admin/resume/create" class="nav-link">Create CV</router-link>
-                </li>
             </ul>
 
             <ul class="navbar-nav ml-auto">
@@ -233,8 +230,8 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/admin/users" active-class="active" class="nav-link"  
-                            :class="$route.path.startsWith('/admin/users') ? 'active' : ''">
+                            <router-link to="/admin/users" active-class="active" class="nav-link"
+                                :class="$route.path.startsWith('/admin/users') ? 'active' : ''">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Users
@@ -298,7 +295,8 @@
                 Anything you want
             </div>
 
-            <strong>Copyright &copy; 2023 <a href="https://kantipuroverseas.com.np/">Kantipur Overseas Pvt Ltd.</a>.</strong> All rights
+            <strong>Copyright &copy; 2023 <a href="https://kantipuroverseas.com.np/">Kantipur Overseas Pvt
+                    Ltd.</a>.</strong> All rights
             reserved.
         </footer>
     </div>

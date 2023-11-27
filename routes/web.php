@@ -66,7 +66,9 @@ Route::put('api/demands/{demand}/edit',[DemandController::class,'edit']);
 Route::get('/api/get-all-cv', [PdfController::class, 'index']);
 Route::post('/api/resume/create', [PdfController::class, 'store']);
 Route::get('/api/resume/{resume}/edit', [PdfController::class, 'edit']);
-Route::put('/api/resume/{resume}/update', [PdfController::class, 'update']);
+Route::post('/api/resume/{resume}/update', [PdfController::class, 'update']);
+Route::post('/api/resume/image/{id}/delete', [PdfController::class, 'imageReplace']);
+
 
 });
 Route::get('{view}',ApplicationController::class)->where('view','(.*)')->middleware('auth');

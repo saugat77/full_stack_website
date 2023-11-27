@@ -37,11 +37,13 @@ onMounted(() => {
     <div class="content">
         <div class="container-fluid">
             <div class="d-flex justify-content-between">
-                <button type="button" class="m-2 float-right btn btn-primary">
-                    <i class="fa fa-plus-circle mr-1 ">
-                    </i>
-                    Create New Cv
-                </button>
+                <router-link to="/admin/resume/create" active-class="active" class="nav-link">
+                    <button type="button" class="m-2 float-right btn btn-primary">
+                        <i class="fa fa-plus-circle mr-1 ">
+                        </i>
+                        Create New Cv
+                    </button>
+                </router-link>
                 <!-- <div>
                     <input type="text" class="form-control" v-model="searchQuery" placeholder="Search...">
                 </div> -->
