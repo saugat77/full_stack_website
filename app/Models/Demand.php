@@ -11,7 +11,7 @@ class Demand extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $fillable = ['name','salary','country','number_of_people_needed','active','image','description'];
+    protected $fillable = ['name','salary','country','number_of_people_needed','active','image','description','gender','weight','height','marital_status'];
 
     public function image(): Attribute
     {

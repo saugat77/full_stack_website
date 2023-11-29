@@ -24,6 +24,10 @@ const form = reactive({
     district: '',
     passportNumber: '',
     issuedAt: '',
+    marital_status: '',
+    height: '',
+    gender: '',
+    weight: '',
     expiredAt: '',
     workedAs: '',
     workedAt: '',
@@ -135,7 +139,7 @@ const imageUpload = (event) => {
 
 };
 
-const createResume = () => {
+const createResume = (values, actions) => {
     const formData = new FormData(); // Create a FormData object to store the form data
     formData.append('fullName', form.fullName);
     formData.append('fatherName', form.fatherName);
@@ -153,6 +157,9 @@ const createResume = () => {
             console.log(response);
             router.push('/admin/resume/show');
             toastr.success('Resume created successfully!');
+        })
+        .catch((error) => {
+            actions.setErrors(error.response.data.errors);
         });
 
 }
@@ -211,6 +218,10 @@ const getResume = () => {
         form.workedAs = data.worked_as;
         form.experience = data.years_of_experience;
         form.workedAt = data.worked_at;
+        form.gender = data.gender;
+        form.marital_status = data.marital_status;
+        form.height = data.height;
+        form.weight = data.weight;
         form.pp_image = imageStatus.value == true ? ppfile.value : data.pp_size_image;
     })
 }
@@ -343,6 +354,27 @@ const zoomOut = () => {
                                     <label for="inputAddress">Expiry Date</label>
                                     <input v-model="form.expiredAt" type="text" class="form-control"
                                         placeholder="Passport Expiry Date">
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress2">Gender</label>
+                                    <select v-model="form.gender" class="form-control"
+                                        >
+                                        <option value="">Select One</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress">Marital Status</label>
+                                    <select v-model="form.marital_status" class="form-control"
+                                      >
+                                        <option value="">Select One</option>
+                                        <option value="married">Married</option>
+                                        <option value="unmarried">Unmarried</option>
+                                    </select>
                                 </div>
 
                             </div>

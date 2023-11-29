@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\ResumeModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\PDF;
+use Illuminate\Support\Facades\Http;
 
 class PdfController extends Controller
 {
@@ -77,8 +79,21 @@ class PdfController extends Controller
         $resume = ResumeModel::find($id);
         $resume->forceDelete();
         return response()->json(['message' => 'Image deleted successfully']);
+    }
+    public function viewPdf($id){
+        $resume = ResumeModel::find($id);
+        $imageUrl = $resume->pp_size_image;
 
+$path = parse_url($imageUrl, PHP_URL_PATH); // Get the path part of the URL
+$desiredPart = substr($path, strpos($path, 'resume')); // Extract the part starting from 'resume/'
 
+        $pdf = app('dompdf.wrapper')
+        ->loadView('pdf.resume', [
+            'resume' =>$resume,
+            'desiredPart'=>$desiredPart,
+        ]);
+
+    return $pdf->stream('invoice.pdf');
     }
 
 }

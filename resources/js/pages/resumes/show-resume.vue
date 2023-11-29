@@ -51,6 +51,12 @@ const confirmUserDeletion = (id) => {
         }
     })
 }
+const downloadPdf = (id) => {
+    console.log(id);
+    axios.get(`/api/resume/create-or-download/pdf/${id}`).then((response) => {
+        return `/api/resume/create-or-download/pdf/${id}`;
+    });
+}
 onMounted(() => {
     getAllCv();
 });
@@ -109,9 +115,9 @@ onMounted(() => {
             <tbody>
                 <tr v-for="(resume, index) in   resumes  " :key="resume.id">
                     <th scope="row"> {{ index + 1 }} </th>
-                    <td style="max-width: 15vw;">
+                    <td style="max-width: 10vw;">
                         <img v-if="resume.pp_size_image" class="img-circle elevation-2 mb-2"
-                            style="max-height: 100px; max-width:100px;" :src="resume.pp_size_image" alt="">
+                            style="max-height: 50px; max-width:50px;" :src="resume.pp_size_image" alt="">
                     </td>
                     <td> {{ resume.full_name }} </td>
                     <td> {{ resume.father_name }} </td>
@@ -124,7 +130,10 @@ onMounted(() => {
                         <a href="#" @click.prevent="$event => confirmUserDeletion(resume.id)"> <i class=" ml-3 text-danger fa
                             fa-trash"></i></a>
 
-                        <a href=""><i class="ml-3 text"></i></a>
+                        <a :href="'/api/resume/create-or-download/pdf/' + resume.id" target="_blank" title="Download">
+                            <i class="ml-3 fa fa-download"></i>
+                        </a>
+
                     </td>
                 </tr>
 
