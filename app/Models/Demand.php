@@ -11,17 +11,22 @@ class Demand extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $fillable = ['name','salary','country','number_of_people_needed','active','image','description','gender','weight','height','marital_status'];
+    protected $fillable = ['name', 'salary', 'country', 'number_of_people_needed', 'active', 'image', 'description'];
 
     public function image(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => asset(Storage::url($value)),
+            get: function ($value) {
+                if ($value) {
+                    return asset(Storage::url($value));
+                }
+                // If the value doesn't exist or is empty, return something else or null
+                return null; // Or any other default value you want to return
+            }
         );
     }
     public static function countActiveDemands()
     {
         return self::where('active', true);
     }
-
 }

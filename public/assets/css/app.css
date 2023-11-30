@@ -2,16 +2,15 @@
     margin: 0;
     padding: 0;
 }
+
 .main {
     /* Set the background image */
     background-image: url("/assets/images/bg.jpg");
 
     /* Set the linear gradient overlay */
-    background: linear-gradient(
-            to top,
+    background: linear-gradient(to top,
             rgba(0, 0, 0, 0.5) 50%,
-            rgba(0, 0, 0, 0.5) 50%
-        ),
+            rgba(0, 0, 0, 0.5) 50%),
         url("/assets/images/bg.jpg");
 
     /* Center the background image */
@@ -26,6 +25,7 @@
     /* Set the width to 100% */
     width: 100%;
 }
+
 .company_overview {
     background-color: aquamarine;
     padding: 5%;
@@ -36,12 +36,15 @@
     width: 100%;
     height: 8%;
     margin: auto;
-    background-color: transparent; /* Adjust the color and opacity as needed */
+    background-color: transparent;
+    /* Adjust the color and opacity as needed */
     display: block;
 }
+
 .login {
     display: none;
 }
+
 #demand-section {
     border-radius: 20px;
     /* background-color: #ff5733; */
@@ -52,11 +55,13 @@
     margin-top: 10%;
     margin-bottom: 10%;
 }
+
 #demand-section h2 {
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     color: white;
 }
+
 #demand-section .container {
     min-height: 100%;
     display: relative;
@@ -78,12 +83,15 @@
     text-align: center;
     display: block;
 }
+
 .minimized-size-navbar ul {
     margin-top: -10% !important;
 }
+
 .minimized-size-navbar ul li {
     margin-top: 20px;
 }
+
 .minimized-size-navbar ul li a {
     color: black;
     font-weight: 600;
@@ -123,6 +131,7 @@
 .dropdown-content a:hover {
     background-color: #ddd;
 }
+
 #chairman {
     margin-top: 10% !important;
     position: relative;
@@ -134,6 +143,7 @@
     height: 70px;
     margin-left: 10px;
 }
+
 .logo {
     color: black;
     font-size: 30px;
@@ -142,27 +152,32 @@
     float: left;
     padding-top: 10px;
 }
+
 .logo:hover {
     cursor: default;
     color: rgb(78, 130, 173);
 }
+
 .menu {
     float: right;
     height: 70px;
     margin-right: 20%;
 }
+
 .menu ul {
     float: right;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .menu ul li {
     list-style: none;
     margin-left: 62px;
     margin-top: 10px;
     font-size: 14px;
 }
+
 .menu ul a {
     text-decoration: none;
     color: black;
@@ -170,6 +185,16 @@
     font-weight: bold;
     transition: 0.4s ease-in-out;
 }
+
+#demand-section {
+    position: relative !important;
+}
+
+#chairman {
+    position: relative;
+    margin-top: 30% !important;
+}
+
 .menu ul li a {
     text-decoration: none;
     color: black;
@@ -177,45 +202,56 @@
     font-weight: bold;
     transition: 0.4s ease-in-out;
 }
+
 .menu ul li a:hover {
     color: #98afc7;
 }
+
 ul li {
     list-style: none;
 }
 
 .transparent-button {
     background-color: transparent;
-    border: 2px solid #fff; /* Add a border for better visibility */
-    color: #fff; /* Text color */
-    padding: 10px 20px; /* Adjust padding as needed */
-    font-size: 16px; /* Adjust font size as needed */
-    cursor: pointer; /* Change cursor to pointer on hover */
-    transition: 0.3s ease; /* Add a smooth hover effect */
+    border: 2px solid #fff;
+    /* Add a border for better visibility */
+    color: #fff;
+    /* Text color */
+    padding: 10px 20px;
+    /* Adjust padding as needed */
+    font-size: 16px;
+    /* Adjust font size as needed */
+    cursor: pointer;
+    /* Change cursor to pointer on hover */
+    transition: 0.3s ease;
+    /* Add a smooth hover effect */
     border-radius: 10px;
 }
 
 .transparent-button:hover {
-    background-color: rgba(
-        48,
-        67,
-        218,
-        0.2
-    ); /* Semi-transparent white on hover */
+    background-color: rgba(48,
+            67,
+            218,
+            0.2);
+    /* Semi-transparent white on hover */
 }
+
 .container {
     margin-top: 5%;
 }
+
 .content {
     height: auto;
     color: white;
     position: absolute;
 }
+
 .content h2 {
     display: inline-block !important;
     font-size: 45px;
     padding-top: 25px;
 }
+
 .content .par {
     padding-left: 20px;
     padding-top: 25px;
@@ -225,6 +261,7 @@ ul li {
     display: block;
     font-size: large;
 }
+
 .content h1 {
     font-family: "Times New Roman";
     font-size: 50px;
@@ -232,6 +269,7 @@ ul li {
     margin-top: 9%;
     letter-spacing: 2px;
 }
+
 .content .cn {
     width: 160px;
     height: 40px;
@@ -244,76 +282,105 @@ ul li {
     cursor: pointer;
     margin-top: -15px;
 }
+
 .content .cn a {
     text-decoration: none;
     color: black;
     transition: 0.3s ease;
 }
+
 .cn:hover {
     background-color: white;
 }
+
 .content span {
     color: orange;
     font-size: 60px;
 }
+
 #app {
     float: right;
     width: 400px;
     margin-top: 10%;
 }
+
 #card {
-    border: none; /* Remove the default border */
-    border-radius: 20px; /* Add rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Apply a shadow effect */
+    border: none;
+    /* Remove the default border */
+    border-radius: 20px;
+    /* Add rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Apply a shadow effect */
 }
+
 /* Apply the background color, border, shadow, and rounded corners to the .card */
 .card-body {
-    background-color: rgba(255, 255, 255, 0.5); /* Set the background color */
+    background-color: rgba(255, 255, 255, 0.5);
+    /* Set the background color */
 }
 
 /* Apply padding to the .card-body */
 .card-body {
-    border-radius: 20px; /* Add rounded corners */
+    border-radius: 20px;
+    /* Add rounded corners */
 
-    padding: 20px; /* Add padding for spacing within the card */
+    padding: 20px;
+    /* Add padding for spacing within the card */
 }
 
 /* Style text within the .card-body, if needed */
 .card-body p {
-    color: black; /* Set text color */
+    color: black;
+    /* Set text color */
 }
+
 .colorful-heading {
-    background-color: #ff5733; /* Choose your desired background color */
-    color: white; /* Text color on the background */
-    padding: 10px; /* Adjust the padding for spacing */
-    display: inline-block; /* To wrap the background around the text */
+    background-color: #ff5733;
+    /* Choose your desired background color */
+    color: white;
+    /* Text color on the background */
+    padding: 10px;
+    /* Adjust the padding for spacing */
+    display: inline-block;
+    /* To wrap the background around the text */
     margin-top: 3px;
     border-radius: 20px;
 }
+
 .manpower_availability {
-    background-color: #5a69b5; /* Choose your desired background color */
-    color: white; /* Text color on the background */
+    background-color: #5a69b5;
+    /* Choose your desired background color */
+    color: white;
+    /* Text color on the background */
     padding: 5px;
-    margin: 5%; /* Adjust the padding for spacing */
-    display: inline-block; /* To wrap the background around the text */
+    margin: 5%;
+    /* Adjust the padding for spacing */
+    display: inline-block;
+    /* To wrap the background around the text */
     margin-top: 3px;
 }
+
 .manpower_availability_div {
     padding: 5px;
     margin: 5%;
 }
+
 .manpower-card {
     margin: 15%;
 }
+
 .manpower_availability_div .col .card h1 {
     margin-top: 10px;
 }
+
 .manpower_availability_div .col .card img {
     transition: transform 0.2s ease-in-out;
 }
+
 .manpower_availability_div .col .card img:hover {
     transform: scale(1.1);
 }
+
 /* footer{
    padding-top: 5px;
   } */
@@ -327,31 +394,38 @@ footer .container .row {
         margin-left: 40%;
     }
 }
+
 @media (max-width: 700px) {
     #demand-section .container {
         min-height: 100%;
         display: block;
         position: relative;
     }
+
     #chairman {
         margin-top: 30% !important;
         position: relative;
     }
+
     #sidebar {
         margin-top: -52% !important;
         margin-left: 90% !important;
         position: relative;
     }
+
     .icon {
         padding-bottom: 10%;
     }
+
     .container .par {
         font-size: 20px;
         font-weight: 100;
     }
+
     .main {
         height: fit-content;
     }
+
     #demand-section {
         border-radius: 20px;
         /* background-color: #ff5733; */
@@ -365,10 +439,12 @@ footer .container .row {
 }
 
 @media (max-width: 990px) {
+
     /* Select the column with the class "col-sm" and change its width to 100% */
     .main {
         height: fit-content;
     }
+
     .minimized-size-navbar ul a {
         text-decoration: none;
         color: black;
@@ -376,6 +452,7 @@ footer .container .row {
         font-weight: bold;
         transition: 0.4s ease-in-out;
     }
+
     .minimized-size-navbar ul li a {
         text-decoration: none;
         color: black;
@@ -383,15 +460,19 @@ footer .container .row {
         font-weight: bold;
         transition: 0.4s ease-in-out;
     }
+
     .minimized-size-navbar ul li a:hover {
         color: #98afc7;
     }
+
     .container .col-sm {
         width: 100%;
     }
+
     .login {
         display: block;
     }
+
     #sidebar {
         display: block;
         float: right;
@@ -399,57 +480,72 @@ footer .container .row {
         width: 30px;
         margin-left: -25%;
     }
+
     .container .par {
         width: fit-content;
         font-size: small;
     }
+
     .container .par .cn {
         margin-top: 5% !important;
     }
+
     #app {
         display: none;
     }
+
     .menu ul li a {
         display: none;
     }
 }
+
 @media only screen and (max-width: 1124px) {
+
     /* For mobile phones: */
     .main {
         height: fit-content;
     }
+
     .menu ul li a {
         float: right;
         margin-top: -13vh;
         margin-left: 1vw;
         margin-right: 2vw;
     }
+
     .menu {
         margin-left: 35vw;
     }
+
     .main .icon .logo {
         margin-top: -10px !important;
     }
+
     .container h2 {
         margin-top: 5%;
         font-weight: 300;
         font-size: 20px;
     }
+
     .container p {
         font-size: 17px;
         overflow: auto;
     }
+
     .container .clearfix .col-sm {
         width: 100%;
     }
+
     .cn {
         margin-top: -5% !important;
     }
+
     .cn a {
         font-size: 20px;
         width: 20px;
         size: 10px;
     }
+
     .navbar,
     .main {
         width: 100%;

@@ -360,8 +360,7 @@ const zoomOut = () => {
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="inputAddress2">Gender</label>
-                                    <select v-model="form.gender" class="form-control"
-                                        >
+                                    <select v-model="form.gender" class="form-control">
                                         <option value="">Select One</option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
@@ -369,9 +368,8 @@ const zoomOut = () => {
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputAddress">Marital Status</label>
-                                    <select v-model="form.marital_status" class="form-control"
-                                      >
-                                        <option value="">Select One</option>
+                                    <select v-model="form.marital_status" class="form-control">
+                                        Select One
                                         <option value="married">Married</option>
                                         <option value="unmarried">Unmarried</option>
                                     </select>
