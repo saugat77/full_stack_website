@@ -1,4 +1,7 @@
-    <div class="mt-4" id="demand-section">
+@if (count($demands) > 1)
+
+    <div class="mt-4 mb-4" id="demand-section">
+        <h1 class="colorful-heading p-lg-4 ml-6  d-flex justify-content-center">Demands</h1>
         <div style="background-color: white !important; width: 100%; display: flex; justify-content: space-between; ">
             <!-- Previous Button -->
             <div>
@@ -43,3 +46,4 @@
             </div>
         </div>
     </div>
+@endif

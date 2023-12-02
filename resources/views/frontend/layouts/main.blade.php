@@ -33,6 +33,14 @@
         justify-content: center;
         color: white !important;
     }
+
+    .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+ 
 </style>
 <header>
     <div class="navbar fixed-top bg-light">
@@ -43,11 +51,10 @@
             @include('frontend.partials.nav-bar')
 
         </div>
-        <a class="float-right" id="sidebar" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"><i class="fa fa-bars fa-2x"></i></a>
+        <a class="float-right" id="sidebar" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop"
+            aria-controls="offcanvasTop"><i class="fa fa-bars fa-2x"></i></a>
         <div class="sidebar-toggle">
-            <div class="offcanvas offcanvas-start" tabindex="2" id="offcanvasTop"
-                aria-labelledby="offcanvasTopLabel">
+            <div class="offcanvas offcanvas-start" tabindex="2" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
                 <div>
                     <button type="button" id="sidebar-closebtn" class="btn-close text-reset"
                         data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -67,9 +74,9 @@
 </header>
 
 <body>
-   
+    <div class="hero">
         @yield ('content')
-
+    </div>
 
 </body>
 <footer style="padding-top:0.1%; background-color: #deded5;">
