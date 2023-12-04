@@ -34,6 +34,11 @@
         text-decoration: none;
         margin-left: -8px;
     }
+
+    .max-content-span {
+        width: max-content;
+        display: inline-block;
+    }
 </style>
 
 <body>
@@ -60,36 +65,36 @@
         <div class="personal-details">
             <h4 class="underline">Personal Details</h4>
             <p>
-                <span style="display: inline-block; width: 150px;">Name</span><span
-                    style="display: inline-block; width: 150px;">: {{ $resume->full_name }}</span> <br>
-                <span style="display: inline-block; width: 150px;">Father’s Name</span><span
-                    style="display: inline-block; width: 150px;">: {{ $resume->father_name }}</span> <br>
-                <span style="display: inline-block; width: 150px;">Date of Birth</span><span
-                    style="display: inline-block; width: 150px;">: {{ $resume->dob }}</span> <br>
-                <span style="display: inline-block; width: 150px;">Marital Status</span><span
-                    style="display: inline-block; width: 150px;">: {{ $resume->marital_status }}</span> <br>
-                <span style="display: inline-block; width: 150px;">Weight</span><span
-                    style="display: inline-block; width: 150px;">: {{ $reume->weight ?? '55' }} kg</span> <br>
-                <span style="display: inline-block; width: 150px;">Height</span><span
-                    style="display: inline-block; width: 150px;">: {{ $resume->height ?? '5.6' }} inch</span> <br>
-                <span style="display: inline-block; width: 150px;">Language</span><span
-                    style="display: inline-block; width: 250px;">: English, Hindi & Nepali</span>
+                <span style="display: inline-block; width: 150px;">Name</span><span class="max-content-span">:
+                    {{ $resume->full_name }}</span> <br>
+                <span style="display: inline-block; width: 150px;">Father’s Name</span><span class="max-content-span">:
+                    {{ $resume->father_name }}</span> <br>
+                <span style="display: inline-block; width: 150px;">Date of Birth</span><span class="max-content-span">:
+                    {{ $resume->dob }}</span> <br>
+                <span style="display: inline-block; width: 150px;">Marital Status</span><span class="max-content-span">:
+                    {{ $resume->marital_status }}</span> <br>
+                <span style="display: inline-block; width: 150px;">Weight</span><span class="max-content-span">:
+                    {{ $reume->weight ?? '55' }} kg</span> <br>
+                <span style="display: inline-block; width: 150px;">Height</span><span class="max-content-span">:
+                    {{ $resume->height ?? '5.6' }} inch</span> <br>
+                <span style="display: inline-block; width: 150px;">Language</span><span class="max-content-span">:
+                    English, Hindi & Nepali</span>
                 <br>
-                <span style="display: inline-block; width: 150px;">Gender</span><span
-                    style="display: inline-block; width: 150px;">: {{ $resume->gender ?? 'Male' }}</span> <br>
-                <span style="display: inline-block; width: 150px;">Nationality</span><span
-                    style="display: inline-block; width: 150px;">: Nepalese</span> <br>
+                <span style="display: inline-block; width: 150px;">Gender</span><span class="max-content-span">:
+                    {{ $resume->gender ?? 'Male' }}</span> <br>
+                <span style="display: inline-block; width: 150px;">Nationality</span><span class="max-content-span">:
+                    Nepalese</span> <br>
             </p>
         </div>
         <div class="passport-details">
             <h4 class="underline">Passport Details</h4>
             <p>
-                <span style="display: inline-block; width: 150px;">Passport No.</span><span
-                    style="display: inline-block; width: 150px;">: {{ $resume->passport_number }}</span> <br>
-                <span style="display: inline-block; width: 150px;">Date of Issue</span><span
-                    style="display: inline-block; width: 150px;">: {{ $resume->issued_at }}</span> <br>
-                <span style="display: inline-block; width: 150px;">Date of Expiry</span><span
-                    style="display: inline-block; width: 150px;">: {{ $resume->expiry_date }}</span><br>
+                <span style="display: inline-block; width: 150px;">Passport No.</span><span class="max-content-span">:
+                    {{ $resume->passport_number }}</span> <br>
+                <span style="display: inline-block; width: 150px;">Date of Issue</span><span class="max-content-span">:
+                    {{ $resume->issued_at }}</span> <br>
+                <span style="display: inline-block; width: 150px;">Date of Expiry</span><span class="max-content-span">:
+                    {{ $resume->expiry_date }}</span><br>
             </p>
         </div>
         <div class="education-section">
@@ -102,7 +107,7 @@
                 <li>
                     <p>Worked as<span class="bold">{{ $resume->worked_as }}</span>for
                         {{ $resume->years_of_experience ?? '2' }} years in
-                        <span class="bold">{{ $resume->worked_at ?? 'Nepal' }}</span>
+                        <span class="bold">{{ $resume->worked_at ?? 'Nepal' }}.</span>
                     </p>.
                 </li>
             </ul>

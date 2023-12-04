@@ -24,11 +24,21 @@ Route::get('/', function () {
 });
 
 Route::get('/company_overview', function () {
-    return view('about-us.company-overview');
+    return view('frontend.about-us.company-overview');
 })->name('company.overview');
+
+
+Route::get('/license-and-certification', function () {
+    return view('frontend.about-us.license-and-certification');
+})->name('company.license');
+
+Route::get('/job-categories', function () {
+    return view('frontend.about-us.job-category');
+})->name('job.category');
+
 Route::get('/our-teams', function () {
     return view('frontend.our-teams.index');
-});
+})->name('our.team');
 Route::middleware('auth')->group(function () {
 
     //users

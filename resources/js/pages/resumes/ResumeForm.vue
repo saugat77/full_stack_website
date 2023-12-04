@@ -4,6 +4,8 @@ import { reactive, onMounted, ref } from 'vue';
 import Tesseract from 'tesseract.js';
 import { useRouter, useRoute } from 'vue-router';
 import { useToastr } from '../../toaster';
+import { Form } from 'vee-validate';
+
 const zoomed = ref(false);
 const file = ref();
 const pictureUrl = ref(null);
@@ -179,14 +181,14 @@ const editResume = () => {
         });
 }
 
-const handleSubmit = (value, actions) => {
+const handleSubmit = (values, actions) => {
 
     if (editMode.value == true) {
         editResume();
     }
     else {
 
-        createResume();
+        createResume(values, actions);
     }
 }
 
@@ -310,69 +312,92 @@ const zoomOut = () => {
                             </div>
                         </div>
                         <h2 class="mt-3">Detail Of Candidate</h2>
-                        <form @submit.prevent="handleSubmit">
+                        <Form enctype="multipart/form-data" @submit="handleSubmit" v-slot:default="{ errors }">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="">Full Name</label>
-                                    <input v-model="form.fullName" type="text" class="form-control" placeholder="Full Name">
+                                    <input v-model="form.fullName" type="text" class="form-control" placeholder="Full Name"
+                                        :class="{ 'is-invalid': errors.fullName }">
+                                    <span class="invalid-feedback">{{ errors.fullName }}</span>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="">Father's Name</label>
                                     <input v-model="form.fatherName" type="text" class="form-control"
-                                        placeholder="Father's Name">
+                                        :class="{ 'is-invalid': errors.fatherName }" placeholder="Father's Name">
+                                    <span class="invalid-feedback">{{ errors.fatherName }}</span>
+
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="inputward">Ward </label>
                                     <input v-model="form.ward" type="text" class="form-control" id="inputAddress"
-                                        placeholder="Ward">
+                                        :class="{ 'is-invalid': errors.ward }" placeholder="Ward">
+                                    <span class="invalid-feedback">{{ errors.ward }}</span>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputAddress2">District</label>
-                                    <input v-model="form.district" type="text" class="form-control" placeholder="District">
+                                    <input v-model="form.district" type="text" class="form-control" placeholder="District"
+                                        :class="{ 'is-invalid': errors.district }">
+                                    <span class="invalid-feedback">{{ errors.district }}</span>
+
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="inputAddress">Date of Birth</label>
-                                    <input v-model="form.Dob" type="text" class="form-control" placeholder="Date of Birth">
+                                    <input v-model="form.Dob" type="text" class="form-control" placeholder="Date of Birth"
+                                        :class="{ 'is-invalid': errors.Dob }">
+                                    <span class="invalid-feedback">{{ errors.Dob }}</span>
+
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputAddress2">Passport Number</label>
                                     <input v-model="form.passportNumber" type="text" class="form-control"
-                                        placeholder="Passport Number">
+                                        :class="{ 'is-invalid': errors.passportNumber }" placeholder="Passport Number">
+                                    <span class="invalid-feedback">{{ errors.passportNumber }}</span>
+
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="inputAddress2">Issued At</label>
                                     <input v-model="form.issuedAt" type="text" class="form-control"
-                                        placeholder="Passport Issued Date">
+                                        :class="{ 'is-invalid': errors.issuedAt }" placeholder="Passport Issued Date">
+                                    <span class="invalid-feedback">{{ errors.issuedAt }}</span>
+
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputAddress">Expiry Date</label>
                                     <input v-model="form.expiredAt" type="text" class="form-control"
-                                        placeholder="Passport Expiry Date">
+                                        :class="{ 'is-invalid': errors.expiredAt }" placeholder="Passport Expiry Date">
+                                    <span class="invalid-feedback">{{ errors.expiredAt }}</span>
+
                                 </div>
 
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="inputAddress2">Gender</label>
-                                    <select v-model="form.gender" class="form-control">
+                                    <select v-model="form.gender" class="form-control"
+                                        :class="{ 'is-invalid': errors.gender }">
                                         <option value="">Select One</option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
                                     </select>
+                                    <span class="invalid-feedback">{{ errors.gender }}</span>
+
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputAddress">Marital Status</label>
-                                    <select v-model="form.marital_status" class="form-control">
+                                    <select v-model="form.marital_status" class="form-control"
+                                        :class="{ 'is-invalid': errors.marital_status }">
                                         Select One
                                         <option value="married">Married</option>
                                         <option value="unmarried">Unmarried</option>
                                     </select>
+                                    <span class="invalid-feedback">{{ errors.marital_status }}</span>
+
                                 </div>
 
                             </div>
@@ -380,12 +405,17 @@ const zoomOut = () => {
                                 <div class="form-group col-md-6">
                                     <label for="inputAddress2">Worked As</label>
                                     <input v-model="form.workedAs" type="text" class="form-control"
-                                        placeholder="Where did you work?">
+                                        :class="{ 'is-invalid': errors.workedAs }" placeholder="Where did you work?">
+                                    <span class="invalid-feedback">{{ errors.workedAs }}</span>
+
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputAddress">Years of Experience</label>
                                     <input v-model="form.experience" type="number" class="form-control"
+                                        :class="{ 'is-invalid': errors.experience }"
                                         placeholder="How many years did you work there?">
+                                    <span class="invalid-feedback">{{ errors.experience }}</span>
+
                                 </div>
 
                             </div>
@@ -393,6 +423,8 @@ const zoomOut = () => {
                                 <label for="inputAddress">Worked At</label>
                                 <input v-model="form.workedAt" type="text" class="form-control"
                                     placeholder="Name the company or workplace you were employed at.">
+                                <span class="invalid-feedback">{{ errors.workedAt }}</span>
+
                             </div>
                             <div class="form-group col-md-6">
 
@@ -405,7 +437,10 @@ const zoomOut = () => {
                                     <img class="img-circle elevation-2 mt-2 mb-2"
                                         style="max-height: 30%; max-width:30%; margin-left:20px;" alt=""
                                         :src="imageStatus == true ? ppImageUrl : form.pp_image">
-                                    <input type="file" class="form-control" @change="ppSizeImage">
+                                    <input type="file" class="form-control" @change="ppSizeImage"
+                                        :class="{ 'is-invalid': errors.pp_image }">
+                                    <span class="invalid-feedback">{{ errors.pp_image }}</span>
+
                                 </div>
 
 
@@ -414,7 +449,7 @@ const zoomOut = () => {
 
                             </div>
                             <button type="submit" class="btn btn-primary">{{ editMode ? 'Update CV' : 'Make CV' }}</button>
-                        </form>
+                        </Form>
                     </div>
                     <!-- Column for the image -->
                     <div class="col-md-6" id="image_magnifier" style="display: none;">
