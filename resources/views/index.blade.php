@@ -54,7 +54,7 @@
         </div>
     </section>
     <section>
-        <div class="mt-6 company_overview" id="company-vision">
+        <div class="mt-6 container company_overview" id="company-vision">
             <div class="row">
                 <div class="col-sm-4">
                     <div class="card text-center">

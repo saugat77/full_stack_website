@@ -32,9 +32,9 @@ Route::get('/license-and-certification', function () {
     return view('frontend.about-us.license-and-certification');
 })->name('company.license');
 
-Route::get('/job-categories', function () {
-    return view('frontend.about-us.job-category');
-})->name('job.category');
+Route::get('/why-nepal', function () {
+    return view('frontend.about-us.why-nepal');
+})->name('why.nepal');
 
 Route::get('/our-teams', function () {
     return view('frontend.our-teams.index');
