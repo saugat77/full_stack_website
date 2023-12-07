@@ -28,6 +28,8 @@
         </div>
     </li>
     <li><a href="{{ route('why.nepal') }}">About Nepal</a></li>
-    <li><a href="#">Clients</a></li>
-    <li class="login"><a href="{{ route('login') }}">Login</a></li>
+    <li><a href="{{ route('contact') }}">Contact</a></li>
+    @if (!Request::is('/'))
+        <li><a href="{{ route('login') }}">Login</a></li>
+    @endif
 </ul>

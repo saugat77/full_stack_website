@@ -9,7 +9,14 @@ import ListDemands from '../pages/demands/ListDemands.vue';
 
 const users = ref({ 'users': [] });
 const appointments = ref({ 'appointment': [] });
+const contacts = ref({ 'contacts': [] });
+const getContacts = () => {
 
+    axios.get('/api/contact/messages').then((response => {
+        contacts.value = response.data;
+        console.log('contatcs:', response.data.length);
+    }))
+};
 const getUsers = () => {
     axios.get(`/api/users`, {
     })
@@ -28,15 +35,14 @@ const countDemands = () => {
     axios.get('/api/getDemands')
         .then((response) => {
             demands.value = response.data;
-            console.log(demands.value.total)
+            console.log(demands.value)
         })
 }
 onMounted(() => {
     getUsers();
     countAppointment();
     countDemands();
-   
-
+    getContacts();
 })
 </script>
 <template>
@@ -95,10 +101,10 @@ onMounted(() => {
                 <div class="col-md-3">
                     <div class="info-box bg-info">
                         <span class="info-box-icon"><i class="fa fa-mail-bulk"></i></span>
-                        <router-link to="/admin/messages">
+                        <router-link to="/admin/contact/messages">
                             <div class="info-box-content">
                                 <span class="info-box-text">Contact Messages</span>
-                                <span class="info-box-number">Total </span>
+                                <span class="info-box-number">Total: {{ contacts.length }} </span>
                             </div>
                         </router-link>
                     </div>

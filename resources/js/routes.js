@@ -10,6 +10,7 @@ import Login from './pages/auth/Login.vue';
 import CreateResume from './pages/resumes/ResumeForm.vue';
 import EditResume from './pages/resumes/ResumeForm.vue';
 import ShowResume from './pages/resumes/show-resume.vue';
+import ContactMessages from './pages/contact/Contact.vue';
 export default [
     {
         path: '/login',
@@ -80,6 +81,11 @@ export default [
         path: '/admin/resume/show',
         name: 'admin.resume.show',
         component: ShowResume,
-    }
+    },
+    {
+        path: '/admin/contact/messages',
+        name: 'admin.contact.messages',
+        component: ContactMessages,
+    },
 
 ]

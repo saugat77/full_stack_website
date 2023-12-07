@@ -4,8 +4,8 @@ use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\DemandController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PdfController;
-use App\Models\Status;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,6 +39,9 @@ Route::get('/why-nepal', function () {
 Route::get('/our-teams', function () {
     return view('frontend.our-teams.index');
 })->name('our.team');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::get('/api/contact/messages', [ContactController::class, 'showMessages']);
+Route::post('/contact/store', [ContactController::class, 'store'])->name('send.message');
 Route::middleware('auth')->group(function () {
 
     //users
