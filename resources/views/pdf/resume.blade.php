@@ -42,12 +42,12 @@
 </style>
 
 <body>
-    <header>
+    <header style="margin-top: 20px">
         <div class="col header left">
             <img src="{{ public_path() . '/assets/images/europass.jpg' }}" alt="">
         </div>
         <div class="col header right">
-            <img style="float: right; margin-top:-20%; max-width:20%; max-height:20%;"
+            <img style="float: right; margin-top:-15%; max-width:20%; max-height:30%; margin-right:10%"
                 src="{{ public_path() . '/storage/' . $desiredPart }}" alt="">
         </div>
     </header>
@@ -104,7 +104,7 @@
         <div class="experience-section">
             <h4 class="underline">Work Experience</h4>
             <ul>
-                <li>
+                <li style="font-variant: small-caps;">
                     <p>Worked as<span class="bold">{{ $resume->worked_as }}</span>for
                         {{ $resume->years_of_experience ?? '2' }} years in
                         <span class="bold">{{ $resume->worked_at ?? 'Nepal' }}.</span>

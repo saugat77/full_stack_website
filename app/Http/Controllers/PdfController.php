@@ -28,11 +28,11 @@ class PdfController extends Controller
             'expiredAt' => 'required',
             'workedAs' => 'required',
             'experience' => 'required',
-            'workedAt' => 'required',
+            'workedAt' => 'nullable',
             'marital_status' => 'required',
             'gender' => 'required',
-            'height' => 'required',
-            'weight' => 'required',
+            'height' => 'nullable',
+            'weight' => 'nullable',
             'pp_image' => 'required|mimes:jpg',
         ]);
 
@@ -77,11 +77,12 @@ class PdfController extends Controller
             'expiredAt' => 'required',
             'workedAs' => 'required',
             'experience' => 'required',
-            'workedAt' => 'required',
+            'workedAt' => 'nullable',
             'marital_status' => 'required',
             'gender' => 'required',
-            'height' => 'required',
-            'weight' => 'required',
+            'height' => 'nullable',
+            'weight' => 'nullable',
+            'pp_image' => 'required|mimes:jpg',
         ]);
 
         $resume->full_name = $req->input('fullName');

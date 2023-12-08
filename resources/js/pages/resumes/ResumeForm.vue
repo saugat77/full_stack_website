@@ -147,12 +147,17 @@ const createResume = (values, actions) => {
     formData.append('fatherName', form.fatherName);
     formData.append('ward', form.ward);
     formData.append('district', form.district);
+    formData.append('Dob', form.Dob);
     formData.append('passportNumber', form.passportNumber);
     formData.append('issuedAt', form.issuedAt);
     formData.append('expiredAt', form.expiredAt);
     formData.append('workedAs', form.workedAs);
     formData.append('experience', form.experience);
     formData.append('workedAt', form.workedAt);
+    formData.append('gender', form.gender);
+    formData.append('height', form.height);
+    formData.append('weight', form.weight);
+    formData.append('marital_status', form.marital_status);
     formData.append('pp_image', ppfile.value);
     axios.post('/api/resume/create', formData)
         .then((response) => {
@@ -372,6 +377,23 @@ const zoomOut = () => {
                                     <input v-model="form.expiredAt" type="text" class="form-control"
                                         :class="{ 'is-invalid': errors.expiredAt }" placeholder="Passport Expiry Date">
                                     <span class="invalid-feedback">{{ errors.expiredAt }}</span>
+
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress2">Height</label>
+                                    <input v-model="form.height" type="text" class="form-control"
+                                        :class="{ 'is-invalid': errors.height }" placeholder="5.5 Inch">
+                                    <span class="invalid-feedback">{{ errors.height }}</span>
+
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress">Weight</label>
+                                    <input v-model="form.weight" type="text" class="form-control"
+                                        :class="{ 'is-invalid': errors.weight }" placeholder="55 Kg">
+                                    <span class="invalid-feedback">{{ errors.weight }}</span>
 
                                 </div>
 
