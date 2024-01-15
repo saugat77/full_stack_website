@@ -18,6 +18,12 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('/install-dependencies', function () {
+    Artisan::call('dependencies:install');
+    return 'Node.js dependencies installation triggered.';
+});
 
 Route::get('/', function () {
     return view('index');

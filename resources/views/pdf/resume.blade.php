@@ -46,9 +46,10 @@
         <div class="col header left">
             <img src="{{ public_path() . '/assets/images/europass.jpg' }}" alt="">
         </div>
+        <label for="">{public_path('storage/')}</label>
         <div class="col header right">
             <img style="float: right; margin-top:-15%; max-width:20%; max-height:30%; margin-right:10%"
-                src="{{ public_path() . '/storage/' . $desiredPart }}" alt="">
+                src="{{ public_path('storage/') . $desiredPart }}" alt="">
         </div>
     </header>
     <div class="container">
