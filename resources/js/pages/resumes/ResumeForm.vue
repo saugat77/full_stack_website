@@ -192,7 +192,6 @@ const handleSubmit = (values, actions) => {
         editResume();
     }
     else {
-
         createResume(values, actions);
     }
 }
@@ -203,12 +202,7 @@ const ppSizeImage = (event) => {
     imageStatus.value = true;
     ppImageUrl.value = URL.createObjectURL(ppfile.value);
     form.pp_image = ppfile.value;
-    axios.post(`/api/resume/image/${route.params.id}/delete`, form.pp_image)
-        .then((response) => {
-            console.log(response);
-            router.push(`/admin/resume/${route.params.id}/edit`);
-            toastr.success('Image Replacing.....');
-        });
+
 }
 const getResume = () => {
     axios.get(`/api/resume/${route.params.id}/edit`).then(({ data }) => {

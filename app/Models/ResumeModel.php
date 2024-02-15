@@ -18,7 +18,7 @@ class ResumeModel extends Model
     public function ppSizeImage(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => asset(Storage::url($value)),
+            get: fn () => asset('images/'.$this->attributes['pp_size_image']),
         );
     }
 }

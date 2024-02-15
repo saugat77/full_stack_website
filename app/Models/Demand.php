@@ -18,7 +18,8 @@ class Demand extends Model
         return Attribute::make(
             get: function ($value) {
                 if ($value) {
-                    return asset(Storage::url($value));
+                    get: fn () => asset('demands/'.$this->attributes['image']);
+
                 }
                 // If the value doesn't exist or is empty, return something else or null
                 return null; // Or any other default value you want to return

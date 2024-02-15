@@ -117,7 +117,7 @@ onMounted(() => {
                     <th scope="row"> {{ index + 1 }} </th>
                     <td style="max-width: 10vw;">
                         <img v-if="resume.pp_size_image" class="img-circle elevation-2 mb-2"
-                            style="max-height: 50px; max-width:50px;" :src="resume.pp_size_image" alt="">
+                            style="max-height: 50px; max-width:50px;" :src="resume.pp_size_image" alt="pp_size_image">
                     </td>
                     <td> {{ resume.full_name }} </td>
                     <td> {{ resume.father_name }} </td>
