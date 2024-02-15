@@ -137,13 +137,30 @@ class PdfController extends Controller
         $resume = ResumeModel::find($id);
         $imageUrl = $resume->pp_size_image;
 
+        $path = public_path().'/assets/images/europass.jpg';
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $europass = 'data:image/'. $type .';base64,' . base64_encode($data);
+
         $path = parse_url($imageUrl, PHP_URL_PATH); // Get the path part of the URL
         $desiredPart = substr($path, strpos($path, 'resume')); // Extract the part starting from 'resume/'
+        if(env('STORAGE_URL')){
+
+            $path = public_path().'/public/images/'.$desiredPart;
+        }
+        else{
+            $path = public_path().'/images/'.$desiredPart;
+
+        }
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $pp_size = 'data:image/'. $type .';base64,' . base64_encode($data);
 
         $pdf = app('dompdf.wrapper')
             ->loadView('pdf.resume', [
                 'resume' => $resume,
-                'desiredPart' => $desiredPart,
+                'pp_size' => $pp_size,
+                'europass' => $europass,
             ]);
 
         return $pdf->stream('invoice.pdf');
