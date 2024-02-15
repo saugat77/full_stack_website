@@ -82,7 +82,7 @@ class PdfController extends Controller
             'gender' => 'required',
             'height' => 'nullable',
             'weight' => 'nullable',
-            'pp_image' => 'required|mimes:jpg',
+            'pp_image' => 'required',
         ]);
 
         $resume->full_name = $req->input('fullName');

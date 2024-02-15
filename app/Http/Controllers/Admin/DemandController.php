@@ -79,7 +79,7 @@ class DemandController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Demand $demand)
+    public function update(Demand $demand)
     {
         $validated = request()->validate([
             'name' => 'required',
@@ -88,10 +88,17 @@ class DemandController extends Controller
             'description' => 'required',
             'number_of_people_needed' => 'required',
             'active' => 'required',
-            'image' => 'nullable|mimes:jpeg,jpg,png',
+            'image' => 'nullable',
 
         ]);
-        $demand->update($validated);
+        $demand->update([
+            'name' => $validated['name'],
+            'country' => $validated['country'],
+            'salary' => $validated['salary'],
+            'description' => $validated['description'],
+            'number_of_people_needed' => $validated['number_of_people_needed'],
+            'active' => $validated['active'],
+        ]);
         if(request()->file('image')){
             $image = request()->file('image');
             $this->updateImage($image,$demand);
@@ -113,7 +120,7 @@ class DemandController extends Controller
         $demand->image = $link;
         $demand->save();
     }
-    
+
 
     /**
      * Remove the specified resource from storage.

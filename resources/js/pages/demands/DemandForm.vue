@@ -11,6 +11,7 @@ const router = useRouter();
 const route = useRoute();
 const toastr = useToastr();
 const file = ref();
+const imageStatus = ref(false);
 
 const form = reactive({
     name: '',
@@ -25,8 +26,11 @@ const form = reactive({
 const pictureUrl = ref(null);
 const imageUpload = (event) => {
   file.value = event.target.files[0];
+  imageStatus.value = true;
+
   pictureUrl.value = URL.createObjectURL(file.value);
   console.log(pictureUrl.value);
+  form.image = file.value;
 
 
 };
@@ -59,7 +63,13 @@ const createDemand = (values, actions) => {
 };
 
 const editDemand = (values, actions) => {
-    axios.put(`/api/demands/${route.params.id}/edit`, form)
+    console.log(form.image);
+    axios.post(`/api/demands/${route.params.id}/update`, form,{
+        headers: {
+            'Content-Type': 'multipart/form-data', // Set the content type for files
+        }
+    })
+
     .then((response) => {
         router.push('/admin/demands');
         toastr.success('Demand updated successfully!');
@@ -77,7 +87,7 @@ const getDemand = () => {
         form.active = data.active;
         form.number_of_people_needed = data.number_of_people_needed;
         form.description = data.description;
-        form.image = data.image;
+        form.image = imageStatus.value == true ? pictureUrl.value : data.image;
     })
 };
 
@@ -163,7 +173,7 @@ onMounted(() => {
                                 <div class="col-md-6">
                                     <div class="form-group">
                                             <label for="image">Image</label><br>
-                                            <img class="profile-user-img" style="margin-left: 10%; width:30%;"  :src="pictureUrl ? pictureUrl : form.image">
+                                            <img class="profile-user-img" style="margin-left: 10%; width:30%;"  :src="imageStatus == true ? pictureUrl : form.image">
                                             <input name="image" type="file" @change="imageUpload"  class="form-control" :class="{'is-invalid': errors.image}" id="image">
                                             <span class="invalid-feedback">{{ errors.image }}</span>
                                         </div>

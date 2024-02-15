@@ -15,16 +15,10 @@ class Demand extends Model
 
     public function image(): Attribute
     {
-        return Attribute::make(
-            get: function ($value) {
-                if ($value) {
-                   $publicPath = env('STORAGE_URL') ? '/public/' : '';
-                    get: fn () => asset($publicPath. 'demands/'.$this->attributes['image']);
+        $publicPath = env('STORAGE_URL') ? '/public/' : '';
 
-                }
-                // If the value doesn't exist or is empty, return something else or null
-                return null; // Or any other default value you want to return
-            }
+        return Attribute::make(
+            get: fn () => asset($publicPath. 'images/'.$this->attributes['image']),
         );
     }
     public static function countActiveDemands()

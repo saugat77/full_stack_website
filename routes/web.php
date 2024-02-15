@@ -71,7 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::post('api/demands/create', [DemandController::class, 'store']);
     Route::post('/api/demands/image-update', [DemandController::class, 'updateImage']);
     Route::get('api/demands/{demand}/show', [DemandController::class, 'show']);
-    Route::put('api/demands/{demand}/edit', [DemandController::class, 'edit']);
+    Route::post('api/demands/{demand}/update', [DemandController::class, 'update']);
 
 
 

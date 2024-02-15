@@ -161,7 +161,6 @@ const createResume = (values, actions) => {
     formData.append('pp_image', ppfile.value);
     axios.post('/api/resume/create', formData)
         .then((response) => {
-            console.log(response);
             router.push('/admin/resume/show');
             toastr.success('Resume created successfully!');
         })

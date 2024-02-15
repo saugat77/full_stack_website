@@ -110,8 +110,8 @@ onMounted(() => {
                                             <span v-if="demand.active == true" class=" text-success">Active</span>
                                             <span v-else class="text-danger">Inactive</span>
                                         </td>
-                                        <td>
-                                            <img v-if="demand.image" class="profile-user-img" :src="demand.image" alt="">
+                                        <td style="max-width: 10vw;">
+                                            <img v-if="demand.image" class="profile-user-img" style="max-height: 50px; max-width:50px;" :src="demand.image" alt="">
                                         </td>
 
 

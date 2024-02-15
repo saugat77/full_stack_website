@@ -1,5 +1,6 @@
 @extends('frontend.layouts.main')
 @section('content')
+<section class="grid">
     <div class="main">
         <div class="container">
             <div class="row">
@@ -30,9 +31,11 @@
             </div>
         </div>
     </div>
-
+</section>
+<section class="grid">
     @livewire('demand-component')
-    <section>
+</section>
+    <section class="grid">
         <div class="container mt-5" id="chairman">
             <h1 class="colorful-heading d-flex justify-content-center">Message from Chairman</h1>
             <div class="row">
@@ -53,7 +56,7 @@
             </div>
         </div>
     </section>
-    <section>
+    <section class="grid">
         <div class="mt-6 container company_overview" id="company-vision">
             <div class="row">
                 <div class="col-sm-4">
@@ -111,7 +114,7 @@
             </div>
         </div>
     </section>
-    <section>
+    <section class="grid">
         <div class="manpower_availability_div ">
             <h1 class="manpower_availability d-flex justify-content-center" style="border-radius: 10px;">Manpower
                 Availability</h1>
