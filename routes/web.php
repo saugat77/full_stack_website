@@ -20,11 +20,6 @@ use Illuminate\Support\Facades\Route;
 */
 use Illuminate\Support\Facades\Artisan;
 
-Route::get('/install-dependencies', function () {
-    Artisan::call('dependencies:install');
-    return 'Node.js dependencies installation triggered.';
-});
-
 Route::get('/', function () {
     return view('index');
 });
@@ -90,3 +85,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/api/resume/{id}/delete/', [PdfController::class, 'deleteId']);
 });
 Route::get('{view}', ApplicationController::class)->where('view', '(.*)')->middleware('auth');
+
+Route::get('/create-storage-link', function () {
+    // Run the storage:link command
+    Artisan::call('storage:link');
+
+    return 'Storage link created successfully!';
+});
