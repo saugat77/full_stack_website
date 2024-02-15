@@ -17,8 +17,9 @@ class ResumeModel extends Model
     ];
     public function ppSizeImage(): Attribute
     {
+         $publicPath = env('STORAGE_URL') ? '/public/' : '';
         return Attribute::make(
-            get: fn () => asset('images/'.$this->attributes['pp_size_image']),
+            get: fn () => asset($publicPath. 'images/'.$this->attributes['pp_size_image']),
         );
     }
 }

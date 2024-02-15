@@ -18,7 +18,8 @@ class Demand extends Model
         return Attribute::make(
             get: function ($value) {
                 if ($value) {
-                    get: fn () => asset('demands/'.$this->attributes['image']);
+                   $publicPath = env('STORAGE_URL') ? '/public/' : '';
+                    get: fn () => asset($publicPath. 'demands/'.$this->attributes['image']);
 
                 }
                 // If the value doesn't exist or is empty, return something else or null
