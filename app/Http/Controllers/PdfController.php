@@ -144,14 +144,9 @@ class PdfController extends Controller
 
         $path = parse_url($imageUrl, PHP_URL_PATH); // Get the path part of the URL
         $desiredPart = substr($path, strpos($path, 'resume')); // Extract the part starting from 'resume/'
-        if(env('STORAGE_URL')){
 
-            $path = public_path().'/public/images/'.$desiredPart;
-        }
-        else{
             $path = public_path().'/images/'.$desiredPart;
 
-        }
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
         $pp_size = 'data:image/'. $type .';base64,' . base64_encode($data);
