@@ -38,8 +38,16 @@ const form = reactive({
 });
 const performOCR = async (imageUrl) => {
     try {
-        const englishText = await Tesseract.recognize(imageUrl, 'eng', {
-        });
+        const englishText = await Tesseract.recognize(imageUrl, 'eng', {});
+
+        const processLine = (line, keyword, foundFlag, target) => {
+            if (!foundFlag && line.includes(keyword)) {
+                foundFlag = true;
+                const parts = line.split(':');
+                target = parts.slice(1).join(':').trim().match(/[a-zA-Z '']+/g).join('');
+            }
+            return { foundFlag, target };
+        };
 
         let fullName = '';
         let fatherName = '';
@@ -47,69 +55,34 @@ const performOCR = async (imageUrl) => {
         let address = '';
         let address2 = '';
         let passportNumber = '';
-        let textData = englishText.data.text.split('\n'); // Split text into lines
+
+        let textData = englishText.data.text.split('\n');
         let fullNameFound = false;
         let fatherNameFound = false;
         let dobFound = false;
         let addressFound = false;
-
         let passportNumberFound = false;
 
         for (let i = 0; i < textData.length; i++) {
             const line = textData[i];
 
+            ({ foundFlag: fullNameFound, target: fullName } = processLine(line, 'Full Name :', fullNameFound, fullName));
+            ({ foundFlag: fatherNameFound, target: fatherName } = processLine(line, 'Father Name :', fatherNameFound, fatherName));
+            ({ foundFlag: dobFound, target: Dob } = processLine(line, 'Date of birth :', dobFound, Dob));
+            ({ foundFlag: addressFound, target: address } = processLine(line, 'Address :', addressFound, address));
+            ({ foundFlag: passportNumberFound, target: passportNumber } = processLine(line, 'Passport No :', passportNumberFound, passportNumber));
+
             if (fullNameFound && fatherNameFound && addressFound && dobFound && passportNumberFound) {
-                break; // Stop capturing lines after finding the name
-            }
-
-            if (line.includes('Full Name :')) {
-                fullNameFound = true;
-                const parts = line.split(':');
-                fullName = parts.slice(1).join(':').trim().match(/[a-zA-Z '']+/g).join('');
-            }
-            if (line.includes('Father Name :')) {
-                fatherNameFound = true;
-                const fatherPart = line.split(':');
-                fatherName = fatherPart.slice(1).join(':').trim().match(/[a-zA-Z '']+/g).join('');
-            }
-            if (line.includes('Date of birth :')) {
-                dobFound = true;
-                const dobPart = line.split(':')[1]; // Take the part after ':'
-                Dob = dobPart.split(' ').slice(1, 4).join(' ').trim().match(/[a-zA-Z ',' '' 0-9]+/g).join(''); // Take only the first 3 elements
-                // Now, dobElements will contain the first three elements after 'Date of birth:'
-            }
-            if (line.includes('Address :')) {
-                addressFound = true;
-                const addressPart = line.split(':');
-                const addressWords = addressPart.slice(1).join(':').trim().split(',')[0].trim();
-                address = addressWords.match(/[a-zA-Z,' 0-9]+/g).join('');
-
-                const firstCommaIndex = line.indexOf(',');
-                const secondCommaIndex = line.indexOf(',', firstCommaIndex + 1);
-
-                if (firstCommaIndex !== -1 && secondCommaIndex !== -1) {
-                    const startIndex = firstCommaIndex + 1;
-                    const endIndex = secondCommaIndex;
-                    const address2Words = line.substring(startIndex, endIndex).trim();
-                    address2 = address2Words.match(/[a-zA-Z,' 0-9]+/g).join('');
-                    // Now, address2 will contain the text between the first and second comma in the address
-                }
-            }
-
-            if (line.includes('Passport No :')) {
-                passportNumberFound = true;
-                const passportPart = line.split(':')[1]; // Take the part after ':'
-                passportNumber = passportPart.split(' ')[1].trim().match(/[a-zA-Z0-9]+/g).join(''); // Take the first part before a space
+                break; // Stop capturing lines after finding the required information
             }
         }
+
         form.fullName = fullName;
         form.fatherName = fatherName;
         form.Dob = Dob;
         form.ward = address;
         form.district = address2;
-
         form.passportNumber = passportNumber;
-        // form.description = data.description;
 
         console.log('Full Name:', fullName);
         console.log('Father Name:', fatherName);
@@ -118,27 +91,23 @@ const performOCR = async (imageUrl) => {
         console.log('Passport No.:', passportNumber);
     } catch (error) {
         console.error('Error performing OCR:', error);
+        // Handle the error, display a message to the user, or log it for further investigation
     }
 };
 
 const imageUpload = (event) => {
     image_magnifier.value = document.getElementById('image_magnifier');
-    // Hide the image magnifier initially
     if (image_magnifier.value) {
         image_magnifier.value.style.display = 'block';
     }
-    file.value = event.target.files[0];
-    pictureUrl.value = URL.createObjectURL(file.value);
 
-    // Wait for the image to be loaded before performing OCR
-    const img = new Image();
-    img.onload = () => {
+    file.value = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+        pictureUrl.value = reader.result;
         performOCR(pictureUrl.value);
     };
-    img.src = pictureUrl.value;
-    console.log(pictureUrl.value);
-    // Set the reference to the image magnifier element
-
+    reader.readAsDataURL(file.value);
 };
 
 const createResume = (values, actions) => {
