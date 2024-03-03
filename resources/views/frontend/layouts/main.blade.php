@@ -7,6 +7,11 @@
     <title>Kantipur Overseas Pvt. Ltd</title>
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
+    <meta name='description' itemprop='description' content='The main objectives of Kantipur Overseas Services Pvt. Ltd. is to
+    organize job placement for Nepalese job seekers in the international market in respect of
+    solving unemployment crisis in the country and ensure the remarkable portion of remittance
+    to Nepal.'>
+    <meta name='keywords' content='manpower, kantipur, kantipur overseas, kant, Kantipur, KANTIPUR, best manpower, old manpower, saudi, qatar, dubai, Employment'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -40,7 +45,7 @@
         display: table;
     }
 
- 
+
 </style>
 <header>
     <div class="navbar fixed-top bg-light">
