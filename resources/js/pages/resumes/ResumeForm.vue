@@ -39,12 +39,26 @@ const form = reactive({
 const performOCR = async (imageUrl) => {
     try {
         const englishText = await Tesseract.recognize(imageUrl, 'eng', {});
-
         const processLine = (line, keyword, foundFlag, target) => {
             if (!foundFlag && line.includes(keyword)) {
                 foundFlag = true;
                 const parts = line.split(':');
-                target = parts.slice(1).join(':').trim().match(/[a-zA-Z '']+/g).join('');
+
+                const dateMatch = parts.slice(1).join(':').trim().match(/(\d{1,2}\s[A-Za-z]+\s\d{4})/);;
+
+                if (dateMatch && dateMatch[1]) {
+                    target = dateMatch[1];
+                }
+                else{
+
+                    target = parts.slice(1).join(':').trim().match(/[a-zA-Z0-9 '']+/g).join('');
+                }
+                if (keyword === 'Full Name') {
+                    target = target.match(/[a-zA-Z]+/g).join('');
+        } else if (keyword === 'Father Name') {
+            target = target.match(/[a-zA-Z]+/g).join('');
+        }
+
             }
             return { foundFlag, target };
         };
@@ -56,7 +70,9 @@ const performOCR = async (imageUrl) => {
         let address2 = '';
         let passportNumber = '';
 
-        let textData = englishText.data.text.split('\n');
+        let textData = englishText.data.text.split(/\n|\s{2,}/);
+        console.log('hey',textData);
+
         let fullNameFound = false;
         let fatherNameFound = false;
         let dobFound = false;
@@ -69,13 +85,37 @@ const performOCR = async (imageUrl) => {
             ({ foundFlag: fullNameFound, target: fullName } = processLine(line, 'Full Name :', fullNameFound, fullName));
             ({ foundFlag: fatherNameFound, target: fatherName } = processLine(line, 'Father Name :', fatherNameFound, fatherName));
             ({ foundFlag: dobFound, target: Dob } = processLine(line, 'Date of birth :', dobFound, Dob));
-            ({ foundFlag: addressFound, target: address } = processLine(line, 'Address :', addressFound, address));
-            ({ foundFlag: passportNumberFound, target: passportNumber } = processLine(line, 'Passport No :', passportNumberFound, passportNumber));
+            // ({ foundFlag: addressFound, target: address } = processLine(line, 'Address :', addressFound, address));
+            // ({ foundFlag: passportNumberFound, target: passportNumber } = processLine(line, 'Passport No :', passportNumberFound, passportNumber));
 
             if (fullNameFound && fatherNameFound && addressFound && dobFound && passportNumberFound) {
                 break; // Stop capturing lines after finding the required information
             }
+            if (line.includes('Address :')) {
+                addressFound = true;
+                const addressPart = line.split(':');
+                const addressWords = addressPart.slice(1).join(':').trim().split(',')[0].trim();
+                address = addressWords.match(/[a-zA-Z,' 0-9]+/g).join('');
+
+                const firstCommaIndex = line.indexOf(',');
+                const secondCommaIndex = line.indexOf(',', firstCommaIndex + 1);
+
+                if (firstCommaIndex !== -1 && secondCommaIndex !== -1) {
+                    const startIndex = firstCommaIndex + 1;
+                    const endIndex = secondCommaIndex;
+                    const address2Words = line.substring(startIndex, endIndex).trim();
+                    address2 = address2Words.match(/[a-zA-Z,' 0-9]+/g).join('');
+                    // Now, address2 will contain the text between the first and second comma in the address
+                }
+            }
+
+            if (line.includes('Passport No :')) {
+                passportNumberFound = true;
+                const passportPart = line.split(':')[1]; // Take the part after ':'
+                passportNumber = passportPart.split(' ')[1].trim().match(/[a-zA-Z0-9]+/g).join(''); // Take the first part before a space
+            }
         }
+
 
         form.fullName = fullName;
         form.fatherName = fatherName;
