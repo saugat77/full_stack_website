@@ -1,3 +1,6 @@
+<script setup>
+
+</script>
 <template>
     <div class="content-header">
         <div class="container-fluid">

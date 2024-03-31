@@ -49,15 +49,15 @@ const performOCR = async (imageUrl) => {
                 if (dateMatch && dateMatch[1]) {
                     target = dateMatch[1];
                 }
-                else{
+                else {
 
                     target = parts.slice(1).join(':').trim().match(/[a-zA-Z0-9 '']+/g).join('');
                 }
                 if (keyword === 'Full Name') {
                     target = target.match(/[a-zA-Z]+/g).join('');
-        } else if (keyword === 'Father Name') {
-            target = target.match(/[a-zA-Z]+/g).join('');
-        }
+                } else if (keyword === 'Father Name') {
+                    target = target.match(/[a-zA-Z]+/g).join('');
+                }
 
             }
             return { foundFlag, target };
@@ -71,7 +71,7 @@ const performOCR = async (imageUrl) => {
         let passportNumber = '';
 
         let textData = englishText.data.text.split(/\n|\s{2,}/);
-        console.log('hey',textData);
+        console.log('hey', textData);
 
         let fullNameFound = false;
         let fatherNameFound = false;
@@ -282,7 +282,7 @@ const zoomOut = () => {
 }
 </script>
 
-<template >
+<template>
     <div class="content bg-white m-2">
         <div class="content-header">
             <div class="container-fluid">
@@ -323,8 +323,8 @@ const zoomOut = () => {
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="">Full Name</label>
-                                    <input v-model="form.fullName" type="text" class="form-control" placeholder="Full Name"
-                                        :class="{ 'is-invalid': errors.fullName }">
+                                    <input v-model="form.fullName" type="text" class="form-control"
+                                        placeholder="Full Name" :class="{ 'is-invalid': errors.fullName }">
                                     <span class="invalid-feedback">{{ errors.fullName }}</span>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -344,8 +344,8 @@ const zoomOut = () => {
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputAddress2">District</label>
-                                    <input v-model="form.district" type="text" class="form-control" placeholder="District"
-                                        :class="{ 'is-invalid': errors.district }">
+                                    <input v-model="form.district" type="text" class="form-control"
+                                        placeholder="District" :class="{ 'is-invalid': errors.district }">
                                     <span class="invalid-feedback">{{ errors.district }}</span>
 
                                 </div>
@@ -353,8 +353,8 @@ const zoomOut = () => {
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="inputAddress">Date of Birth</label>
-                                    <input v-model="form.Dob" type="text" class="form-control" placeholder="Date of Birth"
-                                        :class="{ 'is-invalid': errors.Dob }">
+                                    <input v-model="form.Dob" type="text" class="form-control"
+                                        placeholder="Date of Birth" :class="{ 'is-invalid': errors.Dob }">
                                     <span class="invalid-feedback">{{ errors.Dob }}</span>
 
                                 </div>
@@ -472,7 +472,8 @@ const zoomOut = () => {
                                     style="max-height: 30%; max-width:30%; margin-left:20px;" alt="" :src="ppImageUrl"> -->
 
                             </div>
-                            <button type="submit" class="btn btn-primary">{{ editMode ? 'Update CV' : 'Make CV' }}</button>
+                            <button type="submit" class="btn btn-primary">{{ editMode ? 'Update CV' : 'Make CV'
+                                }}</button>
                         </Form>
                     </div>
                     <!-- Column for the image -->
