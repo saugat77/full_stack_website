@@ -40,6 +40,10 @@ Route::get('/why-nepal', function () {
 Route::get('/our-teams', function () {
     return view('frontend.our-teams.index');
 })->name('our.team');
+
+Route::get('/login',function(){
+return view('Auth.login');
+})->name('login');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/api/contact/messages', [ContactController::class, 'showMessages']);
 Route::post('/contact/store', [ContactController::class, 'store'])->name('send.message');
