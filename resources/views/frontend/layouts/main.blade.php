@@ -14,8 +14,8 @@
     solving unemployment crisis in the country and ensure the remarkable portion of remittance
     to Nepal.'>
     <meta property="og:image" content="https://example.com/assets/images/kos-fav.png">
-    <meta name='keywords' content="'kantipur overseas ltd','kantipur overseas p. ltd.','manpower', 'kantipur', kantipur overseas, kant, Kantipur, KANTIPUR, best manpower,
-     old manpower, saudi, qatar, dubai, Employment">
+    <meta name='keywords' content="'kantipur overseas ltd','kantipur overseas p. ltd.','manpower', 'kantipur', 'kantipur overseas', 'kant', 'Kantipur', 'KANTIPUR', 'best manpower', 'old manpower', 'saudi', 'qatar', 'dubai', 'Employment', 'Kantipur Overseas', 'Kantipur Manpower Agency', 'Kantipur Recruitment Nepal', 'Kantipur Manpower Services', 'Kantipur Overseas Jobs', 'Kantipur Foreign Employment', 'Kantipur Employment Agency', 'Kantipur Human Resources', 'Kantipur Job Placement', 'Kantipur Workforce Solutions', 'Kantipur Overseas Recruitment', 'Kantipur Nepali Manpower Services', 'Kantipur Overseas Job Placement', 'Kantipur Skilled Manpower', 'Kantipur Professional Manpower', 'Kantipur Staffing Solutions', 'Kantipur Job Opportunities', 'Kantipur Employment Services', 'Kantipur Recruitment Solutions', 'Kantipur Nepali Workers Abroad'">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
