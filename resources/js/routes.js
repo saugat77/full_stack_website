@@ -11,6 +11,7 @@ import CreateResume from './pages/resumes/ResumeForm.vue';
 import EditResume from './pages/resumes/ResumeForm.vue';
 import ShowResume from './pages/resumes/show-resume.vue';
 import ContactMessages from './pages/contact/Contact.vue';
+import Welcome from './components/Welcome.vue';
 export default [
     {
         path: '/login',
@@ -87,5 +88,9 @@ export default [
         name: 'admin.contact.messages',
         component: ContactMessages,
     },
-
+    {
+        path: '/',
+        name: 'welcome',
+        component: Welcome,
+    },
 ]

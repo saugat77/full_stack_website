@@ -84,7 +84,9 @@
 
 <body>
     <div class="hero">
-        @yield ('content')
+        <div class="wrapper">
+            @yield('content')
+        </div>
     </div>
 
 </body>
