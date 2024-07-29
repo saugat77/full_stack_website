@@ -30,6 +30,10 @@
 </head>
 
 <style>
+    *{
+        margin: auto !important;
+        padding: auto;
+    }
     .circle {
         width: 50px;
         /* Set the width and height as needed */

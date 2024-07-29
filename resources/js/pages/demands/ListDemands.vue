@@ -8,7 +8,6 @@ const demands = ref({ 'demands': [] });
 const selectedDemandStatus = ref();
 const getDemands = (active) => {
     selectedDemandStatus.value = active;
-    console.log(typeof selectedDemandStatus);
     const params = {};
     if (active) {
         params.active = active;
@@ -99,7 +98,7 @@ onMounted(() => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(demand, index) in demands.data" :key="demand.id">
+                                    <tr v-for="(demand, index) in demands" :key="demand.id">
                                         <td>{{ index + 1 }}</td>
                                         <td>{{ demand.name }}</td>
                                         <td>{{ demand.country }}</td>

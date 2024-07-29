@@ -18,7 +18,7 @@ class Demand extends Model
         $publicPath = env('STORAGE_URL') ? '/public/' : '';
 
         return Attribute::make(
-            get: fn () => asset($publicPath. 'images/'.$this->attributes['image']),
+            get: fn () => asset($publicPath. 'storage/'.$this->attributes['image']),
         );
     }
     public static function countActiveDemands()

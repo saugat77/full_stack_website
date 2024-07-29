@@ -22,7 +22,7 @@ class DemandController extends Controller
                 }
                 return $query->where('active', request('active'));
             })
-            ->paginate(10);
+            ->get();
 
         return $demands;
     }

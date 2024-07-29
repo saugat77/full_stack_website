@@ -6,10 +6,10 @@
                 <div class="lg:w-2/3 mr-3 ">
                     <div class="clearfix content col">
 
-                        <h2 class="text-lg text-white-900 non-italic">
+                        <h2 class="text-lg text-white-100 non-italic">
                             Kantipur Overseas Pvt. Ltd.
                         </h2>
-                        <p class="text-lg text-white-900 leading-relaxed break-words mx-6">“We have ardently striven and worked diligently to comprehensively transform the
+                        <p class="text-lg text-white-800 leading-relaxed break-words mx-6">“We have ardently striven and worked diligently to comprehensively transform the
                             well-established and conventional hiring and personnel selection services, aiming to
                             revolutionize
                             and adapt in response to the constantly evolving and dynamic global demands, prerequisites, and
