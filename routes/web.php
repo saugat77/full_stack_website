@@ -20,9 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 use Illuminate\Support\Facades\Artisan;
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [ApplicationController::class, 'frontend']);
 
 Route::get('/company_overview', function () {
     return view('frontend.about-us.company-overview');

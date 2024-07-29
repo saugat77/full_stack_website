@@ -10,4 +10,8 @@ class ApplicationController extends Controller
     {
         return view('admin.layout.app');
     }
+    public function frontend()
+    {
+        return view('frontend');
+    }
 }

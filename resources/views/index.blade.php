@@ -1,40 +1,41 @@
 @extends('frontend.layouts.main')
 @section('content')
-<section class="grid">
-    <div class="main">
-        <div class="container">
-            <div class="row">
-                <div class="clearfix content col-sm">
+    <section class="grid">
+        <div class="main">
+            <div class="container">
+                <div class="row">
+                    <div class="clearfix content col-sm">
 
-                    <h2>
-                        Kantipur Overseas Pvt. Ltd.
-                    </h2>
-                    <p class="par">“We have ardently striven and worked diligently to comprehensively transform the
-                        well-established and conventional hiring and personnel selection services, aiming to
-                        revolutionize
-                        and adapt in response to the constantly evolving and dynamic global demands, prerequisites, and
-                        criteria set forth by corporations, businesses, and enterprises across the globe. Our relentless
-                        efforts have led us to confront and deal with these shifting needs
-                        and requirements by providing universal and international staffing solutions and support on a
-                        global scale,
-                        ensuring that our offerings are tailored to the specific and varied necessities of organizations
-                        in every corner of the world.”
-                    </p>
-                    <button class="cn mt-1"><a href="#">Read More</a></button>
-                </div>
-                <div class="col-sm">
-                    <div id="app" class="wrapper">
-                        <Login />
+                        <h2>
+                            Kantipur Overseas Pvt. Ltd.
+                        </h2>
+                        <p class="par">“We have ardently striven and worked diligently to comprehensively transform the
+                            well-established and conventional hiring and personnel selection services, aiming to
+                            revolutionize
+                            and adapt in response to the constantly evolving and dynamic global demands, prerequisites, and
+                            criteria set forth by corporations, businesses, and enterprises across the globe. Our relentless
+                            efforts have led us to confront and deal with these shifting needs
+                            and requirements by providing universal and international staffing solutions and support on a
+                            global scale,
+                            ensuring that our offerings are tailored to the specific and varied necessities of organizations
+                            in every corner of the world.”
+                        </p>
+                        <button class="cn mt-1"><a href="#">Read More</a></button>
+                    </div>
+                    <div class="col-sm">
+                        <div id="app">
+                            <Login />
+                        </div>
+
 
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<section class="grid">
-    @livewire('demand-component')
-</section>
+    </section>
+    <section class="grid">
+        @livewire('demand-component')
+    </section>
     <section class="grid">
         <div class="container mt-5" id="chairman">
             <h1 class="colorful-heading d-flex justify-content-center">Message from Chairman</h1>
