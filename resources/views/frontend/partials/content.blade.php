@@ -1,12 +1,12 @@
 <section class="grid">
     <div class="main">
-        <div class="container">
+        <div class="container sm:mb-2">
             <div class="lg:flex">
                 <!-- Left Column -->
-                <div class="lg:w-2/3 mr-3">
+                <div class="lg:w-2/3 mr-3 ">
                     <div class="clearfix content col">
 
-                        <h2 class="non-italic">
+                        <h2 class="text-lg text-white-900 non-italic">
                             Kantipur Overseas Pvt. Ltd.
                         </h2>
                         <p class="text-lg text-white-900 leading-relaxed break-words mx-6">“We have ardently striven and worked diligently to comprehensively transform the
@@ -25,7 +25,7 @@
                 </div>
 
                 <!-- Right Column (Login Component) -->
-                <div class="lg:w-1/3 ms-8 lg:mt-0 ml-4">
+                <div class="lg:w-1/3 md:d-none ms-8 lg:mt-0 ml-4">
                     <div id="app">
                         <Login />
                     </div>
