@@ -21,7 +21,7 @@ onMounted(() => {
         <h1 class="bg-yellow-500 text-white rounded-lg p-2 mb-2 text-center">Demands</h1>
         <carousel
             :autoplay="2000"
-            :items-to-show="3.95"
+            :items-to-show="4.95"
             :wrap-around="true"
             :transition="500"
         >
