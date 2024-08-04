@@ -38,7 +38,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <div class="mt-1">
+    <div class="mt-1" id="demands">
         <h1 class="bg-yellow-500 text-white rounded-lg p-2 mb-2 text-center">
             Demands
         </h1>

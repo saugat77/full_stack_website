@@ -1,6 +1,6 @@
-@extends('frontend.layouts.main')
+@extends('frontend.layouts.alternate')
 @section('content')
-    <div class="container" style="margin: 10% 0 5% 10%">
+    <div class="container" class="p-4">
         <b>Nepal</b> is a country of diversity and ambiguity with amazing landscapes and populace. It is known for its
         mountain
         ranges and the historically significant religious sites. The influential architectural genius of the past brings

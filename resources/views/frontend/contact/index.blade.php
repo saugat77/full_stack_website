@@ -1,4 +1,4 @@
-@extends('frontend.layouts.main')
+@extends('frontend.layouts.alternate')
 @section('content')
     <style>
         .contact-box {
