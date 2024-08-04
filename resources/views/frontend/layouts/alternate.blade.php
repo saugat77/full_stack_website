@@ -66,7 +66,7 @@
     }
 </style>
 
-<body>
+<body id="frontend">
     @include('frontend.partials.header')
     <main>
         @yield('content')

@@ -1,6 +1,6 @@
-@extends('frontend.layouts.main')
+@extends('frontend.layouts.alternate')
 @section('content')
-    <div style="margin: 10%">
+    <div class="p-4">
         <p> <b>Kantipur Overseas Services Pvt Ltd.</b> one of the leading manpower suppliers of Nepal with the Government
             Licence
             No. 167/056//057, has been supplying qualitative and dedicated manpower around the world under the dynamic

@@ -86,7 +86,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/api/resume/create-or-download/pdf/{id}', [PdfController::class, 'viewPdf']);
     Route::delete('/api/resume/{id}/delete/', [PdfController::class, 'deleteId']);
 });
-Route::get('{view}', ApplicationController::class)->where('view', '(.*)')->middleware('auth');
+Route::get('/admin/{view}', ApplicationController::class)->where('view', '(.*)')->middleware('auth');
 
 Route::get('/create-storage-link', function () {
     // Run the storage:link command

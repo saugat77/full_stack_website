@@ -1,6 +1,6 @@
-@extends('frontend.layouts.main')
+@extends('frontend.layouts.alternate')
 @section('content')
-    <div class="container" style="margin: 10%">
+    <div class="container" class="p-4">
         <h1 class="mb-2">License & Certifications:</h1>
         <div class="card-deck mb-2">
             <div class="card">
