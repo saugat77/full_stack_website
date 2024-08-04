@@ -37,7 +37,7 @@
         @livewire('demand-component')
     </section>
     <section class="grid">
-        <div class="container mt-5" id="chairman">
+        <div class="container mt-5" id="chairmanmsg">
             <h1 class="colorful-heading d-flex justify-content-center">Message from Chairman</h1>
             <div class="row">
                 <div class="col-lg-6">

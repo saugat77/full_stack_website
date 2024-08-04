@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-    <div class="mt-1" id="chairman">
+    <div class="mt-1" id="chairmanmsg">
         <h1 class="bg-yellow-500 text-white rounded-lg p-2 mb-1 text-center">
             Message From Chairman
         </h1>
