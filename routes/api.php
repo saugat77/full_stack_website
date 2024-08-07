@@ -19,3 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/get-demands',[DemandController::class,'index']);
+// Route::post('/namelist',[NamelistController::class,'store']);
