@@ -35,7 +35,6 @@ const countDemands = () => {
     axios.get('/api/getDemands')
         .then((response) => {
             demands.value = response.data;
-            console.log(demands.value)
         })
 }
 onMounted(() => {
@@ -93,7 +92,7 @@ onMounted(() => {
                         <span class="info-box-icon"><i class="fa fa-cart-arrow-down"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Demands</span>
-                            <span class="info-box-number">Total: {{ demands.total }}</span>
+                            <span class="info-box-number">Total: {{ demands.length }}</span>
                         </div>
                     </div>
                 </div>

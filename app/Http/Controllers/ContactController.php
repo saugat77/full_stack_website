@@ -13,7 +13,7 @@ class ContactController extends Controller
     }
     public function showMessages()
     {
-        $contacts = ContactModel::latest();
+        $contacts = ContactModel::all();
         return $contacts;
     }
     public function store(Request $req)

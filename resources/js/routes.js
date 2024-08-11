@@ -11,7 +11,7 @@ import CreateResume from './pages/resumes/ResumeForm.vue';
 import EditResume from './pages/resumes/ResumeForm.vue';
 import ShowResume from './pages/resumes/show-resume.vue';
 import ContactMessages from './pages/contact/Contact.vue';
-import AboutUs from "./pages/contact/Contact.vue";
+import Namelist from "./pages/namelist/Namelist.vue";
 import Welcome from './components/Welcome.vue';
 export default [
     {
@@ -95,8 +95,8 @@ export default [
         component: Welcome,
     },
     {
-        path:'/about-us',
-        name: 'about.us',
-        component: AboutUs,
+        path:'/admin/namelist',
+        name: 'admin.namelist',
+        component: Namelist,
     }
 ]

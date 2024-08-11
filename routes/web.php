@@ -5,9 +5,9 @@ use App\Http\Controllers\Admin\DemandController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\NamelistController;
 use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -94,3 +94,4 @@ Route::get('/create-storage-link', function () {
 
     return 'Storage link created successfully!';
 });
+Route::get('/namelist',[NamelistController::class,'index']);
