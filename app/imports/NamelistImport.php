@@ -42,10 +42,12 @@ class NamelistImport implements ToCollection
 
             // Add the mapped data to the processedRows array
             $processedRows[] = $namelist;
-               NamelistModel::updateOrCreate(
-                ['passport_no' => $namelist['passport_no']],
-                $namelist
-            );
+            if (!empty($namelist['passport_no'])) {
+                NamelistModel::updateOrCreate(
+                    ['passport_no' => $namelist['passport_no']],
+                    $namelist
+                );
+            }
         }
     }
 

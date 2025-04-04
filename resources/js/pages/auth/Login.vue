@@ -79,7 +79,7 @@ const resetForm = () => {
 
                     </div>
                 </form>
-                
+
                 <p class="mb-1 mt-2">
                     <a style="float: right;" href="forgot-password.html">I forgot my password</a>
                 </p>

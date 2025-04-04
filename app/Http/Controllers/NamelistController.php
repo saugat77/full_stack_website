@@ -13,10 +13,26 @@ class NamelistController extends Controller
         return view('admin.namelist.namelist');
     }
 
-    public function getAllData()
+    public function getAllData(Request $request)
     {
-        $data = NamelistModel::all();
-        return $data;
+            $search = $request->input('search', ''); // Get search query from request
+            $perPage = $request->input('per_page', 20); // Number of items per page
+
+            $query = NamelistModel::query();
+
+            if ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('fullname', 'like', "%{$search}%")
+                    ->orWhere('passport_no', 'like', "%{$search}%")
+                    ->orWhere('dob', 'like', "%{$search}%")
+                    ->orWhere('doe', 'like', "%{$search}%")
+                    ->orWhere('status', 'like', "%{$search}%");
+                });
+            }
+
+            $data = $query->paginate($perPage);
+
+    return response()->json($data);
     }
 
     public function store(Request $request)

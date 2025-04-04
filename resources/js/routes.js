@@ -12,91 +12,108 @@ import EditResume from './pages/resumes/ResumeForm.vue';
 import ShowResume from './pages/resumes/show-resume.vue';
 import ContactMessages from './pages/contact/Contact.vue';
 import Namelist from "./pages/namelist/Namelist.vue";
+import CreateNamelist from "./pages/namelist/NamelistForm.vue";
+import Mofalists from "./pages/mofalist/Mofalists.vue";
 import Welcome from './components/Welcome.vue';
 export default [
     {
-        path: '/login',
-        name: 'login',
+        path: "/login",
+        name: "login",
         component: Login,
     },
     {
-        path: '/admin/dashboard',
-        name: 'admin.dashboard',
+        path: "/admin/dashboard",
+        name: "admin.dashboard",
         component: Dashboard,
     },
     {
-        path: '/admin/demands',
-        name: 'admin.demands',
+        path: "/admin/demands",
+        name: "admin.demands",
         component: Demands,
     },
     {
-        path: '/admin/demands/create',
-        name: 'admin.demands.create',
+        path: "/admin/demands/create",
+        name: "admin.demands.create",
         component: DemandForm,
     },
     {
-        path: '/admin/demands/:id/edit',
-        name: 'admin.demands.edit',
+        path: "/admin/demands/:id/edit",
+        name: "admin.demands.edit",
         component: DemandForm,
     },
     {
-        path: '/admin/appointments',
-        name: 'admin.appointments',
+        path: "/admin/appointments",
+        name: "admin.appointments",
         component: Appointments,
     },
     {
-        path: '/admin/appointments/create',
-        name: 'admin.appointments.create',
+        path: "/admin/appointments/create",
+        name: "admin.appointments.create",
         component: AppointmentForm,
     },
     {
-        path: '/admin/appointments/:id/edit',
-        name: 'admin.appointments.edit',
+        path: "/admin/appointments/:id/edit",
+        name: "admin.appointments.edit",
         component: AppointmentForm,
     },
     {
-        path: '/admin/settings',
-        name: 'admin.settings',
+        path: "/admin/settings",
+        name: "admin.settings",
         component: UpdateSetting,
     },
     {
-        path: '/admin/users',
-        name: 'admin.users',
+        path: "/admin/users",
+        name: "admin.users",
         component: UsersList,
     },
     {
-        path: '/admin/profile',
-        name: 'admin.profile',
+        path: "/admin/profile",
+        name: "admin.profile",
         component: UpdateProfile,
     },
     {
-        path: '/admin/resume/create',
-        name: 'admin.resume.add',
+        path: "/admin/resume/create",
+        name: "admin.resume.add",
         component: CreateResume,
     },
     {
-        path: '/admin/resume/:id/edit',
-        name: 'admin.resume.edit',
+        path: "/admin/resume/:id/edit",
+        name: "admin.resume.edit",
         component: EditResume,
     },
     {
-        path: '/admin/resume/show',
-        name: 'admin.resume.show',
+        path: "/admin/resume/show",
+        name: "admin.resume.show",
         component: ShowResume,
     },
     {
-        path: '/admin/contact/messages',
-        name: 'admin.contact.messages',
+        path: "/admin/contact/messages",
+        name: "admin.contact.messages",
         component: ContactMessages,
     },
     {
-        path: '/',
-        name: 'welcome',
+        path: "/",
+        name: "welcome",
         component: Welcome,
     },
     {
-        path:'/admin/namelist',
-        name: 'admin.namelist',
+        path: "/admin/namelist",
+        name: "admin.namelist",
         component: Namelist,
-    }
-]
+    },
+    {
+        path: "/admin/namelist/create",
+        name: "admin.namelist.create",
+        component: CreateNamelist,
+    },
+    {
+        path: "/admin/namelists/:id/edit",
+        name: "admin.namelist.edit",
+        component: CreateNamelist,
+    },
+    {
+        path: "/admin/mofalist",
+        name: "admin.mofalist",
+        component: Mofalists,
+    },
+];

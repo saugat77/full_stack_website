@@ -129,7 +129,6 @@ onMounted(() => {
                             </table>
                         </div>
                         <Bootstrap4Pagination :data="demands" @pagination-change-page="getDemands" />
-
                     </div>
 
                 </div>
