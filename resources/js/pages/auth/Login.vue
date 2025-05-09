@@ -30,7 +30,7 @@ const resetForm = () => {
 }
 </script>
 <template>
-    <div class="right-login-box">
+    <div class="right-login-box w-full">
 
         <div id="card" class="card card-outline card-primary">
             <div class="card-header text-center">
@@ -79,7 +79,7 @@ const resetForm = () => {
 
                     </div>
                 </form>
-                
+
                 <p class="mb-1 mt-2">
                     <a style="float: right;" href="forgot-password.html">I forgot my password</a>
                 </p>
@@ -88,3 +88,4 @@ const resetForm = () => {
         </div>
     </div>
 </template>
+

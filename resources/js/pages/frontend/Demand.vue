@@ -1,4 +1,4 @@
-<script setup>
+ <script setup>
 import axios from "axios";
 import { ref, onMounted, onBeforeUnmount  } from "vue";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
